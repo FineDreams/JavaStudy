@@ -1,0 +1,6 @@
+
+<students>我是一堆学生
+  <s name="张三">我是张三的文本
+    <score score="分数">223</score>
+  </s>
+</students>

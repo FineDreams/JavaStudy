@@ -1,0 +1,185 @@
+集合框架
+    集合框架是一个用来代表和操作集合的框架。
+    接口:是代表集合的抽象数据类型。就扣允许集合独立操纵其代表的细节。在面向对象的语言，
+    接口通常形成一个层次。
+    实现(类):是集合接口的具体实现。
+集合的特点:
+    集合只用于存储对象
+    集合长度是可变的
+    集合可以存储不同类型的对象
+    Collection接口是最基本的集合接口，List和Set继承Collection接口
+重点要学的三个集合:List，Set，Map
+    因为List,Set是Collection的子接口，而Collection接口是采用线性列表的存储方式，而Map不是
+    Collection的子接口，它又它自己的存储方式，是键值对存储方式。
+List:元素存取是有序的，可以存放重复的元素。
+Set:元素的存取是无序的，不能存放重复的元素，如果存元素相同，元素会产生覆盖。
+List中常用的实现类有:ArrayList,LinkedList
+    ArrayList:内部是数组数据结构，不同步的。因为可以直接通过索引进行查询，所以查询速度快，但
+              是增删速度慢，因为要涉及到元素的移位。
+    LinkedList:内部是双向链表数据结构，不同步。按序号索引数据需要前向或后向遍历，查询速度慢，但是增删数据
+            只需记录本项的前后项即可，所以增删速度快。
+    涉及到的主要方法有:
+            List list=new ArrayList();
+            list.add();往集合中添加元素
+            list.size();集合的元素个数
+            list.get(index);通过下标获得元素
+Set中常用的实现类:HashSet,TreeSet
+    HashSet:不能保证迭代顺序和存入顺序相同。
+    TreeSet:有序排列。
+    使用及涉及到的方法:
+        Set set=new HashSet();
+        其它方法和List一样。
+Map:Map是一个存放键值对的集合，每一个键key都映射到一个值value，键值对中不能有重复的键，每个键只能映射到一个值
+    可以有重复的值value。
+Map的使用：Map map=new HashMap();这里指父接口的引用指向了它的实现类对象HashMap。
+Map中涉及到的方法:
+            map.put(key,value);往集合中添加元素，key与value是映射关系。
+            map.get(key);获得指定key键对应的value值。
+            map.keySet();获得map中所有的键key的集合，可以使用增强for循环遍历出所有的键。
+                            for(String str:map.keySet()){}
+            map.entrySet();获得map中的所有Entry的实现类对象，一个Entry对象就是一个键值对。可以使用这个 对象获得key
+            和value。
+                    for(Object obj:map.entrySet()){
+                        Map.Entry entry=(Map.Entry)obj;要进行强制转化
+                        System.out.print(entry.getKey()+entry.getValue());
+                    }
+            还可以使用迭代器进行迭代遍历，得到它的键值对。
+                    Iterator iterator=map.entrySet().iterator();
+                    while(iterator.hasNext()){
+                        Object obj=iterator.next;
+                        Map.Entry entry=(Map.Entry)obj;
+                        System.out.print(entry.getKey()+entry.getValue());
+                    }
+遍历Map的四种方式:
+            第一种:
+                    分别遍历得到它的键和值
+                    for(Object key:map.getKey()){
+                        System.out.print(key);
+                    }
+                    for(Object value:map.getValue()){
+                        System.out.print(value);
+                    }
+            第二种:
+                    通过键找值的方式得到key，和value
+                    for(Object key:map.getKey()){
+                        Object value=map.get(key);
+                        System.out.print(key+value);
+                    }
+            第三种:
+                    一个Entry的实现类对象，就表示一个键值对，因此可以得到key和value
+                    for(Map.Entry<String,String> entry:map.entrySet()){
+                        System.out.println(entry.getKey()+entry.getValue())
+                    }
+            第四种:使用迭代器进行遍历
+                    Iterator<Map.Entry<String,String>> iterator=map.entrySet().iterator();
+迭代器:关键字Iterator
+        用来对集合进行遍历输出。
+泛型的使用:
+        在类和接口中，泛型定义在类名，接口名后
+        class P<T>{}
+        interface L<E>{}
+        当类名或接口使用时，指定这个泛型
+        P<String>    L<Integer>
+        一旦泛型被指定，类/接口中所有出现的T/E被替换成指定的类型
+        在方法中，泛型被定义在返回值之前
+        public static <T> void  show(T t){
+            当第一次遇到T时，指定它为一个类型
+        }
+        show(String s){}
+可变参数:
+        不固定参数个数的参数就是可变参数。
+        public void sleep（String... s）{}
+        可变参数可以看成一个数组，进行遍历
+        for（String a:s）{
+            System.out.println(a);
+        }
+        可以传入多个字符串(对应类型)
+        也可以单独给一个数组，但是不能字符串和数组一起给
+反射:
+    反射可以在不知道类的情况下。创建对应的其对应的对象
+    Class<T> clazz=Class.newInstance();
+    并可以使用它的方法
+    Method show=clazz.getMethod("show");
+    show.invoke(clazz,String.class);
+    和它的属性
+    Field name=clazz.getField("name");
+    name.setAccessible(true);打破权限控制
+    name.set(clazz,"张三");
+异常:
+    Throwable是所有异常的根
+    Error:错误；java虚拟机发生错误，难以甚至不可处理的错误。
+    Exception:异常，一般分为受查异常（Checked异常）和非受查异常(Runtime),所有RuntimeException类及其
+            子类的实例被称为Runtime异常，不属于该范畴的异常则被称为CheckedException
+    Checked异常表示可以被处理的异常，如果程序没有处理Checked异常，该程序在编译时就会发生错误无法编译，
+    一次程序必须显示处理Checked异常。
+    对Checked异常处理方法有两种
+    1、当前方法知道如何处理异常，则用try...catch块来处理该异常
+    2、当前方法不知道如何处理，则在定义该方法声明抛出该异常
+throw和throws的区别:
+        throw用在方法声明后，后面跟的是异常对象，throws用在函数（方法）内;throws用来声明异常，表示出现异常的一种可能性，让调用者
+        只知道该功能可能出现问题，可以给出预先的处理方式，throw抛出具体的问题对象，执行到throw，功能就已经结束了。
+try...catch块:用来捕获异常
+        try{
+            有可能发生异常的代码
+        }catch(异常类 变量){
+            处理异常的代码，捕获
+        }finally{
+            一定会被执行的代码
+        }
+XML解析
+    一个xml文档 有且只有一个跟标签，标签对大小写敏感，标签的嵌套必须准确。
+读取xml中的内容:
+    利用dom4j.jar包中的SAXReader工具类帮助我们解析xml文件
+    SAXReader saxReader=new SAXReader();
+    //path指的是xml路径
+    得到document对象
+    Document document=saxReader.read(new File(path));
+    Element root=document.getRootElement();获得根节点
+    Element student=root.element("student");//获得单个节点如student标签
+    Attribute name=student.attribute("name");//获得student下中属性name
+    String value=name.getValue();获得name属性的值
+    String text=student.getText();获得单个标签中的文本
+    List<Element> elements=root.elements();获得根节点下的所有子标签
+向xml中写入内容:
+    Document document=DocumentHelper.createDocument();//创建一个Documnet对象
+    Element element=document.addElement("students");//在document对象中添加一个元素，元素名为students，并且将添加的这
+    个元素返回给element这个引用
+    element.addText("xxx");往students标签添加文本内容
+    Element studnet=element.addElement("student");//往students跟标签中添加子标签
+    student.addAttribute("name","张三");//往student标签中添加属性和属性值
+    student.addText("xxx");添加文本
+线程:
+    关键字:Thread
+    一个进程包含多个线程，进程就是一个程序，而线程就是程序中的执行单元，正常情况下，每个线程都有自己执行流程，互不干扰
+    当然人为写的话，可以让两个线程产生交集
+    怎么样创建一个线程:
+          创建线程有 四种方法:
+          一:继承Thread类，该类需要重写Thread类中的run方法，创建一个线程，如:
+          Thread thread=new HelloThread();
+          二:实现Runnable接口Thread thread=new Thread（new HelloRunnale()）;
+          创建线程的第三种方法:利用匿名内部类
+          Thread thread=new Thread(new Runnable(){
+            public void run(){}
+          });
+          创建线程的第四种方法:
+          Thread thread=new Thread(){
+            public void run(){
+                super.run();
+          }
+          }
+怎样创建一个线程:
+                thread.start();开启一个线程
+                start方法才是真正开启一个线程，thread.run();只是调用了某个对象的方法。
+                Thread.currentThread()可以获得当前正在执行的线程对象，然后可以调用这个线程对象的
+                getName()方法获得名字。
+线程的同步:
+        一般情况下，多个进程执行是一种抢占执行，也就是多个线程共同去抢cpu，因此这是一种异步，是不安全的。这就
+        涉及到同步问题，关键字synchronized。
+        线程锁
+        首先明确一点，锁是一个对象，并且，可以是任意类型的对象。
+        synchronized关键字，就可以给方法上个锁，给方法上锁的时候使用的对象是当前类的
+        类对象。就是xxx.class
+        当一个进程进入到被关键字synchronized修饰的方法时，该线程就会持有这个锁对象。
+        其他线程想进去这个方法时，找不到锁对象，所以进不去。这个时候就只能等待，等前一线程执行完毕后，释放锁对象，一个线程才能进去，这就是同步。
+GC:垃圾回收机制，将内存中不用的对象回收销毁掉。当一个main方法执行时，实际上启动了两个线程，一个是能看得到主线程，一个是看不到的GC进程。
+匿名类部类:定义在一个类内部的类是内部类，然后这个类没有名字，因此就叫匿名内部类。

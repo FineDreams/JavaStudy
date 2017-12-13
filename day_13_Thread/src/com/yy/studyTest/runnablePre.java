@@ -1,0 +1,13 @@
+package com.yy.studyTest;
+
+public class runnablePre implements Runnable{
+    private int ticket=10;
+    @Override
+    public void run() {
+        for (int i = 0; i <10 ; i++) {
+            if (ticket > 0) {
+                System.out.println("购票，ticket=" +this.ticket--);
+            }
+        }
+    }
+}

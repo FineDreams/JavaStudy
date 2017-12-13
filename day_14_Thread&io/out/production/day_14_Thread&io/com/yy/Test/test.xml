@@ -1,0 +1,23 @@
+
+<students> 
+  <student1 id="001" color="black"> 
+    <name>学生1</name>  
+    <year>23</year>  
+    <sex>男</sex> 
+  </student1>  
+  <student2 id="002" color="black"> 
+    <name>学生2</name>  
+    <year>24</year>  
+    <sex>女</sex> 
+  </student2>  
+  <student3 id="003" color="black"> 
+    <name>学生3</name>  
+    <year>23</year>  
+    <sex>男</sex> 
+  </student3>  
+  <student3 id="003" color="black">
+    <name>学生3</name>
+    <year>23</year>
+    <sex>男</sex>
+  </student3>
+</students>

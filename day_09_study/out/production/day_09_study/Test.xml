@@ -1,0 +1,8 @@
+
+<User>用户
+  <Person Name="1">
+    <UserName>zh</UserName>
+    <PassWord>23</PassWord>
+    <Job>fsd</Job>
+  </Person>
+</User>
