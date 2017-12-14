@@ -126,8 +126,10 @@ public class Regist {
                         break;
                     case "3":
                         try {
-                            StartGame.playGame();
+                            StartGame.playGame(nickname);
                         } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                         break;

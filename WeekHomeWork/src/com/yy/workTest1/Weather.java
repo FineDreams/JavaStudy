@@ -73,6 +73,13 @@ public class Weather {
         private String weatid1;
         private String windid;
         private String winpid;
+        /**
+         * success : 1
+         * result : [{"weaid":"1","days":"2017-12-14","week":"星期四","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"0℃/-5℃","humidity":"0%/0%","weather":"阴转多云","weather_icon":"http://api.k780.com/upload/weather/d/2.gif","weather_icon1":"http://api.k780.com/upload/weather/n/1.gif","wind":"南风转无持续风向","winp":"<3级","temp_high":"0","temp_low":"-5","humi_high":"0","humi_low":"0","weatid":"3","weatid1":"2","windid":"132","winpid":"395"},{"weaid":"1","days":"2017-12-15","week":"星期五","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"4℃/-6℃","humidity":"0%/0%","weather":"多云转晴","weather_icon":"http://api.k780.com/upload/weather/d/1.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"无持续风向转西北风","winp":"3-4级转<3级","temp_high":"4","temp_low":"-6","humi_high":"0","humi_low":"0","weatid":"2","weatid1":"1","windid":"137","winpid":"402"},{"weaid":"1","days":"2017-12-16","week":"星期六","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"2℃/-8℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西北风转西风","winp":"<3级","temp_high":"2","temp_low":"-8","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"57","winpid":"395"},{"weaid":"1","days":"2017-12-17","week":"星期日","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"5℃/-8℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西南风转西北风","winp":"<3级","temp_high":"5","temp_low":"-8","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"56","winpid":"395"},{"weaid":"1","days":"2017-12-18","week":"星期一","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"6℃/-5℃","humidity":"0%/0%","weather":"多云","weather_icon":"http://api.k780.com/upload/weather/d/1.gif","weather_icon1":"http://api.k780.com/upload/weather/n/1.gif","wind":"西北风转北风","winp":"<3级","temp_high":"6","temp_low":"-5","humi_high":"0","humi_low":"0","weatid":"2","weatid1":"2","windid":"61","winpid":"395"},{"weaid":"1","days":"2017-12-19","week":"星期二","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"4℃/-7℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西北风转西南风","winp":"<3级","temp_high":"4","temp_low":"-7","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"82","winpid":"395"}]
+         */
+
+        private String success;
+        private List<ResultBean> result;
 
         public String getWeaid() {
             return weaid;
@@ -240,6 +247,22 @@ public class Weather {
 
         public void setWinpid(String winpid) {
             this.winpid = winpid;
+        }
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        public List<ResultBean> getResult() {
+            return result;
+        }
+
+        public void setResult(List<ResultBean> result) {
+            this.result = result;
         }
     }
 }
