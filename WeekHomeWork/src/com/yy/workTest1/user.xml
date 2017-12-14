@@ -1,0 +1,19 @@
+
+<User> 
+  <Person nickName="fds"> 
+    <UserName>18507124783</UserName>  
+    <PassWord>fdf23</PassWord> 
+  </Person>  
+  <Person nickName="yuanying"> 
+    <UserName>18505789876</UserName>  
+    <PassWord>abc123</PassWord> 
+  </Person>  
+  <Person nickName="yyy"> 
+    <UserName>13245678988</UserName>  
+    <PassWord>yyy111</PassWord> 
+  </Person>  
+  <Person nickName="fsd">
+    <UserName>13265478969</UserName>
+    <PassWord>fsdfd9</PassWord>
+  </Person>
+</User>
