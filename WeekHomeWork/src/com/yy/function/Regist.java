@@ -1,6 +1,8 @@
-package com.yy.workTest1;
+package com.yy.function;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.yy.exception.IrregularException;
+import com.yy.exception.UserNameExistsException;
+import com.yy.entity.Person;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -14,7 +16,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Regist {
-    static File file=new File("src/com/yy/workTest1/user.xml");
+    //注册方法
+    static File file=new File("src/com/yy/entity/user.xml");
     public static void getPer() throws DocumentException, UserNameExistsException, IrregularException, IOException {
         Scanner scanner = new Scanner(System.in);
         Boolean isTrue = null;
@@ -48,7 +51,7 @@ public class Regist {
             }
             System.out.println("请输入密码:");
             String password = scanner.nextLine();
-            if (!(password.matches("[A-Za-z0-9]+"))){
+            if (!(password.matches("([A-Za-z0-9])+"))){
                 System.out.println("密码中必须包含字母和数字!");
             }else {
                 person=new Person(nickname,username,password);
@@ -59,7 +62,7 @@ public class Regist {
         }
     }
 
-
+//将信息转化为xml
     public static void reverseToXml(Person person) throws DocumentException, UserNameExistsException, IOException {
         Document document=DocumentHelper.createDocument();
         Element root=null;
@@ -88,64 +91,56 @@ public class Regist {
         xmlWriter.write(root);
         xmlWriter.close();
     }
-
-    public static void userLogin(String username,String password) throws DocumentException {
+//登录方法
+    public static void userLogin(String username,String password) throws DocumentException, IOException, InterruptedException {
         SAXReader saxReader=new SAXReader();
+        Person person;
+        Boolean temp=null;
+        String nickname=null;
         Scanner scanner=new Scanner(System.in);
         Document document=saxReader.read(file);
         Element root=document.getRootElement();
         List<Element> lists = root.elements("Person");
         for (int i = 0; i <lists.size() ; i++) {
             Element element = lists.get(i);
-            Attribute nickName = element.attribute("nickName");
-            String nickname=nickName.getValue();
             Element userName = element.element("UserName");
-            String um=userName.getText();
-            Element passWord = element.element("PassWord");
-            String pw=passWord.getText();
-
-            if (um.equals(username)&&pw.equals(password)){
-                System.out.println("登录成功!");
-                System.out.println("欢迎光临！\t用户:"+nickname);
-                System.out.println("请输入要操作的功能!\n①查询天气\n②查询手机归属地\n③手速游戏\n④查询手速游戏前十名用户");
-                String input=scanner.nextLine();
-                switch (input){
-                    case "1":
-                        try {
-                            SearchDemo.searchWeather();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "2":
-                        try {
-                            SearchDemo.searchPhone();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "3":
-                        try {
-                            StartGame.playGame(nickname);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "4":
-
-                        break;
-                    default:
-                        break;
+            String um = userName.getText();
+            if (um.equals(username)){
+                Element passWord = element.element("PassWord");
+                String pw = passWord.getText();
+                if (pw.equals(password)){
+                    System.out.println("登录成功!");
                 }
-            return;
-            }else if (um.equals(username)){
-                System.out.println("密码错误!");
-                return;
-            }else {
-                System.out.println("用户名不存在!");
-                return;
+            }
+        }
+//            if (um.equals(username)) {
+//                if (pw.equals(password)){
+//                    System.out.println("登录成功!");
+//                    temp=true;
+//                }
+//                System.out.println("密码错误!");
+//                return;
+//            }
+            if (temp)
+            System.out.println("用户名不存在!");
+
+        while (temp==true){
+            System.out.print("欢迎光临!\n用户:"+nickname);
+            System.out.println("请输入要操作的功能!\n①查询天气\n②查询手机归属地\n③手速游戏\n④查询手速游戏前十名用户");
+            int input=scanner.nextInt();
+            switch (input){
+                case 1:
+                    SearchDemo.searchWeather();
+                    break;
+                case 2:
+                    SearchDemo.searchPhone();
+                    break;
+                case 3:
+                    StartGame.playGame(nickname);
+                    break;
+                case 4:
+                    SearchDemo.searchTen();
+                    break;
             }
         }
 

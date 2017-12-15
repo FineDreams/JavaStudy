@@ -1,4 +1,4 @@
-package com.yy.workTest1;
+package com.yy.exception;
 
 public class UserNameExistsException extends Exception{
     @Override

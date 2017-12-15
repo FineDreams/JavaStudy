@@ -1,8 +1,9 @@
-package com.yy.workTest1;
+package com.yy.function;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -71,8 +72,18 @@ public class StartGame {
         }
     }
     public static void upLoad(long score,String user) throws IOException {
-        URL url=new URL("http://192.168.20.221:8080/day16/insert?username="+user+"&score="+score);
-        url.openConnection();
-        System.out.println("成绩上传成功!");
+        URL url=new URL("http://192.168.20.194:8080/day16/insert?username="+user+"&score="+score);
+        URLConnection urlConnection = url.openConnection();
+        InputStream inputStream = urlConnection.getInputStream();
+        byte[] buff=new byte[1024];
+        int len=inputStream.read(buff);
+        String result=new String(buff,0,len);
+//        System.out.println(result);
+        if (result.equals("SUCCESS")) {
+            System.out.println("成绩上传成功!");
+        }else {
+            System.out.println("成绩上传失败!");
+        }
+
     }
 }
