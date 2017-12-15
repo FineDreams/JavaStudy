@@ -9,5 +9,10 @@
     <UserName>3</UserName>  
     <PassWord>3</PassWord>  
     <Job>Cooker</Job> 
-  </Person> 
+  </Person>  
+  <Person Name="1">
+    <UserName>1</UserName>
+    <PassWord>1</PassWord>
+    <Job>Worker</Job>
+  </Person>
 </Users>

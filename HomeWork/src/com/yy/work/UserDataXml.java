@@ -81,6 +81,7 @@ public class UserDataXml {
 		}
 		throw new UserNoneException();
 	}
+	//注销方法
 	public static void logOut() throws DocumentException, IOException, NmPdNoneException, LogOutFaildException {
 		SAXReader saxReader=new SAXReader();
 		Document read = saxReader.read(file);

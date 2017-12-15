@@ -2,6 +2,8 @@ package com.yy.main;
 
 import com.yy.exception.IrregularException;
 import com.yy.exception.UserNameExistsException;
+import com.yy.exception.UserNameNoneException;
+import com.yy.exception.passWordErroException;
 import com.yy.function.Regist;
 import org.dom4j.DocumentException;
 
@@ -34,13 +36,17 @@ public class TestMain {
                     System.out.println("请输入密码:");
                     String password=scanner.nextLine();
                     try {
-                        Regist.userLogin(username,password);
+                        Regist.Login(Regist.userLogin(username,password));
                     } catch (DocumentException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (passWordErroException e) {
+                        System.out.println(e.getMessage());
+                    } catch (UserNameNoneException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "3":
