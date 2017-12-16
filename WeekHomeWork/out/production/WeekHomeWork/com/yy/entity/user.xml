@@ -7,11 +7,7 @@
   <Person nickName="yyy"> 
     <UserName>13245678988</UserName>  
     <PassWord>yyy111</PassWord> 
-  </Person>  
-  <Person nickName="fsd"> 
-    <UserName>13265478969</UserName>  
-    <PassWord>fsdfd9</PassWord> 
-  </Person>  
+  </Person>
   <Person nickName="Yuanyingying"> 
     <UserName>18507124783</UserName>  
     <PassWord>yyy</PassWord> 
@@ -23,9 +19,9 @@
   <Person nickName="yuan"> 
     <UserName>18547963266</UserName>  
     <PassWord>45654</PassWord> 
-  </Person>  
-  <Person nickName="dfg">
-    <UserName>17894561233</UserName>
-    <PassWord>54545</PassWord>
+  </Person>
+  <Person nickName="Wfsd">
+    <UserName>1411374327@qq.com</UserName>
+    <PassWord>abc123</PassWord>
   </Person>
 </User>

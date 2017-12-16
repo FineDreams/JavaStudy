@@ -12,13 +12,10 @@ public class zhangSan {
     static String send="";
     public static void main(String[] args) throws IOException {
         //把张三写成发送方
-
         Socket socket=new Socket(Constants.ADDRESS,8080);
-
         Scanner input=new Scanner(System.in);
         //获得socket对象的输出工具
         OutputStream out = socket.getOutputStream();
-
         InputStream is=socket.getInputStream();
         byte[] buff=new byte[1024];
 
@@ -45,6 +42,5 @@ public class zhangSan {
         //如果输入了quit，则循环会终止
         //那么关闭这个socket
         socket.close();
-
     }
 }

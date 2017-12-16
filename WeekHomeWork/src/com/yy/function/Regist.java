@@ -25,15 +25,15 @@ public class Regist {
         Boolean isTrue = null;
         Person person=null;
         while (true){
-            System.out.println("请输入你的名字:");
+            System.out.println("请取个昵称吧:");
             String nickname = scanner.nextLine();
-            if(!(nickname.matches("[A-Za-z]*"))){
-                System.out.println("昵称只能是英文字母!");
+            if(!(nickname.matches("[A-Z]+[A-Za-z]*"))){
+                System.out.println("昵称只能是英文字母，并且首字母必须大写!");
                 continue;
             }
             System.out.println("请输入用户名:");
             String username = scanner.nextLine();
-            isTrue = Pattern.matches("[1][3578]\\d\\d\\d\\d\\d\\d\\d\\d\\d", username);
+            isTrue = Pattern.matches("[1][3578]\\d{9}|[1-9]+\\d*@q{2}[.]com", username);
             if ( isTrue== true) {
                 if (file.exists()) {
                     SAXReader saxReader = new SAXReader();
@@ -53,7 +53,7 @@ public class Regist {
             }
             System.out.println("请输入密码:");
             String password = scanner.nextLine();
-            if (!(password.matches("([A-Za-z0-9])+"))){
+            if (!(password.matches("[A-Za-z]+[0-9]+|[0-9]+[a-zA-Z]+"))){
                 System.out.println("密码中必须包含字母和数字!");
             }else {
                 person=new Person(nickname,username,password);
@@ -97,8 +97,8 @@ public class Regist {
     public static Person userLogin(String username,String password) throws DocumentException, IOException, passWordErroException, UserNameNoneException {
         Person person=null;
         SAXReader saxReader=new SAXReader();
-        Boolean temp=false;
-        Scanner scanner=new Scanner(System.in);
+//        Boolean temp=false;
+//        Scanner scanner=new Scanner(System.in);
         Document document=saxReader.read(file);
         Element root=document.getRootElement();
         List<Element> lists = root.elements("Person");

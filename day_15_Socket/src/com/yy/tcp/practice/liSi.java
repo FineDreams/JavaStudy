@@ -15,11 +15,8 @@ public class liSi {
         Socket accept = ss.accept();
         byte[] buff=new byte[1024];
         InputStream is=accept.getInputStream();
-
         //获得与这个ServerSocket连接的Socket
         OutputStream os=accept.getOutputStream();
-
-
         StringBuffer sb=new StringBuffer();
         new Thread(new Runnable() {
             @Override

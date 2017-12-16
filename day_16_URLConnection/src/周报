@@ -1,0 +1,123 @@
+线程死锁
+        多线程中资源使用问题，如果两个或多个线程分别拥有不用的资源，而同时又需要对方释放资源才能继续运行时，
+        就会发生线程死锁。
+
+        简单的说:有两个线程，线程1需要先持有锁对象A，然后准备持有锁对象B，而线程2需要先持有锁对象B，再准备锁对象
+            A，当线程1持有锁对象A后，准备持有锁对象B，而线程2持有锁对象B，需要准备持有锁对象A，由于持有锁对象是阻塞式的，因
+            此会造成两个线程互相等待 ，导致线程无法执行，就是线程死锁。
+如何避免死锁
+        1、上锁介绍的就是一个简单的嵌套锁产生的死锁现象，所以要避免死锁就尽量避免嵌套锁的出现。如果仅仅使用一个对象锁的话
+        是很难产生死锁的。
+        2、仅仅在需要的情况下进行资源锁定，
+        3、避免无限制的等待，吴国两个线程都无限制等待另一个线程结束的话，那么是很有可能产生死锁的。
+
+线程中涉及到的方法
+        wait方法:一旦锁对象，调用wait方法，那么当前运行的线程，就会失去执行权，并且失去抢夺执行权的权利。
+        notifyAll方法:当锁对象的notifyAll方法被调用后，这个线程才可以重新开始抢夺执行权，抢到后继续执行。
+常用IO流:FileReader和FileWriter
+        FileReader用于读取本地文件中的字符数据:
+           字符读取流                    FileReader fr=new FileReader(path);
+           将字符读取流传到构造方法中    BufferedReader br=new BufferedReader(fr);
+           readLine方法，一读读一行，如果什么都没有读到，返回null.
+        FileWriter用于将字符数据写出到文件:
+           字符写入流                    FileWriter fw=new FileWriter(path);
+           将字符写入流传到构造方法中    BufferedWriter bfw=new BufferedWriter(fw);
+           bfw.write(内容);写入内容
+           bfw.newLine();新来一行
+           bfw.flush();将流中的内容刷新到文件
+常用IO流:FileInputStream和FileOutputStream
+        FileInputStream用于读取本地文件中字节数据:
+                FeleInputStream fis=new FileInputStream("xx.txt");
+                byte[] b=new byte[1024];
+                read=fis,read(b);将读取到的字节存到字节数组b中，返回读取到的字符数存入read
+        FileOutputStream用于将自己数据写出到文件:
+                FileOutputStream fos=new FileOutputStream("xx.txt");
+                fos.write(b,0,read);将字节输出
+网络通信
+        网络模型七层概述：第一层物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。
+HTTP:基于TCP/IP洗衣的应用层超文本传输协议，使用与www服务器传输超文本到本地浏览器的传输协议，由于其简洁、快速的方式，使用分布式超媒体信息系统。
+    特点：1、不涉及数据包(socket)传输，主要规定了客户端和服务器之间的通信格式，默认使用80端口。
+          2、HTTP采用了请求/享用模型
+          3、请求有三部分组成：请求行、消息报头、请求正文
+          4、响应由三部分组成：状态行，消息报头、响应正文
+Socket套接字：socket简称套接字，是一种双向网络通信方式，用于描述IP地址和端口，是一个通信链的句柄，可以用来实现不同虚拟机或不同计算机之间的通信。
+            原理机制：通信两端都有socket，网络通信其实就是socket之间的通信，数据在两个socket间同构IO传输
+TCP/UDP区别：
+            TCP：面向连接、传输可靠、面向字节流、连接只支持点到点。首部开销20字节
+            UDP：无连接、传输不可靠、面向报文、连接支持一对一，一对多，多对一和多对多，首部开销8自己
+TCP/IP:又称TCP/IP协议簇是一组用于实现网络互连的通信协议，其名称来源于该协议簇中的两个重要的协议（TCP协议和IP协议）
+    IP地址：网络上主机设备的唯一标识
+    IP地址=网络号码+主机地址
+    端口号：（定位程序）用户标识进程的逻辑地址，不同进程的标示
+    数据包：单个消息被分为多个数据块，这些数据块称为包，它包含发送者和接收者的地址信息。
+TCP：传输控制协议是一种面向连接的、可靠的、基于字节流的传输层通信协议。
+    1、建立连接，形成数据传输的通道。
+    2、在连接中进行大数据量传输
+    3、通过三次握手完成连接，是可靠协议，安全送达。
+    4、必须建立连接，效率会稍低。
+    利用TCP协议
+        服务器：
+        1、建立Socket服务，并监听一个端口
+         ServerSocket serverSocket=new ServerSocket（端口号）；
+        2、获取连接的客户端对象
+        Socket accept=serverSocket.accept();
+        3、获取连接到的客户端对象发送的数据流
+        InputStream inputStream=accept.getInputStream();
+        4、关闭服务器
+        客户端：
+        1、建立Socket服务，指定连接的地址和端口
+        DatagramSocket ds=new DatagramSocket(端口号);
+        2、给服务器发送信息
+        InetAddress address=InetAddress.getByName(地址);
+        byte[] buff=new byte[1024];
+        buff =input.getBytes();
+        //创建用来存储数据的数据包
+        DatagramPacket dp=new DatagramPacket(buff,buff.length,address,端口号);
+        ds.send(dp);
+        3、关闭服务器
+UDP:一种无连接的传输协议，提供面向事物的简单不可靠信息传送服务
+    1、将数据及源和目的封装到数据包中
+    2、每个数据包的大小限制在64k内
+    3、因无连接，是不可靠协议
+    4、不需要建立连接，速度快
+    利用UDP协议
+        发送端
+        1、建立UDPSocket服务，并监听一个端口
+        2、提供数据，将数据封装到数包中
+        3、将数据包发送出去
+        4、关闭资源
+        接收端
+        1、建立UDPSocket服务。并监听一个端口
+        2、定义数据包，用于接收数据
+        3、将接收到的数据存入到数据包中
+        4、将数据包中的数据取出
+        5、关闭资源
+解析json数据
+       url:统一资源定位符，就是一个网址（绝对路径）
+    URL url=new URL(...);
+    URLConnection conn=url.openConnection();
+    //获得网络连接中的流，然后再从流中获得数据
+    InputStream is=conn.getInputStream();
+    int len=is.read(字节数组);
+    String result=new String(buff,0,len);
+我们要把json这个字符串转化成我们java中实体类的对象，使用GsonFormat插件帮助我们直接生成实体类
+
+使用工具帮我们直接把字符串转化成对应实体类对象
+    JSONObject js=JSONObject.fromObject(result);
+    需要强转   JSONObject.toBean(js,实体类.class);
+数据库
+       涉及的常用SQL语句
+       一、数据定义语言DDL
+            用于创建数据库中的各种对象，表，视图，索引
+       二、数据操纵语言DML
+            三种形式：
+                1、插入：INSERT
+                2、更新：UPDATE
+                3、删除：DELETE
+       三、数据查询语言DQL
+            基本结构由SELECT字句，FROM字句，WHERE
+            字句组成的查询块：
+                SELECT<字段名表>
+                FROM<表或视图名>
+                WHERE<查询条件>
+
