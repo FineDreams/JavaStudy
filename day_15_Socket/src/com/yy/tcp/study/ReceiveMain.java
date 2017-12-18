@@ -30,7 +30,7 @@ public class ReceiveMain {
 
         //返回值为读取了多少数据
         int len=0;
-        String c="";
+//        String c="";
         StringBuffer sb=new StringBuffer();
 
         while ((len=inputStream.read(buff))!=-1){
