@@ -8,6 +8,7 @@ import com.yy.function.Regist;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class TestMain {
@@ -20,14 +21,12 @@ public class TestMain {
                 case "1":
                     try {
                         Regist.getPer();
-                    } catch (DocumentException e) {
-                        e.printStackTrace();
                     } catch (IrregularException e) {
                         System.out.println(e.getMessage());
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     } catch (UserNameExistsException e) {
                         System.out.println(e.getMessage());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                     break;
                 case "2":
@@ -36,16 +35,16 @@ public class TestMain {
                     System.out.println("请输入密码:");
                     String password=scanner.nextLine();
                     try {
-                        Regist.Login(Regist.userLogin(username,password));
-                    } catch (DocumentException e) {
-                        e.printStackTrace();
+                        Regist.Login(Regist.userJdbcLogin(username,password));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } catch (passWordErroException e) {
+                    }catch (UserNameNoneException e) {
                         System.out.println(e.getMessage());
-                    } catch (UserNameNoneException e) {
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (passWordErroException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

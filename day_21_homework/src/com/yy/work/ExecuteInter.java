@@ -1,9 +1,9 @@
-package com.yy.study;
+package com.yy.work;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public interface ExecuteInter {
-     Statement execute(Connection conn) throws SQLException;
+    Statement execute(Connection conn) throws SQLException;
 }

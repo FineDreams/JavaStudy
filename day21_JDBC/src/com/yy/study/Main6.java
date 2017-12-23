@@ -1,9 +1,9 @@
 package com.yy.study;
 
-import java.sql.Connection;
+import com.yy.study.utils.jdbcUtil;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Main6 {
     public static void main(String[] args) {

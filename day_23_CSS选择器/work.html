@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动作业</title>
+    <style type="text/css">
+        div{
+            margin: 2px;
+        }
+        .zyfloat{
+            width: 100px;
+            height: 596px;
+            background-color: blue;
+        }
+        .div2{
+            width: 800px;
+            height: 600px;
+        }
+        .top{
+            width: 800px;
+            height: 100px;
+            background-color: coral;
+        }
+        .bottom{
+            margin: 5px;
+            width: 800px;
+            height: 100px;
+            background-color: lightskyblue;
+        }
+        .het{
+            width: 584px;
+            height: 295px;
+            background-color: chocolate;
+        }
+        .het2{
+            margin-top: 5px;
+            width: 584px;
+            height: 295px;
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <div style="width: 800px;height: 800px">
+        <div class="top "></div>
+        <div class="div2 ">
+            <div class="zyfloat" style="float: left"></div>
+                <div style="float: left" >
+                    <div class="het "></div>
+                    <div class="het2"></div>
+                </div>
+            <div class="zyfloat" style="float: right"></div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+</body>
+</html>

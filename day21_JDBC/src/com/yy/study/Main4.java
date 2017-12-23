@@ -1,5 +1,8 @@
 package com.yy.study;
 
+import com.yy.study.utils.ExecuteInter;
+import com.yy.study.utils.jdbcUtil;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +38,7 @@ public class Main4 {
                     ResultSet resultSet = statement.executeQuery(sql);
 
                     //接下来就是遍历resultSet
-                   jdbcUtil.shouRs(resultSet);
+                jdbcUtil.shouRs(resultSet);
                     return statement;
                 }
         });

@@ -1,0 +1,25 @@
+.topb{
+    border: solid 1px black;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+.topb2{
+    font-size: 16px;
+    width: 80px;
+    text-align: center;
+    line-height: 38px;
+    height: 40px;
+    background-color: cornflowerblue;
+}
+.ul1 li{
+    float: left;
+    list-style-type: none;
+    margin: 10px 8px 5px 8px;
+}
+.ul2 li{
+    float: right;
+    list-style-type: none;
+    margin: 10px 25px 10px 8px;
+}

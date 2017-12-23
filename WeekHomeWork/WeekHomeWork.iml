@@ -21,5 +21,6 @@
     </orderEntry>
     <orderEntry type="library" name="commons-beanutils-1.8.3" level="project" />
     <orderEntry type="library" name="ezmorph-1.0.6" level="project" />
+    <orderEntry type="library" name="commons-dbutils-1.6" level="project" />
   </component>
 </module>

@@ -1,0 +1,25 @@
+.show{
+    color: red;
+    /*font-size: 40px;*/
+}
+.back{
+    background-color: lightseagreen;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+#second{
+    background-color: mediumspringgreen;
+    /*line-height: 20px;*/
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#z{
+    background-color: antiquewhite;
+    font-size: 18px;
+    font-weight: bold;
+}
+.right{
+
+}

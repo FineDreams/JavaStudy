@@ -1,5 +1,7 @@
 package com.yy.study;
 
+import com.yy.study.utils.jdbcUtil;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

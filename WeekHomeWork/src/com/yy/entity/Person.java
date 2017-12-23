@@ -8,6 +8,14 @@ public class Person {
     public Person() {
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public Person(String nickname, String username, String password) {
         this.nickname = nickname;
         this.username = username;
