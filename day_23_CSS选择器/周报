@@ -1,0 +1,234 @@
+数据库SQL语句
+    DDL语句：
+        创建数据库：create database 库名；
+        创建表：create table 表名；
+        修改表名：alter table 表名 rename to 新表名；
+        修改列名：alter table 表名 change 原列名 新列名 列类型；
+        修改类型：alter table 表名 modify 列名 类型；
+        增添列：alter table 表名 add（列名 类型，...）;
+        删除列： alter table 表名 drop 列名；
+        删除表：drop table 表名；
+    DML语句：
+        插入数据：insert into 表名（列名，列名，...） values(对应列名)；
+                  insert into 表名 values（依次对应表中列来赋值）;
+        修改数据：update 表名 set 列名=要修改的值;这将修改这个列名下的所有值
+                  update 表名 set 列名=值 where id=2；修改对应where 条件后的列名值
+        删除数据：delete from 表名；表中数据全部被删除
+                  delete from 表名 where id=2；删除where 条件中的行
+    DQL聚合函数：
+        查询表中数据总行：select count（*） from 表；
+        查某一列数据的总和：select sun（x） from 表；
+        查x列的最大值和y列的最小值：select max（x），min（y） from 表；
+        求列的平均数：select avg（x） from 表；
+    DQL基础语句：
+        公式：
+        select （查询那些列） from （从那些表中查）  where （查询条件）
+         group by按照哪个列分组
+         having 分组后的条件
+         orderby 根据那一列排序
+         列运算相关：select 列名1+列名2，列名3-；列名4 from 表名；
+         去重：select distinct 列名 from 表名；
+         模糊查询：关键字——like
+         形式：like '张%'
+         %表示任意数量的任意值的字符   _字符短线代表一个任意值的字符
+         select * from 表名 where name like '___'  or name like '张%';
+         排序：
+            要根据某列名升序排序：ORDER BY id ASC;
+            要根据列名降序排序：ORDER BY id DESC;
+            根据列x升序排序，如果x相同则根据y降序排序。
+            ORDER BY x ASC, y DESC;
+数据库备份与恢复
+    备份：mysqldump -u用户名 -p密码 数据库名>目标文件(绝对路径，文件后缀名为.sql)
+    此语句不能有分号
+    恢复：恢复数据时如果没有对应数据库则要先创建数据库
+    user 数据库名；
+    source 备份文件的路径
+被主键约束的列的特点：
+1、非空：列中的值不能为null
+2、唯一：这一列中，每一行的值不能重复
+3、被引用：可以通过引用主键的方式引用该行的数据（主键就代表了这一行）
+添加主键方法：
+    1、创建表时添加主键：create table 表名（列名 类型 primary key，..）；
+                        create table 表名（列名 列类型 ，primary key（列名））；
+    2、创建表后，设置主键约束： alter table 表名 add primary key（列名）;
+删除主键：alter table 表名 drop primary key;
+注意：主键在一张表中最多存在一个，但是可以将多个列一起设为主键，所以说主键并不一定就表示一列。、
+alter table 表名 add primary key（列名1，列名2，列名3）；
+主键自增长约束
+    关键字：auto_increment
+    主键自增长约束必须与主键一同使用
+非空约束
+    在列类型后面添加not null即使非空约束
+唯一约束
+    在列类型后面添加unique就是唯一约束
+外键约束
+    当表与表之间有关联时，如表1中有某列，而表2或者表3和有列和表一某列一样的数据，那么就是表1对应表2，表3，
+    表2和表3没联系，那么这时表一就是一对多，那么表一就可以当主表，其他就是从表，因此表一可以设置将表2
+    和表3中的主键设置为自己的外键
+create table 表名(
+  id int primary key auto_increment,
+  name char(50),
+  hid int,//这里的hid是主表自己起的名字，代表的是表2中的主键
+  constraint name_表2id foreign key(hid) references 表2(表2id)
+);
+多表查询
+    合并结果集 --结果集就是通过select...from查询出来的数据实际上也是一张表，也就是说结果集也就是一张表。
+    两个select语句中间通过关键字union连接
+连接查询
+内连接：
+    mysql的方言:
+        select * from 表名1 自己取名1,表名2 自己取名1 where 名1.xx=名2.yy;
+    sql标准写法:
+        select * from 表名1 自己取名1 inner join 表名2 自己取名1 on 名1.xx=名2.yy;
+ 外连接：
+    左外:select * from 表名1 别名1 left outer join 表名2 别名2 on 别名1.xx=别名2.yy;
+    右外:select * from 表名1 别名1 right outer join 表名2 别名2 on 别名1.xx=别名2.yy;
+注意：内连接不会取出不符合条件的数据,比如表名1中某一行外键约束下的列的内容为null的话,则该行不会满足条件,内连接就不会取出它;
+ 如果想取出,就要使用外链接，外连接不管左面表的数据是否满足条件（就是ON后面的条件）都查出来.
+子查询：一条SQL语句有多个select就是子查询。本质就是先查询出一个表（结果集），然后再在这个表上进行后续的查询操作
+JDBC
+    java对数据库的连接规范，全称Java Database Connection
+操作JDBC的流程：
+        1、注册驱动 DriverManager.registerDriver(new Driver());
+        2、获得连接DriverManager.getConnection(url,user,password);
+        3、获得Statement/PrepareStatement对象
+        4、让对象执行sql语句，得到的返回值类型为ResultSet，即为结果集
+        5、从结果集中取出数据
+        6、关闭资源
+    注册驱动中由于每次不需要重复操作，因此可以考虑将其放到一个工具类中，然后将注册驱动放到一个静态代码块中
+    类只要加载一次，就被加载到内存中了，获得配置文件中的数据，随着类存在而存在。
+接口的回调：指的是可以使用某一接口的类创建的对象的引用赋给该接口声明的对象，那么该接口变量就可以调用被类实现的接口的方法
+    。实际上，当接口变量调用被类实现的接口中的方法时，就是通知相应的对象调用接口的方法，这一过程称为对象功能的接口回调。
+静态的东西会随着类的加载而进入内存，所以当我们未创建对象，只是将类加载时，会执行该类的静态代码块，而因为类只需要加载一次，所以再创建对象时，是不会执行静态代码块的
+调用工具类，该类会加载进内存也就会执行静态代码块，获得配置文件的数据，执行静态方法execute，传入的是接口的一个匿名实现类对象，传进去的对象我们命名为e。
+第一步：根据配置文件中的数据建立连接
+第二步：调用对象e的execute方法，将连接传入；这里就会回来执行这个匿名实现类的execute方法，这个方法中我们获得statement，执行sql语句，并且将statement作为返回值返回
+第三步：将e.execute（）得到的返回值关闭
+第四步：关闭连接
+PrepareStatement可以使用动态参数，Statement只能执行静态的sql语句
+事物的四个特性：原子性，一致性，隔离性，持久性；也就是ACID
+connection对象调用setAutoCommit（false）方法，这是设置为false，表示手动提交也就是开启了事务，默认是自动提交的。手动提交事务connection调用commit（）方法
+QueryRunner类：
+    QueryRunner中提供对sql语句操作的API
+    它主要有三个方法
+        query（）用于执行select
+        update（）用于执行insert/update/delete
+        batch（）批处理
+使用query（）进行查询操作，可以创建一个类去继承QueryRunner，根据自己需求重写它的query方法
+    new QueryRunner子类.query(工具类获得connection对象，sql查询语句，new 选择ResultSetHandler的实现类)
+根据需求结果的类型，选择ResultSetHandler的实现类
+    如果结果集为单行单列：ScalarHandler<>
+    如果想要一个对象的集合：BeanListHandler<>
+    如果想要一个对象：BeanHandler<>
+    如果想要一个Map：MapHandler
+    如果想要一个Map集合：MapHandler
+    如果想要一个数组：ArrayHandler
+    如果想要一个数组的集合：ArrayListHandler
+HTML
+    标题标签：h1-h6，依次对应一级到六级标签<h1></h1>
+    图片标签：img    <img id="" src="xx.jpg" title="">
+    title属性：1.当鼠标悬停到图片上时的提示
+               2.若找不到该图片，则显示这个提示文字
+    超链接标签：<a href=""></a>
+            如果不给它href属性,则它会失去所有超链接具有的特性
+             如：文字颜色，下划线，可点击，点击后变色
+            如果给href属性，但是属性值为“”, 则是刷新当前页面
+            如果给了href属性，属性值为“#xx”则表示定位到id为xx的标签(也叫元素)这叫锚点
+    表格标签：<table border=""></table>
+        <tr>表示表行  <th>表示表头  <td>表示单元格
+表单：<form action=""method="post"></form>
+        用来收集用户的信息，传递给服务器
+        action属性：
+               一个路径，表示要将收集到的信息提交到哪儿
+        method属性：
+               表示提交的方式，一般表单的提交方式都是post
+<label for=""></label>
+abel标签：提示作用，提示用户后面的输入框是干什么的 for属性：接收一个标签的id
+当点击label标签时，for属性指定的标签会获得焦点
+ <input type="text" id="">
+ input标签的type属性决定了这个标签
+                显示的样式
+                text:文本框
+                password：密码框
+                checkbox：多选框
+                radio：单选框
+                id:可以直接找到这个组件
+                name:在后端时，通过getParamter方法
+                    相当于传入name，获得值
+                    相当于键值对：name-value
+                    name是可以重复的，id不可以重复
+标签的语义化
+       有些标签，有它自己的特性，在使用时该标签会有一些特殊的含义。
+     <p>:段落     <q>引用别人的话    <blockquote> 引用别人一大段话
+     <mark>  标记
+     <select>
+        <option></option>选项
+        <optgroup>选项组
+             <option></option>选项
+        </optgroup>
+     </select>
+层叠样式表
+      1.外部CSS
+        将CSS代码，写在一个.css文件中
+        将这个.css文件，导入到当前html文档中
+      2.内部CSS
+        在<head>标签中，写一个子标签<style>
+        将CSS代码，写在<style>内部
+        选择器的优先级：
+        id选择器>类选择器>标签选择器
+      3.行内CSS
+        写在标签内部的，style属性上
+CSS
+    CSS选择器：
+        子代选择器：#A>span{}
+            会选择id为A的标签的子标签span标签；也就是说首先在id选择器找到id为A的标签，然后这个标签的子标签中的span标签被赋予样式。
+        兄弟选择器：
+            形式一：#AA~div{}
+                首先找到id为AA的标签，然后这个标签下所有的div标签都会被赋予样式，就不同与另一种形式中只能紧跟着才会被赋予样式了
+            形式二：#AA+div{}
+                 紧跟在id为AA的标签后面的div标签会被选择赋予样式；意思就是仅仅是和id为AA标签同级别，然后紧随其后的标签才会被赋予样式，中间隔着其他标签就不行。
+        后代选择器：#B .xx{}
+                  首先在id选择器找到id为B的标签，然后再这个B标签的后代标签中，只要后代标签class属性为xx，那么就会被赋予样式。
+        组合选择器：.A,.B,#C{}
+                  各种选择器的组合，用逗号隔开，优先级相同，可以使用任意一个选择器。
+        通用选择器：*{}
+                   所有的标签都会被选择，优先级低简单的说其他选择器的样式会将其覆盖。
+        属性选择器：[name]{}
+                    选择所有被赋值name属性的标签
+                    [name='xxx']{}
+                    选中name属性为xxx的元素
+选择器优先级总结：1、范围小的优先级更高，大概意思就是范围小控制要精确很多。
+                  2、如果范围相同，采取就近原则（先写的会被后写的覆盖）。
+                  行内选择器>id选择器>类选择器>标签选择器
+背景属性
+    body{
+        background:#FFF url(aa.jpg) no-repeat 20% 30% scroll;
+    }
+    no-repeat：不重复平铺；
+    repeat-x：横向重复平铺；
+    repeat-y：纵向重复平铺；不设置则为背景重复平铺
+    重复平铺后面是设置距离左边界多少像素和距离上边界多少像素。
+    fixed：图片相对浏览器固定
+    scroll：图片跟着滑轮滚动
+顺序文档流
+    HTML文档的加载，是从上到下，在浏览器中显示，也是从上到下依次显示这个正常顺序，就是正常的文档流。
+浮动
+    将标签，从正常的文档流中悬浮起来，也就是在浏览器中显示，不再按照从上到，从左到右的顺序。
+定位
+    position：absolute
+        绝对定位：如果父标签也指定了绝对定位，则相对于父标签，否则相对于body移动。
+    position：relative
+        相对定位：相对标签原有的位置移动，并且，该标签原来的位置依然不能放置元素
+    position：fixed
+        固定定位：相对浏览器固定
+盒子模型
+    margin指的是外边距属性，padding指的是内边距属性
+    块级元素：指的是独占一行，可以设置宽高属性。
+                div,h1-h6,table,form,p
+    内联元素/行内元素:可以去其他元素同处一行，不可以设置宽高属性，上下外间距
+                span,input,em,strong,mark
+    内联块状元素：可以设与其他元素同处一行，可以设置宽高属性，上下外间距。
+                img
+JS
+    JavaScript是一种脚本语言，是一种弱类型语言，相对的就有强类型语言，所谓强类型语言就是在编译时期就检查是否匹配；
+    window.alert();//window是js中，从浏览器抽象出来的对象，window是内置对象，是不需要我们自己创建的。
