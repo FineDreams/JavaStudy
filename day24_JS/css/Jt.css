@@ -1,0 +1,11 @@
+.sty{
+    background-color: chocolate;
+    margin: auto;
+    width: 400px;
+    height: 200px;
+    border: 1px solid white;
+}
+.fon{
+    font-size: 30px;
+    margin: auto;
+}
