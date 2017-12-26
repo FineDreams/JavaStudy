@@ -16,20 +16,31 @@
             <li>
                 <img style="height:60px;width:80px" src="../img/log.png">
             </li>
-            <li  style="font-size: 34px;font-family: 金梅浪漫豆豆字體;margin:10px 5px 20px 5px">凡不语</li>
-            <li  style="font-size: 30px;font-family: 隶书;margin:20px 5px 20px 5px">登录</li>
+            <li  style="font-size: 34px;font-family: 金梅浪漫豆豆字體;margin:15px 5px 20px 5px">不语</li>
+            <li  style="font-size: 33px;font-family: 楷体;margin:20px 5px 20px 3px">登录</li>
         </ul>
         <ul class="ul2">
             <li class="font" style="margin: 30px 20px 30px 5px">帮助文档</li>
             <li style="margin: 30px 10px 30px 10px">|</li>
-            <li class="font" style="margin: 30px 5px 30px 10px">凡不语首页</li>
+            <li class="font" style="margin: 30px 5px 30px 10px">不语首页</li>
         </ul>
     </div>
-    <img style="width:626px;height: 428px;margin:200px 60px 100px 210px "  src="../img/bord.jpg">
-    <div class="top"style="height: 580px;width: 610px;float: right;margin: 100px 230px 100px 100px">
-        <div class="font2" >凡不语登录</div>
-        <input type="text" class="in" style="font-size: 20px" placeholder="登录账号">
-        <input type="text" class="in" style="font-size: 20px" placeholder="登录密码">
+    <div  style="width: 180px;height: 30px;float: right;margin: 20px 30px 10px 30px">
+    <span id="showTime" onload=""></span>
+    </div>
+    <img style="width:626px;height: 428px;margin:200px 30px 100px 300px "  src="../img/bord.jpg">
+    <div class="top"style="height: 580px;width: 610px;float: right;margin: 100px 50px 100px 20px">
+        <div class="font2">不语登录</div>
+        <input type="text" class="in" style="font-size: 20px"
+               placeholder="不语账号/邮箱账号"
+               onfocus="inputFocus(this)";
+               onblur="inputBlur(this)";
+        >
+        <input type="text" class="in" style="font-size: 20px"
+               placeholder="请输入登录密码"
+               onfocus="inputDF(this)";
+               onblur="inputDB(this)";
+        >
         <div class="indiv">
             <div style="float: left">
                 <input type="checkbox"id="t1">
@@ -41,9 +52,9 @@
             </div>
 
         </div>
-
-
-        <div  class="inb" style="color: white">登录</div>
+        <form action="" method="post">
+            <input type="submit"  class="inb" style="color: white;cursor: pointer"value="登录" >
+        </form>
         <div class="indiv2">
             <div class="font4 ">还没有账号?<span style="color: rgb(72,102,202)"><a href="Register.html">免费注册</a></span></div>
             <div class="font3 ">忘记密码?</div>
@@ -51,4 +62,35 @@
     </div>
 
 </body>
+    <script type="text/javascript">
+        function inputFocus(el) {
+            el.placeholder="";
+            el.style.color="red";
+            el.style.fontSize="40px";
+        }
+        function inputBlur(el) {
+            el.placeholder="不语账号/邮箱账号";
+            el.style.color="black";
+            el.style.fontSize="20px";
+        }
+        function inputDF(el) {
+            el.placeholder="";
+            el.style.color="red";
+            el.style.fontSize="40px";
+        }
+        function inputDB(el) {
+            el.placeholder="请输入登录密码";
+            el.style.color="black";
+            el.style.fontSize="20px";
+        }
+        function showTime(){
+            setInterval(function () {
+                var mytime=new Date();
+                var toLocaleString = mytime.toLocaleString();
+                var show = document.getElementById("showTime");
+                show.innerText=toLocaleString;
+            },1000)
+        }
+    showTime();
+    </script>
 </html>

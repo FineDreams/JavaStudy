@@ -26,6 +26,7 @@ body{
     color: rgb(75,120,180);
 }
 .h{
+
     background-color: white;
     margin:200px auto;
     width: 780px;
@@ -42,16 +43,39 @@ body{
 }
 .h3{
     margin:80px auto;
-    width: 650px;
+    width: 700px;
     height: 70px;
 }
 .sub{
-    width: 550px;
-    height: 40px;
-    margin: 30px 0px 0px 130px;
+    width:580px;
+    height:55px;
+    margin: 30px 50px 0px 90px;
 }
 .tong{
-    width: 200px;
-    height: 30px;
+    width: 300px;
+    height: 50px;
     margin: 30px 0px 0px 130px;
+}
+.tong2{
+    width: 350px;
+    height: 60px;
+    margin: 30px 0px 0px 140px;
+}
+.jd{
+    /*border: solid 1px black;*/
+    width:90px;
+    height: 30px;
+    color: red;
+    float: right;
+    margin: 20px 13px 4px 2px;
+    font-size: 17px;
+    /*text-align: center;*/
+}
+.jd2{
+    width:90px;
+    height: 30px;
+    color: red;
+    float: right;
+    margin: 20px 13px 4px 2px;
+    font-size: 15px;
 }

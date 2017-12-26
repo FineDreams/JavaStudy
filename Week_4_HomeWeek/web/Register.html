@@ -16,31 +16,82 @@
         <li>
             <img style="height:60px;width:80px" src="../img/log.png">
         </li>
-        <li  style="font-size: 34px;font-family: 金梅浪漫豆豆字體;margin:10px 5px 20px 5px">凡不语</li>
-        <li  style="font-size: 30px;font-family: 隶书;margin:20px 5px 20px 5px">用户注册</li>
+        <li  style="font-size: 34px;font-family: 金梅浪漫豆豆字體;margin:15px 5px 20px 5px">不语</li>
+        <li  style="font-size: 30px;font-family: 楷体;margin:20px 5px 20px 5px">用户注册</li>
     </ul>
     <div class="h">
         <div class="h2" style="color: dodgerblue">
             <img src="../css/you.png">
                 邮箱号注册
         </div>
-        <div class="h3">
+        <div class="h3" >
             <span>邮箱地址</span>
-            <input type="text" style="width: 550px;height: 50px;font-size: 20px;margin: 10px" placeholder="邮箱地址">
+            <input type="text" style="width: 500px;height: 50px;font-size: 20px;margin: 10px"
+                   placeholder="请输入邮箱号"
+                   onfocus="inputFocus(this)";
+                   onblur="inputBlur(this)";
+            >
+            <div id="hd" class="jd" style="visibility: hidden">
+                邮箱地址!
+            </div>
         </div>
         <div class="h3">
             <span>登录密码</span>
-            <input type="text" style="width: 550px;height: 50px;font-size: 20px;margin: 10px" placeholder="登录密码">
+            <input type="text" style="width: 500px;height: 50px;font-size: 20px;margin: 10px"
+                   placeholder="请设置登录密码"
+                   onfocus="inputDF(this)";
+                   onblur="inputDB(this)";
+            >
+            <div id="dd" class="jd2" style="visibility: hidden">
+                要谨记密码哦!
+            </div>
         </div>
         <div class="tong" >
-            <input type="checkbox"id="t1">
+            <input type="checkbox"id="t1"style="cursor: pointer">
             <label for="t1">同意并遵守<span style="color: rgb(72,102,202)">《服务条款》</span></label>
         </div>
-        <div>
-        <input type="submit"style="background-color: dodgerblue;color: white;font-weight: bold" value="下一步" class="sub">
-        </div>
+        <form action="" method="post">
+            <div >
+                <input type="submit" id="sb"
+                       class="sub"
+                       style=" background-color: dodgerblue;
+                       color: white;
+                       font-weight:
+                       bold;font-size:30px;
+                       cursor: pointer;"
+                       onfocus="sbSubmit()"
+                       value="下一步" >
+            </div>
+        </form>
+
     </div>
 
 </div>
 </body>
+    <script type="text/javascript">
+        function inputFocus(ele) {
+            ele.placeholder="";
+            var hd=document.getElementById("hd");
+            hd.style="jd";
+        }
+        function inputBlur(ele) {
+            ele.placeholder="请输入邮箱号"
+           var hd= document.getElementById("hd");
+            hd.style.visibility="hidden";
+        }
+        function inputDF(ele2) {
+            ele2.placeholder="";
+            var dd=document.getElementById("dd");
+            dd.style="jd2";
+        }
+        function inputDB(ele2) {
+            ele2.placeholder="请设置登录密码"
+            var dd= document.getElementById("dd");
+            dd.style.visibility="hidden";
+        }
+        function sbSubmit() {
+            var sb=document.getElementById("sb");
+            sb.style.backgroundColor="green";
+        }
+    </script>
 </html>

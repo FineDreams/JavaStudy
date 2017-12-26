@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+    <script type="text/javascript">
+
+        function helloFunction() {
+        //声明一个Function
+//            名字叫helloFunction
+//            但是并不会被执行，只有被调用来了才会执行
+            console.log("helloFunction")
+        }
+//        helloFunction();
+
+        //对于带参数的函数
+//        如果再调用时传递的参数数量少于参数列表中参数总数，那么，未被赋值的形参的值为undefined如果再调用时，
+        //传递的参数数量大于参数列表中参数总数，那么，多余的参数不会进入函数体中，
+        //不会有影响
+        function paramFunc(name, age) {
+            console.log(name);
+            console.log(age);
+        }
+        function resultFunc(a,b) {
+            return a+b;
+        }
+        function nine(a) {
+            var content="";
+            for (var sum=1;sum<=a;sum++){
+                content=content+sum+"*"+a+"="+(sum*a)+"\t";
+            }
+            console.log(content);
+            if (a<9){
+                nine(a+1);
+            }
+        }
+        //我们定义的函数，都给了window
+//        也就是说我们定义的成员变量，成员方法都变成了window的属性，方法
+        var name="张三";
+
+    </script>
+</head>
+<body>
+    <button onclick="helloFunction()" style="width: 100px;height: 50px">hello</button>
+    <br/>
+    <button onclick="paramFunc('张三','29')"style="width: 100px;height: 50px">param</button>
+    <br>
+    <button onclick="window.alert(resultFunc(10,resultFunc(
+                                                        20,resultFunc(
+                                                            30,40,50)
+                                                            )
+                                                           )
+                                                          )"style="width: 100px;height: 50px">点我看结果</button>
+    <br>
+    <button onclick="nine(1)"style="width: 100px;height: 50px">九九乘法表</button>
+</body>
+</html>
