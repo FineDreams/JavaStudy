@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置样式</title>
+    <link href="css/work.css"rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="div1">
+
+        <div class="div2">
+            <div class="div4" id="btn" onclick="btnClicked()">
+                点击设置样式
+            </div>
+            <div id="pop" class="div5">营营</div>
+
+        </div>
+
+        <div id="test" class="div3">
+            <h1 style="font-size: 30px; width: 240px;height: 40px;text-align: center;margin: 0px">选择背景</h1>
+            <div onclick="cor1()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: red;float: left">红色</div>
+            <div onclick="cor2()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: yellow;float: left">黄色</div>
+            <div onclick="cor3()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: blue;float: left">蓝色</div>
+
+            <div style="width: 240px;height: 40px;margin: 60px 100px 7px 0px">
+                <h1 style="font-size: 30px; width: 240px;height: 40px;text-align: center;margin: 0px">选择宽度</h1>
+            </div>
+            <div onclick="wid1()" style="border: solid 1px black; margin: 7px 7px 20px 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">100</div>
+            <div onclick="wid2()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">200</div>
+            <div onclick="wid3()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">300</div>
+
+            <div style="width: 240px;height: 50px;margin: 70px 100px 10px 0px">
+                <h1 style="font-size: 30px; width: 160px;height: 40px;margin: 5px 10px 10px 60px;">选择高度</h1>
+            </div>
+            <div onclick="hei1()" style="border: solid 1px black;margin: 7px 7px 20px 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">100</div>
+            <div onclick="hei2()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">200</div>
+            <div onclick="hei3()" style="border: solid 1px black;margin: 7px; width: 60px;height: 40px;text-align: center;font-size: 20px;background-color: dimgray;float: left">300</div>
+
+            <div onclick="rem()" style="width: 40px;height: 40px;font-size: 18px;margin: 10px 30px 30px 30px">恢复</div>
+            <div style="width: 40px;height: 40px;font-size: 18px;margin: 10px 0px 30px 150px">确定</div>
+        </div>
+
+        <div class="div6">
+            <h4 id="look" onclick="search()" style="border: solid 1px black;background-color: chocolate; width: 80px;height: 26px;margin: 10px 30px 5px 70px">查询天气</h4>
+            <table >
+            </table>
+        </div>
+
+
+    </div>
+</body>
+    <script type="text/javascript">
+        function btnClicked() {
+            var test = document.getElementById("test");
+            if (test.style.visibility!="hidden"){
+                test.style.visibility="hidden";
+            }else {
+                test.style.visibility="visible";
+            }
+        }
+        function cor1() {
+            $('#pop').css({"backgroundColor":"red"})
+        }
+        function cor2() {
+            $('#pop').css({"backgroundColor":"yellow"})
+        }
+        function cor3() {
+            $('#pop').css({"backgroundColor":"blue"})
+        }
+        function wid1() {
+            $('#pop').css({"width":"100px"})
+        }
+        function wid2() {
+            $('#pop').css({"width":"200px"})
+        }
+        function wid3() {
+            $('#pop').css({"width":"300px"})
+        }
+        function hei1() {
+            $('#pop').css({"height":"100px"})
+        }
+        function hei2() {
+            $('#pop').css({"height":"200px"})
+        }
+        function hei3() {
+            $('#pop').css({"height":"300px"})
+        }
+        function rem() {
+            $('#pop').css({"width":"60px",
+                "height":"40px",
+                "background-color":"black"})
+        }
+        function search() {
+            var url=" http://api.k780.com/?app=weather.future&weaid=1&&appkey=29836&sign=4fe58a60443a900a251f8b05763d4622&format=json";
+            $.ajax({type:'get',
+                    url : url,
+                    dataType : 'jsonp',
+                    jsonp:"jsoncallback",
+                    success  : function(data) {
+                        $('tr').remove();
+                        var result  = data.result;
+                        $('table').append(
+                            $("<tr><td>"+"日期"+"</td>+ "
+                                + "<td>"+"天气"+"</td>"
+                                + "<td>"+"风向"+"</td></tr>")
+                        )
+                        for (var i = 0 ; i < result.length ; i++){
+                            $('table').append(
+                                $("<tr><td>"+result[i].week+"</td>+ "
+                                    + "<td>"+result[i].weather+"</td>"
+                                    + "<td>"+result[i].wind+"</td></tr>")
+                            )
+                        }
+                    },
+                }
+            );
+        }
+    </script>
+</html>

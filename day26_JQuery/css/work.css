@@ -1,0 +1,45 @@
+.div1{
+    width: 700px;
+    height: 700px;
+    margin: auto;
+    /*border: solid 1px black;*/
+}
+.div2{
+    width: 450px;
+    height: 700px;
+    border: solid 1px black;
+    float: left;
+}
+.div3{
+    width: 230px;
+    height: 400px;
+    /*padding: 0px;*/
+    margin: 0px;
+    border: solid 1px black;
+    float: left;
+}
+.div4{
+    width: 450px;
+    height: 40px;
+    text-align: center;
+    border: solid 1px black;
+    background-color: blue;
+    font-size: 30px;
+
+}
+.div5{
+    width: 60px;
+    height: 40px;
+    color: white;
+    text-align: center;
+    border: solid 1px black;
+    margin: 0px auto;
+    background-color: black;
+    font-size: 24px;
+}
+.div6{
+    width: 230px;
+    height: 300px;
+    float: left;
+    border: solid 1px black;
+}

@@ -22,7 +22,9 @@
         <ul class="ul2">
             <li class="font" style="margin: 30px 20px 30px 5px">帮助文档</li>
             <li style="margin: 30px 10px 30px 10px">|</li>
-            <li class="font" style="margin: 30px 5px 30px 10px">不语首页</li>
+            <li class="font" style="margin: 30px 5px 30px 10px">
+                <a href="Homepage.html" style="text-decoration-line: none">不语首页</a>
+            </li>
         </ul>
     </div>
     <div  style="width: 180px;height: 30px;float: right;margin: 20px 30px 10px 30px">
@@ -31,12 +33,14 @@
     <img style="width:626px;height: 428px;margin:200px 30px 100px 300px "  src="../img/bord.jpg">
     <div class="top"style="height: 580px;width: 610px;float: right;margin: 100px 50px 100px 20px">
         <div class="font2">不语登录</div>
-        <input type="text" class="in" style="font-size: 20px"
+        <img src="../img/user.png"style="width: 40px;height: 40px;position: absolute;top: 284px;left: 1055px">
+        <input type="text" class="in" style="font-size: 20px;padding-left: 50px"
                placeholder="不语账号/邮箱账号"
                onfocus="inputFocus(this)";
                onblur="inputBlur(this)";
         >
-        <input type="text" class="in" style="font-size: 20px"
+        <img src="../img/lock.png"style="width: 40px;height: 40px;position: absolute;top: 376px;left: 1055px">
+        <input type="text" class="in" style="font-size: 20px;padding-left: 50px"
                placeholder="请输入登录密码"
                onfocus="inputDF(this)";
                onblur="inputDB(this)";
@@ -87,13 +91,16 @@
             el.style.color="black";
             el.style.fontSize="20px";
         }
+        function time() {
+            var mytime=new Date();
+            var toLocaleString = mytime.toLocaleString();
+            var show = document.getElementById("showTime");
+            show.innerText=toLocaleString;
+        }
+//        window.onload = time;
+            time();
         function showTime(){
-            setInterval(function () {
-                var mytime=new Date();
-                var toLocaleString = mytime.toLocaleString();
-                var show = document.getElementById("showTime");
-                show.innerText=toLocaleString;
-            },1000)
+            setInterval(time,1000)
         }
     showTime();
     </script>
