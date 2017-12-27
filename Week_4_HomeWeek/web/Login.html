@@ -65,21 +65,25 @@
     <script type="text/javascript">
         function inputFocus(el) {
             el.placeholder="";
+            el.style.borderColor="red";
             el.style.color="red";
             el.style.fontSize="40px";
         }
         function inputBlur(el) {
             el.placeholder="不语账号/邮箱账号";
+            el.style.borderColor="";
             el.style.color="black";
             el.style.fontSize="20px";
         }
         function inputDF(el) {
             el.placeholder="";
+            el.style.borderColor="red";
             el.style.color="red";
             el.style.fontSize="40px";
         }
         function inputDB(el) {
             el.placeholder="请输入登录密码";
+            el.style.borderColor="";
             el.style.color="black";
             el.style.fontSize="20px";
         }
