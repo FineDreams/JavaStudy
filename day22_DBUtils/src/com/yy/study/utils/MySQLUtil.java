@@ -70,7 +70,6 @@ public class MySQLUtil {
         }
         return list;
     }
-
     //如果想要一个Map：MapHandler
     public static Map<String,Object> queryMap(String...ID) throws SQLException {
         for (String id:ID) {

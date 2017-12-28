@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQ练习</title>
+    <link href="css/jqw.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="div1">
+    <div id="dv" class="div2">
+        <button id="btn1" class="bt1">添加</button>
+        <button id="btn2" class="bt1">删除</button>
+        <button id="btn3" class="bt1">小于0</button>
+        <button id="btn4" class="bt1">大于0</button>
+        <button id="btn5" class="bt1">刷新</button>
+        <button id="btn6" class="bt1">全部</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function RandomColor() {
+        var c='#';
+        var array=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+        for(var i=0;i<6;i++){
+            var index=Math.round(Math.random()*15);
+            c+=array[index];
+        }
+        return c;
+    }
+    $('#btn1').click(function () {
+        var math=''+Math.ceil(100-Math.random()*200);
+        $('#dv').append($('<h1>').text(math).attr({"class":"bq"}).css({"backgroundColor":RandomColor()}));
+    })
+
+    $('#btn2').click(function () {
+        $('h1').last().animate(
+            {"marginLeft":"300px"},200,function () {
+                $(this).remove();
+            }
+        );
+    })
+    $('#btn3').click(function () {
+        var len=$("h1").length;
+        for(var i=0;i<len;i++){
+            if ($('h1').eq(i).text()>0){
+                $('h1').eq(i).slideUp();
+            }else {
+                $('h1').eq(i).slideDown();
+            }
+        }
+    })
+    $('#btn4').click(function () {
+        var len=$("h1").length;
+        for(var i=0;i<len;i++){
+            if ($('h1').eq(i).text()<0){
+                $('h1').eq(i).slideUp();
+            }else {
+                $('h1').eq(i).slideDown();
+            }
+        }
+    })
+    $('#btn5').click(function () {
+        var len=$("h1").length;
+        for (var i=0;i<len;i++){
+            $('h1').eq(i).css({"backgroundColor":RandomColor()});
+        }
+    })
+
+    $('#btn6').click(function () {
+        var len=$("h1").length;
+        for (var i=0;i<len;i++){
+            $('h1').eq(i).slideDown();
+        }
+    })
+
+
+</script>
+</html>

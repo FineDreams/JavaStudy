@@ -1,0 +1,28 @@
+.div1{
+    width: 501px;
+    height: 500px;
+    border: solid 1px black;
+}
+.div2{
+    width: 500px;
+    height: 45px;
+    padding-left: 0px;
+    border: solid 1px black;
+    background-color: darkgrey;
+}
+.bt1{
+   width: 64px;
+    height: 38px;
+    margin: 4px;
+    text-align: center;
+    font-size: 17px;
+    background-color: white;
+}
+.bq{
+    width:498px;
+    height:60px;
+    border: solid 1px black;
+    text-align: center;
+    /*background-color:red;*/
+    margin:5px 0px 5px 0px;
+}
