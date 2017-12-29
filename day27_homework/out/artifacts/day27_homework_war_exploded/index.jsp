@@ -12,6 +12,17 @@
     <script src="js/jquery-3.2.1.min.js"></script>
   </head>
   <body>
+    <form action="insert" method="post">
+        <label for="uname">用户名</label>
+        <input id="uname" type="text" name="uname">
+        <label for="age">年龄</label>
+        <input type="text" id="age" name="age">
+        <label for="loc">城市</label>
+        <input type="text" id="loc" name="loc">
+        <input type="submit">
+    </form>
+
+
       <button id="btn" style="width: 90px;height: 30px;background-color: burlywood">点击查询</button>
       <table border="1" >
 
@@ -19,14 +30,12 @@
   </body>
   <script type="text/javascript">
       $('#btn').click(function () {
-//          $('table>tr').remove();
-          $.get("http://localhost:8080/json",
+          $.getJSON("http://localhost:8080/json",
           function (data, status) {
               if (status=="success"){
-                  console.log("2");
-                  var jsonData=$.parseJSON(data);
-                  if (jsonData!=null){
-                      console.log("3");
+                  console.log(data);
+//                  var jsonData=$.parseJSON(data);
+                  if (data!=null){
                       $('tr').remove();
                       $('table').append(
                           $('<tr>').append(
@@ -40,7 +49,8 @@
                           )
                       )
 
-                      $.each(jsonData,function (index, obj) {
+                      $.each(data,function (index, obj) {
+
                           $('table').append(
                               $('<tr>').append(
                                   $('<td>').text(obj['uid'])
