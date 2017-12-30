@@ -154,27 +154,54 @@ $.parseJSON(data);
 或直接使用$.getJSON获得json数据；
 
 Tomcat:
-Tomcat相当于一个简易版的服务器，我们可以吧自己写的后端
+Tomcat相当于一个简易版的服务器，我们可以把自己写的后端
 应用程序部署到上面
-192.168.20.133:8080/day16/ten
+localhost:8080/day20/ten
 
-day16是我们写的程序的名字，Tomcat通过这个名字找到对应的应用程序
-ten表示，要访问的day16中的那个文件(HttpServlet)
+day20是我们写的程序的名字，Tomcat通过这个名字找到对应的应用程序
+ten表示，要访问的day20中的那个文件(HttpServlet)
 这个文件是我们自己写的一个类，这个类继承HttpServlet；
 这个文件的名字是我们在web.xml中配置的
+也就是说，每次网络访问请求，实际上都是在访问Servlet
+      B/S系统   Browser   Server
+      C/S系统   Client    Server
 
 HttpServlet类是一个抽象类，
-我们通过写
-
+我们通过重写他的构造方法doGet和doPost来进行数据的发送和获得
+doGet方法和doPost方法都有两个参数：
+super.doGet(req, resp);
+        Request和Response
+        Request：请求，包含这次请求的所有数据
+        Response：响应，将这次请求的结果返回给请求方
+        使用req，获得请求参数
+        方法中传入的参数为:参数名
+        根据参数名获得参数值（雷士键值对）
+        比如：req.getParameter("username");
+然后使用resp，将请求的结果返回给请求方
+       resp.getWriter().write("<h1>SUCCESS</h1>");
+doPost方法
+ super.doPost(req, resp);
 
 web.xml
 1.web-app标签中创建servlet标签；
-2.servlet标签中创建一个servlet-name标签，这个标签中给我们写的那个继承
+getServletInfo()2.servlet标签中创建一个servlet-name标签，这个标签中给我们写的那个继承
     HttpServlet的类指定一个名字，就像上面提到的ten
 3.在servlet中创建一个servlet-class标签，这个标签中指定类的路径
 4.在web-app标签中创建servlet-mapping标签；
 5.在servlet-mapping标签中创建servlet-name标签，指定类的名字
 6.在servlet-mapping标签中创建url-pattern标签，给该类添加一个路径，路径前面
     一定要加/
-
-
+最原始的创建Servlet的方法：实现Servlet接口
+servlet整个生命周期有:
+    init():当第一次被访问时会执行init方法
+    getServletConfig():需要获得servletConfig时，手动调用
+    service（req，resp）:每次被访问会执行
+    getServletInfo():当需要获得servletInfo时，手动调用---- 基本没用
+    destroy():服务器关闭前，会调用这个方法,可以用来释放一些资源
+Servlet在web.xml中的配置内容
+     会被抽象成一个ServletConfig对象
+     这个对象会在tomcat帮我们调用
+     init(ServletConfig)的时候传入
+     GenericServlet帮我们封装好了一步
+             this.servletConfig=servletConfig
+     init()不是生命周期!!!

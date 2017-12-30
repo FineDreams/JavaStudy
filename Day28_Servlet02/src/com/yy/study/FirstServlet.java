@@ -46,7 +46,7 @@ public class FirstServlet implements Servlet{
     基本没用
      */
     @Override
-    public String getServletInfo() {
+    public String  getServletInfo(){
         System.out.println("getServletInfo-------");
         return null;
     }

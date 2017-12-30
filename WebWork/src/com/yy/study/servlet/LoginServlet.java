@@ -1,4 +1,9 @@
 package com.yy.study.servlet;
 
-public class LoginServlet {
+
+import javax.servlet.http.HttpServlet;
+
+public class LoginServlet extends HttpServlet{
+
+
 }
