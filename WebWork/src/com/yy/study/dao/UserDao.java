@@ -27,4 +27,24 @@ public class UserDao {
         }
         return null;
     }
+    public static void insertUser(User user) throws SQLException {
+        String sql="insert into users values(?,?,?)";
+        Connection conn=null;
+        try {
+            conn=jdbc.getConnection();
+            new QueryRunner().update(
+                    conn,
+                    sql,
+                    user.getUname(),
+                    user.getPassword(),
+                    user.getNickname()
+                    );
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            conn.close();
+        }
+    }
 }

@@ -1,0 +1,90 @@
+.top{
+    background-color: white;
+    border: solid 1px white;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: rgb(243,247,250) ;
+}
+.ul1 li{
+    float: left;
+    list-style-type: none;
+    margin: 8px 3px 5px 20px;
+}
+.ul2 li{
+    float: right;
+    list-style-type: none;
+
+    margin: 8px 3px 5px 20px;
+}
+.font{
+    font-size: 25px;
+    font-family: 楷体;
+    color: rgb(75,120,180);
+}
+.h{
+    background-color: white;
+    /*border: solid 1px black;*/
+    margin:150px auto ;
+    width: 740px;
+    height:740px
+}
+.h2{
+    /*border: solid 1px black;*/
+    border-bottom: solid 3px blue;
+    margin:60px auto;
+    font-size: 30px;
+    text-align: center;
+    width: 250px;
+    height: 50px;
+}
+.h3{
+    margin:80px auto;
+    width: 700px;
+    height: 70px;
+}
+.sub{
+    width:580px;
+    height:55px;
+    margin: 40px 50px 0px 75px;
+}
+.tong{
+    width: 300px;
+    height: 40px;
+    /*border: solid 1px black;*/
+    margin: 60px 0px 0px 100px;
+}
+.tong2{
+    width: 350px;
+    height: 60px;
+    margin: 30px 0px 0px 140px;
+}
+.jd{
+    /*border: solid 1px black;*/
+    width:90px;
+    height: 30px;
+    color: red;
+    float: right;
+    margin: 20px 13px 4px 2px;
+    font-size: 17px;
+    /*text-align: center;*/
+}
+.jd2{
+    width:90px;
+    height: 30px;
+    color: red;
+    float: right;
+    margin: 20px 13px 4px 2px;
+    font-size: 15px;
+}
+.jd3{
+    width:90px;
+    height: 30px;
+    color: red;
+    float: right;
+    margin: 20px 13px 4px 2px;
+    font-size: 13px;
+}
