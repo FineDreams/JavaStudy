@@ -23,7 +23,7 @@
         <li class="font" style="margin: 30px 20px 30px 5px">帮助文档</li>
         <li style="margin: 30px 10px 30px 10px">|</li>
         <li class="font" style="margin: 30px 5px 30px 10px">
-            <a href="Homepage.html" style="text-decoration-line: none">不语首页</a>
+            <a href="index.jsp" style="text-decoration-line: none">不语首页</a>
         </li>
     </ul>
 </div>
@@ -34,13 +34,14 @@
 <div class="top"style="height: 580px;width: 610px;float: right;margin: 100px 50px 100px 20px">
     <div class="font2">不语登录</div>
     <img src="../img/user.png"style="width: 40px;height: 40px;position: absolute;top: 284px;left: 1055px">
-    <input type="text" class="in" style="font-size: 20px;padding-left: 50px"
+    <form action="/login" method="post">
+    <input name="uname" type="text" class="in" style="font-size: 20px;padding-left: 50px"
            placeholder="不语账号/邮箱账号"
            onfocus="inputFocus(this)";
            onblur="inputBlur(this)";
     >
     <img src="../img/lock.png"style="width: 40px;height: 40px;position: absolute;top: 376px;left: 1055px">
-    <input type="text" class="in" style="font-size: 20px;padding-left: 50px"
+    <input name="password" type="text" class="in" style="font-size: 20px;padding-left: 50px"
            placeholder="请输入登录密码"
            onfocus="inputDF(this)";
            onblur="inputDB(this)";
@@ -54,9 +55,7 @@
             <input type="checkbox"id="t2">
             <label for="t2">15天免登陆</label>
         </div>
-
     </div>
-    <form action="" method="post">
         <input type="submit"  class="inb" style="color: white;cursor: pointer"value="登录" >
     </form>
     <div class="indiv2">

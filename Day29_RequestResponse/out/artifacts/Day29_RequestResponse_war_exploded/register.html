@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+<body>
+    <form action="/register" method="post">
+        <label for="username">账户:</label>
+        <input id="username" type="text" name="username">
+        <br>
+        <label for="password">密码:</label>
+        <input id="password" type="text" name="password">
+        <br>
+        <label for="man">男:</label>
+        <input id="man" type="radio" name="gender">
+        <label for="women">女:</label>
+        <input id="women" type="radio" name="gender">
+        <br>
+
+        爱好:&nbsp;&nbsp;
+        打篮球&nbsp;<input type="checkbox" name="hobbies" value="playBall">
+
+
+        LOL&nbsp;<input type="checkbox" name="hobbies" value="LOL">
+
+
+        睡觉&nbsp;<input type="checkbox" name="hobbies" value="sleep">
+        <input type="submit">
+    </form>
+</body>
+</html>

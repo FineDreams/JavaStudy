@@ -4,47 +4,31 @@
 }
 .dv1{
     width: 100%;
-    height: 88px;
+    height: 80px;
     padding-bottom: 0px;
     border: solid 1px black;
     background-color: white;
 }
 #dv2{
-    width:227px ;
-    height: 777px;
-    float: left;
+    width: 100%;
+    height: 370px;
+    padding-bottom: 0px;
+    border: solid 1px black;
+    background-color: white;
+}
+
+#dv3{
+    width:60% ;
+    height: 100%;
+    margin: auto;
     padding-top: 17px;
     padding-bottom: 10px;
     border: solid 1px black;
-    background-color: lightblue;
+    background-color: white;
 }
-#dv2 div{
-    width: 225px;
-    height: 50px;
-    font-size: 30px;
-    padding-top:16px;
-    text-align: center;
-    float: left;
-    background-color: orangered;
-    border: solid 1px black;
-    margin: 20px 10px 20px 0px;
 
-}
-#dv3{
-    width: 1118px;
-    height: 805px;
-    float: right;
-    margin: 0px;
-    border: solid 1px black;
-}
-#dv3>div{
-    width: 370px;
-    height: 400px;
-    float: left;
-    border: solid 1px black;
-}
 .dh{
-    width: 369px;
+    width: 415px;
     height: 50px;
     border: solid 1px black;
     margin:0px;

@@ -12,9 +12,10 @@
       <link href="../css/home.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
       <style type="text/css">
-          body{
-              width: 1349px;
+          body,html{
+              width: 1900px;
               height: 956px;
+              /*width: 100%;*/
               background-color: antiquewhite;
           }
       </style>
@@ -31,88 +32,47 @@
       <ul class="ul2">
           <li class="font" style="margin: 30px 20px 30px 5px">退出</li>
           <li style="margin: 30px 10px 30px 10px">|</li>
-          <li class="font" style="margin: 30px 5px 30px 10px">
+          <li id="dl" class="font" style="margin: 30px 5px 30px 10px">
               <a href="Login.html" style="text-decoration-line: none">登录/注册</a>
           </li>
+
+          <li id="nickname" class="font" style="margin: 30px 5px 30px 10px;float: right"></li>
       </ul>
   </div>
-  <div id="dv2">
-    <div id="searchAll">全部书籍</div>
-    <div id="searchJ" >Java相关书籍</div>
-    <div id="searchJ2e">java前端书籍</div>
-    <div id="searchP">Python相关书籍</div>
-    <div id="searchC">C/C++相关书籍</div>
-  </div>
+    <div id="dv2">
+        <div id="showTime" onload="" style="font-size: 20px; width: 180px;height: 30px;float: right;margin: 20px 30px 10px 30px">
+
+        </div>
+    </div>
     <div id="dv3">
-        <div id="j1">
-            <img src="img/java1.jpg"style="width: 371px;height: 348px">
-            <div class="dh">
-            </div>
-        </div>
-        <div id="w11">
-            <img src="img/web1.jpg"style="width: 371px;height: 348px">
-            <div class="dh" ></div>
-        </div>
-        <div id="w13">
-            <img src="img/web3.jpg"style="width: 371px;height: 348px">
-            <div class="dh" ></div>
-        </div>
-
-
-
-        <div id="c21">
-            <img src="img/c1.jpg"style="width: 371px;height: 348px">
-            <div class="dh">
-            </div>
-        </div>
-        <div id="p32">
-            <img src="img/p2.jpg"style="width: 371px;height: 348px">
-            <div class="dh" ></div>
-        </div>
-        <div id="j2">
-            <img src="img/java2.jpg"style="width: 371px;height: 348px">
-            <div class="dh" ></div>
-        </div>
 
     </div>
 
   </body>
   <script type="text/javascript">
-        $('#searchJ').click(function () {
-            $('#c21').slideUp();
-            $('#w11').slideUp();
-            $('#w13').slideUp();
-            $('#p32').slideUp();
-            $('#j2').slideDown();
-            $('#j1').slideDown();
-//            $('#c21')&&$('#c22').slideDown();
-        })
-      $('#searchAll').click(function () {
-          $('#dv3>div').slideDown();
-      })
-        $('#searchJ2e').click(function () {
-            $('#c21').slideUp();
-            $('#w11').slideDown();
-            $('#w13').slideDown();
-            $('#p32').slideUp();
-            $('#j2').slideUp();
-            $('#j1').slideUp();
-        })
-        $('#searchP').click(function () {
-            $('#c21').slideUp();
-            $('#w11').slideUp();
-            $('#w13').slideUp();
-            $('#p32').slideDown();
-            $('#j2').slideUp();
-            $('#j1').slideUp();
-        })
-        $('#searchC').click(function () {
-            $('#c21').slideDown();
-            $('#w11').slideUp();
-            $('#w13').slideUp();
-            $('#p32').slideUp();
-            $('#j2').slideUp();
-            $('#j1').slideUp();
-        })
+      function user() {
+          $.get("http://localhost:8080/login",function (data) {
+              if (data!=null){
+                  $('#nickname').text('用户:'+data)
+                  $('#dl').slideUp();
+              }else {
+                  $('#dl').slideDown();
+              }
+          })
+
+      }
+      user();
+
+      function time() {
+          var mytime=new Date();
+          var toLocaleString = mytime.toLocaleString();
+          var show = document.getElementById("showTime");
+          show.innerText=toLocaleString;
+      }
+      time();
+      function showTime(){
+          setInterval(time,1000)
+      }
+      showTime();
   </script>
 </html>
