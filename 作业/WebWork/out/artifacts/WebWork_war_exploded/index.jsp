@@ -30,26 +30,99 @@
           <!--<li  style="font-size: 33px;font-family: 楷体;margin:20px 5px 20px 3px">登录</li>-->
       </ul>
       <ul class="ul2">
-          <li class="font" style="margin: 30px 20px 30px 5px">退出</li>
+          <li id="exit" class="font" style="margin: 30px 20px 30px 5px"><a href="/loginOut">退出</a></li>
           <li style="margin: 30px 10px 30px 10px">|</li>
           <li id="dl" class="font" style="margin: 30px 5px 30px 10px">
-              <a href="html/Login.html" style="text-decoration-line: none">登录/注册</a>
+              <a href="login.jsp" style="text-decoration-line: none">登录/注册</a>
           </li>
-
           <li id="nickname" class="font" style="margin: 30px 5px 30px 10px;float: right"></li>
       </ul>
   </div>
     <div id="dv2">
-        <div id="showTime" onload="" style="font-size: 20px; width: 180px;height: 30px;float: right;margin: 20px 30px 10px 30px">
+        <div id="showTime" onload="" style="font-size: 20px; width: 180px;height: 30px;float: right;padding: 0px; margin: 9px -193px 10px 30px">
 
         </div>
     </div>
+
+    <div style="width: 378px;height: 200px;float: left;margin: 0px 0px 0px 0px;background-color: skyblue;font-size: 26px">
+        <form action="bookInfo"method="post">
+            书名:
+            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="bkname"><br>
+            作者:
+            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="author"><br>
+            价格:
+            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="price"><br>
+
+            <input id="btn" style="margin: 5px 10px 5px 161px;width: 80px;height: 40px" type="submit" value="增加书">
+
+        </form>
+    </div>
+
+
+
     <div id="dv3">
+        <%
+            if (session.getAttribute("uname")!=null){
+        %>
+        <table style="font-size: 30px;width: 1140px;height: 100px">
+
+        </table>
+        <%
+        }else {
+        %>
+        <h1 style="font-size: 25px;margin: -444px -143px 10px 10px;float: right"><a href="login.jsp">请先登录</a></h1>
+        <%
+            }
+        %>
 
     </div>
 
   </body>
   <script type="text/javascript">
+      function book() {
+          $.getJSON("http://localhost:8080/bookInfo",function (data, status) {
+              if (status=="success"){
+//                  var jsonData=$.parseJSON(data);
+                  if (data!=null){
+                      $('tr').remove();
+                      $('table').append(
+                          $('<tr>').append(
+                              $('<td>').text('bid')
+                          ).append(
+                              $('<td>').text('书名')
+                          ).append(
+                              $('<td>').text('作者')
+                          ).append(
+                              $('<td>').text('价格')
+                          )
+
+                      )
+                      $.each(data,function (index, obj) {
+                          $('table').append(
+                              $('<tr>').append(
+                                  $('<td>').text(obj['bid'])
+                              ).append(
+                                  $('<td>').append($('<a>').attr({"href":"http://localhost:8080/showInfo.jsp?bname="+obj['bkname']}).text(obj['bkname']))
+                              ).append(
+                                  $('<td>').text(obj['author'])
+                              ).append(
+                                  $('<td>').text(obj['price'])
+                              )
+                          )
+                      })
+                  }
+              }
+          })
+      }
+      book();
+      $('#btn').click(book);
+
+      $('#exit').click(function () {
+          $('#nickname').slideUp();
+          $('#dl').slideDown();
+      })
+
+
       function user() {
           $.get("http://localhost:8080/login",function (data) {
               if (data!=null){

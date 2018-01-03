@@ -1,5 +1,6 @@
 package com.yy.study.dao;
 
+import com.yy.study.domain.Book;
 import com.yy.study.domain.User;
 import com.yy.study.util.jdbc;
 import org.apache.commons.dbutils.QueryRunner;
@@ -72,4 +73,5 @@ public class UserDao {
         }
         return update;
     }
+
 }
