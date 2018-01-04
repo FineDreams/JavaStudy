@@ -31,13 +31,33 @@ public class BookDao {
         }
         return null;
     }
-    public Book searchBook(String bname){
+    public Book searchBook(String bid){
+        String sql="select * from books where bid=?";
+        Connection conn=null;
+        try {
+            conn= jdbc.getConnection();
+            Book book= new QueryRunner().query(conn, sql, new BeanHandler<Book>(Book.class),bid);
+            return book;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public List<Book> searchByName(String bkname){
         String sql="select * from books where bkname=?";
         Connection conn=null;
         try {
             conn= jdbc.getConnection();
-            Book book= new QueryRunner().query(conn, sql, new BeanHandler<Book>(Book.class),bname);
-            return book;
+            List<Book> books= new QueryRunner().query(conn, sql, new BeanListHandler<Book>(Book.class),bkname);
+            return books;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

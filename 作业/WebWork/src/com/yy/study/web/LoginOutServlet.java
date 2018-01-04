@@ -2,10 +2,7 @@ package com.yy.study.web;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "LoginOutServlet",urlPatterns = "/loginOut")
@@ -21,9 +18,13 @@ public class LoginOutServlet extends HttpServlet {
             return;
         }
 
-        Object uname = session.getAttribute("uname");
+        String uname =(String ) session.getAttribute("uname");
+        Cookie cookie=new Cookie("username",uname);
+        cookie.setMaxAge(60*60*24);
+        response.addCookie(cookie);
         session.removeAttribute("uname");
-        getServletContext().setAttribute("uname",uname);
+//        getServletContext().setAttribute("uname",uname);
+
         response.sendRedirect("http://localhost:8080/login.jsp");
     }
 }

@@ -44,27 +44,14 @@
         </div>
     </div>
 
-    <div style="width: 378px;height: 200px;float: left;margin: 0px 0px 0px 0px;background-color: skyblue;font-size: 26px">
-        <form action="bookInfo"method="post">
-            书名:
-            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="bkname"><br>
-            作者:
-            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="author"><br>
-            价格:
-            <input style="font-size: 30px;width: 310px;height: 50px" type="text" name="price"><br>
-
-            <input id="btn" style="margin: 5px 10px 5px 161px;width: 80px;height: 40px" type="submit" value="增加书">
-
-        </form>
-    </div>
-
-
 
     <div id="dv3">
+        <input style="margin: 5px 5px 20px 0px;width: 224px;height: 34px;font-size: 24px" id="search" type="text">
+        <input type="submit" value="查找书籍">
         <%
             if (session.getAttribute("uname")!=null){
         %>
-        <table style="font-size: 30px;width: 1140px;height: 100px">
+        <table id="all" style="font-size: 30px;width: 1140px;height: 100px">
 
         </table>
         <%
@@ -74,7 +61,6 @@
         <%
             }
         %>
-
     </div>
 
   </body>
@@ -102,7 +88,7 @@
                               $('<tr>').append(
                                   $('<td>').text(obj['bid'])
                               ).append(
-                                  $('<td>').append($('<a>').attr({"href":"http://localhost:8080/showInfo.jsp?bname="+obj['bkname']}).text(obj['bkname']))
+                                  $('<td>').append($('<a>').attr({"href":"http://localhost:8080/showInfo.jsp?bid="+obj['bid']}).text(obj['bkname']))
                               ).append(
                                   $('<td>').text(obj['author'])
                               ).append(

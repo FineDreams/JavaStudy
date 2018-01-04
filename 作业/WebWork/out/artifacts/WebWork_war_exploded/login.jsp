@@ -23,7 +23,17 @@
         <li class="font" style="margin: 30px 20px 30px 5px">帮助文档</li>
         <li style="margin: 30px 10px 30px 10px">|</li>
         <li class="font" style="margin: 30px 5px 30px 10px">
+            <%
+                if (session.getAttribute("uname")!=null){
+                    %>
             <a href="index.jsp" style="text-decoration-line: none">不语首页</a>
+            <%
+                }else {
+                    %>
+            <a onclick="window.alert('请先登录!')" href="" style="text-decoration-line: none">不语首页</a>
+            <%
+                }
+            %>
         </li>
     </ul>
 </div>
@@ -36,28 +46,28 @@
     <img src="img/user.png" style="width: 40px;height: 40px;position: absolute;top: 284px;left: 1055px">
     <form action="/login" method="post">
 
-    <input name="uname" type="text" class="in" style="font-size: 20px;padding-left: 50px"
-           placeholder="不语账号/邮箱账号"
-           onfocus="inputFocus(this)";
-           onblur="inputBlur(this)";
-           value=<%=application.getAttribute("uname")%>
-    >
-    <img src="img/lock.png" style="width: 40px;height: 40px;position: absolute;top: 376px;left: 1055px">
-    <input name="password" type="text" class="in" style="font-size: 20px;padding-left: 50px"
-           placeholder="请输入登录密码"
-           onfocus="inputDF(this)";
-           onblur="inputDB(this)";
-    >
-    <div class="indiv">
-        <div style="float: left">
-            <input type="checkbox"id="t1">
-            <label for="t1">同意并遵守<span style="color: rgb(72,102,202)">《服务条款》</span></label>
+        <input name="uname" type="text" class="in" style="font-size: 20px;padding-left: 50px"
+               placeholder="不语账号/邮箱账号"
+               onfocus="inputFocus(this)";
+               onblur="inputBlur(this)";
+               value=${cookie.username.value}
+        >
+        <img src="img/lock.png" style="width: 40px;height: 40px;position: absolute;top: 376px;left: 1055px">
+        <input name="password" type="password" class="in" style="font-size: 20px;padding-left: 50px"
+               placeholder="请输入登录密码"
+               onfocus="inputDF(this)";
+               onblur="inputDB(this)";
+        >
+        <div class="indiv">
+            <div style="float: left">
+                <input type="checkbox"id="t1">
+                <label for="t1">同意并遵守<span style="color: rgb(72,102,202)">《服务条款》</span></label>
+            </div>
+            <div style="float: right">
+                <input type="checkbox"id="t2">
+                <label for="t2">15天免登陆</label>
+            </div>
         </div>
-        <div style="float: right">
-            <input type="checkbox"id="t2">
-            <label for="t2">15天免登陆</label>
-        </div>
-    </div>
         <input type="submit"  class="inb" style="color: white;cursor: pointer"value="登录" >
     </form>
     <div class="indiv2">
@@ -67,6 +77,8 @@
 </div>
 </body>
 <script type="text/javascript">
+
+    
     function inputFocus(el) {
         el.placeholder="";
         el.style.borderColor="red";

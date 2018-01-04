@@ -5,6 +5,16 @@ public class Book {
     private String bkname;
     private String author;
     private String price;
+    private String info;
+
+    public Book(int bid, String bkname, String author, String price, String info) {
+        this.bid = bid;
+        this.bkname = bkname;
+        this.author = author;
+        this.price = price;
+        this.info = info;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -12,14 +22,18 @@ public class Book {
                 ", bkname='" + bkname + '\'' +
                 ", author='" + author + '\'' +
                 ", price='" + price + '\'' +
+                ", info='" + info + '\'' +
                 '}';
     }
-    public Book(int bid, String bkname, String author, String price) {
-        this.bid = bid;
-        this.bkname = bkname;
-        this.author = author;
-        this.price = price;
+
+    public String getInfo() {
+        return info;
     }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public Book() {
     }
 
