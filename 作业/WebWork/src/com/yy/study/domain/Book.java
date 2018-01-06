@@ -6,13 +6,17 @@ public class Book {
     private String author;
     private String price;
     private String info;
+    private String src;
+    private String bookType;
 
-    public Book(int bid, String bkname, String author, String price, String info) {
+    public Book(int bid, String bkname, String author, String price, String info, String src, String bookType) {
         this.bid = bid;
         this.bkname = bkname;
         this.author = author;
         this.price = price;
         this.info = info;
+        this.src = src;
+        this.bookType = bookType;
     }
 
     @Override
@@ -23,8 +27,29 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", price='" + price + '\'' +
                 ", info='" + info + '\'' +
+                ", src='" + src + '\'' +
+                ", bookType='" + bookType + '\'' +
                 '}';
     }
+
+    public String getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(String bookType) {
+        this.bookType = bookType;
+    }
+
+
+    public String getSrc() {
+
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
 
     public String getInfo() {
         return info;

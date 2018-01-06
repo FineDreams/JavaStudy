@@ -14,11 +14,11 @@
     height: 370px;
     padding-bottom: 0px;
     border: solid 1px black;
-    background-color: white;
+    background-color: #607c8a;
 }
 
 #dv3{
-    width:60% ;
+    width:70% ;
     height: 100%;
     margin: auto;
     padding-top: 17px;
@@ -26,6 +26,7 @@
     border: solid 1px black;
     background-color: white;
 }
+
 
 .dh{
     width: 415px;
@@ -45,9 +46,42 @@
 
     margin: 8px 3px 5px 20px;
 }
+button{
+    width: 173px;
+    height: 50px;
+
+    margin: 10px 5px 5px 5px;
+    /*border: solid 1px black;*/
+}
 
 .font{
     font-size: 25px;
     font-family: 楷体;
     color: rgb(75,120,180);
+}
+table{
+    width: 158px;
+    height: 220px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    /*display: block;*/
+    border: 1px;
+    float: left;
+    text-align: center;
+}
+tr{
+    height: 30px;
+}
+img{
+    width: 150px;
+    height: 200px;
+}
+.inpt{
+    width: 108px;
+    height: 36px;
+    margin: 0px;
+    background-color: coral;
+    font-weight: bold;
+    font-size: 14px;
+    float: left;
 }

@@ -9,14 +9,13 @@
 <html>
 <head>
     <title>书籍简介</title>
-    <script src="js/jquery-3.2.1.min.js">
-
-    </script>
+    <link href="../css/info.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+    </style>
 </head>
 <body>
-    <h1 id="bk"></h1>
-    <h1 id="auth"></h1>
-    <h1 id="info"></h1>
+    <div id="info"></div>
 
 </body>
     <script type="text/javascript">
@@ -24,13 +23,22 @@
             function (data) {
             var jsonData = JSON.parse(data);
                     if (jsonData!=null){
-                        var bkname=jsonData['bkname'];
-                        var author=jsonData['author'];
-                        var info=jsonData['info'];
-                        console.log(info);
-                        $('#bk').text("书名:"+bkname)
-                        $('#auth').text("作者:"+author)
-                        $('#info').text("简介:"+info)
+                        $('<tr>').remove();
+                         $('#info').append(
+                             $('<table>').attr({"border":1}).append(
+                                 $('<tr>').append(
+                                     $('<td>').append($('<img>').attr({"src":jsonData['src']}))
+                                 ).append(
+                                     $('<td>').text(jsonData['info'])
+                                 ).append(
+                                     $('<td>').append(
+                                         $('<input>').attr({"bookType":"submit","value":"加入购物车"}).attr({"class":"inpt"})
+                                     ).append(
+                                         $('<input>').attr({"bookType":"submit","value":"立即购买"}).attr({"class":"inpt"})
+                                     )
+                                 )
+                             )
+                         )
                     }
             })
 

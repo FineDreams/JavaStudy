@@ -12,7 +12,7 @@ import java.util.List;
 
 public class BookDao {
     public List<Book> searchAllBook(){
-        String sql="select * from books";
+        String sql="select * from books bs inner join types ts on bs.tbid=ts.tid";
         Connection conn=null;
         try {
             conn= jdbc.getConnection();

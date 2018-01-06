@@ -25,13 +25,11 @@ public class LoginServlet extends HttpServlet {
         User user = null;
         try {
             user = UserDao.searchUsername(uname);
-//            System.out.println(user.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if (user!=null){
             if (user.getPassword().equals(password)){
-//                getServletContext().setAttribute("uname",user.getNickname());
                 HttpSession session = request.getSession();
                 session.setAttribute("uname",user.getUname());
                 request.setAttribute("uname",user.getUname());

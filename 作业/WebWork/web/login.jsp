@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="y" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -23,17 +24,23 @@
         <li class="font" style="margin: 30px 20px 30px 5px">帮助文档</li>
         <li style="margin: 30px 10px 30px 10px">|</li>
         <li class="font" style="margin: 30px 5px 30px 10px">
-            <%
-                if (session.getAttribute("uname")!=null){
-                    %>
-            <a href="index.jsp" style="text-decoration-line: none">不语首页</a>
-            <%
-                }else {
-                    %>
-            <a onclick="window.alert('请先登录!')" href="" style="text-decoration-line: none">不语首页</a>
-            <%
-                }
-            %>
+            <%--<%--%>
+                <%--if (session.getAttribute("uname")!=null){--%>
+                    <%--%>--%>
+            <%--<a href="index.jsp" style="text-decoration-line: none">不语首页</a>--%>
+            <%--<%--%>
+                <%--}else {--%>
+                    <%--%>--%>
+            <%--<a onclick="window.alert('请先登录!')" href="" style="text-decoration-line: none">不语首页</a>--%>
+            <%--<%--%>
+                <%--}--%>
+            <%--%>--%>
+            <y:if test="${session.getAttribute('uname')!=null}">
+                <a href="index.jsp" style="text-decoration-line: none">不语首页</a>
+            </y:if>
+            <y:if test="${session.getAttribute('uname')==null}">
+                <a onclick="window.alert('请先登录!')" href="" style="text-decoration-line: none">不语首页</a>
+            </y:if>
         </li>
     </ul>
 </div>
