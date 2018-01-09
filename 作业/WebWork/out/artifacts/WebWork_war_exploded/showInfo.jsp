@@ -32,9 +32,9 @@
                                      $('<td>').text(jsonData['info'])
                                  ).append(
                                      $('<td>').append(
-                                         $('<input>').attr({"bookType":"submit","value":"加入购物车"}).attr({"class":"inpt"})
+                                         $('<input>').attr({"type":"submit","value":"加入购物车"}).attr({"class":"inpt"})
                                      ).append(
-                                         $('<input>').attr({"bookType":"submit","value":"立即购买"}).attr({"class":"inpt"})
+                                         $('<input>').attr({"type":"submit","value":"立即购买"}).attr({"class":"inpt"})
                                      )
                                  )
                              )
