@@ -1,0 +1,43 @@
+package com.yy.bookstore.cart.domain;
+
+import com.yy.bookstore.book.domain.Book;
+
+public class CartItem {
+    private Book book;
+    private String count;
+
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "book=" + book +
+                ", count='" + count + '\'' +
+                '}';
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public CartItem(Book book, String count) {
+
+        this.book = book;
+        this.count = count;
+    }
+
+    public CartItem() {
+
+    }
+}

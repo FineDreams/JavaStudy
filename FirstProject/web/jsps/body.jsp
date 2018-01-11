@@ -22,6 +22,12 @@
   </head>
   
   <body>
+  <script type="text/javascript">
+      <c:if test="${sessionScope.user==null}">
+        alert("请登录!");
+      </c:if>
+
+  </script>
     <h1>欢迎，欢迎！热烈欢迎！</h1>
   </body>
 </html>

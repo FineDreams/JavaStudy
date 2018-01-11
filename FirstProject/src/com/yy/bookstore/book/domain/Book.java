@@ -1,9 +1,9 @@
 package com.yy.bookstore.book.domain;
 
 public class Book {
-    private int bid;
+    private String bid;
     private  String bname;
-    private  String price;
+    private  double price;
     private String author;
     private String image;
 
@@ -18,11 +18,11 @@ public class Book {
                 '}';
     }
 
-    public int getBid() {
+    public String getBid() {
         return bid;
     }
 
-    public void setBid(int bid) {
+    public void setBid(String bid) {
         this.bid = bid;
     }
 
@@ -34,11 +34,11 @@ public class Book {
         this.bname = bname;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -58,7 +58,7 @@ public class Book {
         this.image = image;
     }
 
-    public Book(int bid, String bname, String price, String author, String image) {
+    public Book(String bid, String bname, double price, String author, String image) {
 
         this.bid = bid;
         this.bname = bname;

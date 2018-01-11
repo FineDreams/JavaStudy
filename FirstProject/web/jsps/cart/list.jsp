@@ -59,7 +59,7 @@
 <table border="1" width="100%" cellspacing="0" background="black">
 	<tr>
 		<td colspan="7" align="right" style="font-size: 15pt; font-weight: 900">
-			<a href="javascript:alert('已清空购物车！');">清空购物车</a>
+			<a href="<c:url value='/cart?method=clear'/>">清空购物车</a>
 		</td>
 	</tr>
 	<tr>
@@ -72,17 +72,17 @@
 		<th>操作</th>
 	</tr>
 
-	<c:forEach var="cartltem" items="${sessionScope.cart.cartltemMap}">
+	<c:forEach var="cartItem" items="${sessionScope.cart.cartItemMap}">
 
 		<tr>
-
-			<td><div><img src="<c:url value='${cartltem.value.book.image}'/>"/></div></td>
-			<td>${cartltem.value.book.bname}</td>
-			<td>${cartltem.value.book.author}</td>
-			<td>${cartltem.value.book.price}元</td>
-			<td>${cartltem.value.count}</td>
-			<td>79.8元</td>
-			<td><a href="javascript:alert('删除购物项成功！');">删除</a></td>
+			<td><div><img src="<c:url value='${cartItem.value.book.image}'/>"/></div></td>
+			<td>${cartItem.value.book.bname}</td>
+			<td>${cartItem.value.book.author}</td>
+			<td>${cartItem.value.book.price}元</td>
+			<td>${cartItem.value.count}</td>
+			<td>${(cartItem.value.book.price)*(cartItem.value.count)}元</td>
+			<c:set var="sum" value="${(cartItem.value.book.price)*(cartItem.value.count)}"/>
+			<td><a href="<c:url value="/cart?method=delete&bid=${cartItem.key}"/> ">删除</a></td>
 		</tr>
 
 
@@ -119,12 +119,12 @@
 
 	<tr>
 		<td colspan="7" align="right" style="font-size: 15pt; font-weight: 900">
-			合计：319.2元
+			合计：${sum}元
 		</td>
 	</tr>
 	<tr>
 		<td colspan="7" align="right" style="font-size: 15pt; font-weight: 900">
-			<a id="buy" href="<c:url value='/jsps/order/desc.jsp'/>"></a>
+			<a id="buy" href="<c:url value='/order?method=add'/>"></a>
 		</td>
 	</tr>
 </table>

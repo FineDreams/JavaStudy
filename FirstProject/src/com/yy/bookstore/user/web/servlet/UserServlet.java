@@ -2,8 +2,6 @@ package com.yy.bookstore.user.web.servlet;
 
 import com.lanou.servlet.BaseServlet;
 import com.yy.bookstore.cart.domain.Cart;
-import com.yy.bookstore.cart.domain.Cartltem;
-import com.yy.bookstore.user.dao.UserDao;
 import com.yy.bookstore.user.domain.User;
 import com.yy.bookstore.user.service.UserService;
 import com.yy.bookstore.user.service.exception.*;
@@ -29,10 +27,8 @@ public class UserServlet extends BaseServlet {
             User login= userService.login(username, password);
             request.getSession().setAttribute("user",login);
             Cart cart=new Cart();
-//            Map<String, Cartltem> cartltemMap = cart.getCartltemMap();
             request.getSession().setAttribute("cart",cart);
             return "r:/jsps/main.jsp";
-//            response.sendRedirect(request.getContextPath()+"/main.jsp");
         } catch (UserException e) {
             request.setAttribute("errorMsg",e.getMessage());
             return "f:/jsps/user/login.jsp";
@@ -94,10 +90,11 @@ public class UserServlet extends BaseServlet {
             return "r:/jsps/user/login.jsp";
         }
         User user = (User)session.getAttribute("user");
+
         Cookie cookie = new Cookie("username",user.getUsername());
         cookie.setMaxAge(60*60*24*10);
         response.addCookie(cookie);
         session.removeAttribute("user");
-        return "f:/jsp/user/login.jsp";
+        return "f:/jsps/user/login.jsp";
     }
 }

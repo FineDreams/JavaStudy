@@ -18,11 +18,11 @@ public class UserXml {
     File file=new File("src/output.xml");
     public static void putXml(Person person) throws IOException {
 //        List<Person> list = UserData.getList();
-        SAXReader saxReader
+//        SAXReader saxReader
 
         Document document=DocumentHelper.createDocument();
         if (document.getRootElement()!=null){
-            document=saxReader.read(fi);
+//            document=saxReader.read(fi);
         }else{
             document.addElement("User");
 

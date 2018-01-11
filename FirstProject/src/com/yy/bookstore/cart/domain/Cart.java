@@ -4,29 +4,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart{
-    private Map<String,Cartltem> cartltemMap = new HashMap<>();
+    private Map<String,CartItem> cartItemMap = new HashMap<>();
 
     @Override
     public String toString() {
         return "Cart{" +
-                "cartltemMap=" + cartltemMap +
+                "cartItemMap=" + cartItemMap +
                 '}';
     }
 
-    public Map<String, Cartltem> getCartltemMap() {
-        return cartltemMap;
+    public Map<String, CartItem> getCartItemMap() {
+        return cartItemMap;
     }
 
-    public void setCartltemMap(Map<String, Cartltem> cartltemMap) {
-        this.cartltemMap = cartltemMap;
+    public void setCartItemMap(Map<String, CartItem> cartItemMap) {
+        this.cartItemMap = cartItemMap;
     }
 
     public Cart() {
 
     }
 
-    public Cart(Map<String, Cartltem> cartltemMap) {
+    public Cart(Map<String, CartItem> cartItemMap) {
 
-        this.cartltemMap = cartltemMap;
+        this.cartItemMap = cartItemMap;
     }
+
+    public void clear(){
+        this.cartItemMap.clear();
+    }
+    public void delete(String bid){
+        this.cartItemMap.remove(bid);
+    }
+
 }

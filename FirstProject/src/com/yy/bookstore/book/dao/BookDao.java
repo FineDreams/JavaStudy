@@ -25,6 +25,33 @@ public class BookDao {
         }
         return null;
     }
+
+    public void deleteByCid(String cid){
+        Connection conn = C3POUtil.getConnection();
+        String sql="delete from book where cid=?";
+        try {
+            new MyQueryRunner().update(conn,sql,cid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            C3POUtil.release(conn);
+        }
+    }
+
+    public List<Book> queryByCid(String cid){
+        Connection conn = C3POUtil.getConnection();
+        String sql="select * from book where cid=?";
+        try {
+            List<Book> books = new MyQueryRunner().query(conn, sql, new BeanListHandler<Book>(Book.class),cid);
+            return books;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            C3POUtil.release(conn);
+        }
+        return null;
+    }
+
     public List<Book> queryByCategory(String category){
         String sql="select * from book bk inner join category ct on bk.cid=ct.cid where cname=?";
         Connection conn = C3POUtil.getConnection();
