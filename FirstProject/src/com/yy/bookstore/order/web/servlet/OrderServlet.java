@@ -103,6 +103,7 @@ public class OrderServlet extends BaseServlet {
             Book book = bookDao.queryBook(bid);
             orderItem.setBook(book);
         }
+        System.out.println(111111111);
         request.setAttribute("orderItemList",orderItemList);
         return "f:/jsps/order/desc.jsp";
     }

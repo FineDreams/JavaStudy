@@ -28,11 +28,11 @@ function load() {
 	bar1.add("图书管理", "查看图书", "<c:url value='/addBook?method=findAll'/>", "body");
 	bar1.add("图书管理", "添加图书", "<c:url value='/adminjsps/admin/book/add.jsp'/>", "body");
 
-	bar1.add("订单管理", "所有订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-	bar1.add("订单管理", "未付款订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-	bar1.add("订单管理", "已付款订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-	bar1.add("订单管理", "未收货订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-	bar1.add("订单管理", "已完成订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
+	bar1.add("订单管理", "所有订单", "<c:url value='/orderManager?method=showAll'/>", "body");
+	bar1.add("订单管理", "未付款订单", "<c:url value='/orderManager?method=notPay'/>", "body");
+	bar1.add("订单管理", "已付款订单", "<c:url value='/orderManager?method=alreadyPay'/>", "body");
+	bar1.add("订单管理", "未收货订单", "<c:url value='/orderManager?method=unCollected'/>", "body");
+	bar1.add("订单管理", "已完成订单", "<c:url value='/orderManager?method=completed'/>", "body");
 
 	var d = document.getElementById("menu");
 	d.innerHTML = bar1.toString();

@@ -58,7 +58,7 @@ public class UserServlet extends BaseServlet {
             e.printStackTrace();
         }
         try {
-            userService.sendMail(fromU.getCode());
+            userService.sendMail(fromU.getCode(),fromU.getEmail());
         } catch (MessagingException e) {
             e.printStackTrace();
         }

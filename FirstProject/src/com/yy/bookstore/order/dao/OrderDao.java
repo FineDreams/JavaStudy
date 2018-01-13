@@ -1,22 +1,55 @@
 package com.yy.bookstore.order.dao;
 
-import com.yy.bookstore.cart.domain.Cart;
-import com.yy.bookstore.cart.domain.CartItem;
 import com.yy.bookstore.order.domain.Order;
 import com.yy.bookstore.order.domain.OrderItem;
 import com.yy.bookstore.utils.MyQueryRunner;
 import com.yy.bookstore.utils.jdbc.C3POUtil;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 public class OrderDao {
+
+    public List<Order> queryByState(int state){
+        Connection conn = C3POUtil.getConnection();
+        String sql="select * from orders where state=?";
+        try {
+            List<Order> orders = new MyQueryRunner().query(conn, sql, new BeanListHandler<Order>(Order.class),state);
+            return orders;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            C3POUtil.release(conn);
+        }
+        return null;
+
+
+
+    }
+
+
+    //查出所有的订单
+    public List<Order> queryAllOrder(){
+        Connection conn = C3POUtil.getConnection();
+        String sql="select * from orders";
+        try {
+            List<Order> orders = new MyQueryRunner().query(conn, sql, new BeanListHandler<Order>(Order.class));
+            return orders;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            C3POUtil.release(conn);
+        }
+        return null;
+    }
+
+
+
+    //通过用户id查出所有的订单
     public List<Order> queryByUid(String Uid){
         Connection conn = C3POUtil.getConnection();
         String sql="select * from orders where uid=?";
@@ -30,6 +63,8 @@ public class OrderDao {
         }
         return null;
     }
+
+    //通过订单id查出订单
     public Order queryByOidFromOds(String oid){
         Connection conn = C3POUtil.getConnection();
         String sql="select * from orders where oid=?";
@@ -44,19 +79,8 @@ public class OrderDao {
         return null;
     }
 
-//    public int getStateByOid(String oid){
-//        Connection conn = C3POUtil.getConnection();
-//        String sql="select state from orders where oid=?";
-//        try {
-//            Integer state = new MyQueryRunner().query(conn, sql, new ScalarHandler<>());
-//            return state;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }finally {
-//            C3POUtil.release(conn);
-//        }
-//        return 0;
-//    }
+
+    //通过订单id修改订单状态
     public void updateState(String oid,int state) throws SQLException {
         Connection conn = C3POUtil.getConnection();
         String sql="update orders set state=? where oid=?";
@@ -65,6 +89,8 @@ public class OrderDao {
         C3POUtil.release(conn);
     }
 
+
+    //通过订单id查找订单条目
     public List<OrderItem> queryByOid(String Oid){
         Connection conn = C3POUtil.getConnection();
         String sql="select * from orderitem where oid=?";
@@ -80,6 +106,7 @@ public class OrderDao {
     }
 
 
+    //添加订单
     public void addOrder(Order order){
         Connection conn = C3POUtil.getConnection();
         String sql="insert into orders values(?,?,?,?,?,?)";
@@ -99,6 +126,8 @@ public class OrderDao {
         }
     }
 
+
+    //批处将订单信息插入数据库
     public void addOrderItemList(List<OrderItem> orderItemList){
         Connection conn = C3POUtil.getConnection();
         PreparedStatement prepst=null;
@@ -127,26 +156,9 @@ public class OrderDao {
         }
         C3POUtil.release(conn,prepst);
     }
-//    public void addOrderItem(OrderItem orderItem){
-//        Connection conn = C3POUtil.getConnection();
-//        String sql="insert into orderitem values (?,?,?,?,?)";
-//        try {
-//            new MyQueryRunner().update(conn,sql,
-//                    orderItem.getIid(),
-//                    orderItem.getCount(),
-//                    orderItem.getSubtotal(),
-//                    orderItem.getOid(),
-//                    orderItem.getBid()
-//                    );
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }finally {
-//            C3POUtil.release(conn);
-//        }
-//    }
 
 
-
+    //查出订单中所有的订单条目
     public List<OrderItem> queryOrderItemList(){
         Connection conn = C3POUtil.getConnection();
         String sql="select * from orderitem";

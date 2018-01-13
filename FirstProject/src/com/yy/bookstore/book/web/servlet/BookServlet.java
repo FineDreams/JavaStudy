@@ -3,6 +3,7 @@ package com.yy.bookstore.book.web.servlet;
 import com.lanou.servlet.BaseServlet;
 import com.yy.bookstore.book.dao.BookDao;
 import com.yy.bookstore.book.domain.Book;
+import net.sf.json.JSONArray;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,5 +36,19 @@ public class BookServlet extends BaseServlet{
         Book book = bookDao.queryBook(bid);
         request.setAttribute("book",book);
         return "f:/jsps/book/desc.jsp";
+    }
+
+    public void searchAllCategory(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        String category = request.getParameter("category");
+        BookDao bookDao=new BookDao();
+        List<Book> books;
+        if (category.equals("全部分类")){
+             books = bookDao.queryAll();
+        }else {
+             books = bookDao.queryByCategory(category);
+        }
+        JSONArray jsonArray=JSONArray.fromObject(books);
+        response.getWriter().write(jsonArray.toString());
+
     }
 }

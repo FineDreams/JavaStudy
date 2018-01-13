@@ -6,7 +6,6 @@ import com.yy.bookstore.utils.jdbc.C3POUtil;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UserDao {

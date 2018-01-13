@@ -65,11 +65,11 @@ public class UserService{
             }
         }
     }
-    public void sendMail(String code) throws MessagingException {
+    public void sendMail(String code,String email) throws MessagingException {
         String myEmailAccount = "1411374327@qq.com";
         String myEmailPassword = "otejikcllrrrfedj";
         String myEmailSMTPHost = "smtp.qq.com";
-        String receiveMailAccount = "193489376@qq.com";
+        String receiveMailAccount = email;
         Properties properties=new Properties();
         properties.setProperty("mail.transport.protocol", "smtp");
         properties.setProperty("mail.smtp.host", myEmailSMTPHost);

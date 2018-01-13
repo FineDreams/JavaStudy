@@ -36,11 +36,13 @@
 		您好：${sessionScope.user.getUsername()}&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="<c:url value='/jsps/cart/list.jsp'/>" target="body">我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		<a href="<c:url value='/order?method=myOrders'/>" target="body">我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		<a href="<c:url value='/user?method=quit' />"target="_parent">退出</a>
+
+	<a href="<c:url value='/user?method=quit' />"target="_parent">退出</a>
 		<br/>
+
 		<a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">登录</a> |&nbsp; 
 		<a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册</a>
-		<a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册</a>
+		<%--<a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册</a>--%>
 		<a href="<c:url value='/adminUser?method=login'/>" target="_parent">管理员登录</a>
 </div>
   </body>

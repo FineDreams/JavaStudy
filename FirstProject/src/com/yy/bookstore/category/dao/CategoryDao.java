@@ -1,6 +1,5 @@
 package com.yy.bookstore.category.dao;
 
-import com.lanou.servlet.BaseServlet;
 import com.yy.bookstore.category.domain.Category;
 import com.yy.bookstore.utils.MyQueryRunner;
 import com.yy.bookstore.utils.jdbc.C3POUtil;

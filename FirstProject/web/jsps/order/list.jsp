@@ -58,12 +58,23 @@
 	<tr bgcolor="gray" bordercolor="gray">
 		<td colspan="6">
 			订单编号：${order.oid}　成交时间：${order.ordertime}　金额：<font color="red"><b>${order.total}</b></font>　
+					<c:if test="${order.state==3}">
+						<a href="<c:url value='/order?method=load&oid=${order.oid}'/>">付款</a>
+					</c:if>
+					<c:if test="${order.state==4}">
+						已付款
+						等待发货
+					</c:if>
+					<c:if test="${order.state==5}">
+						已付款
+						<a href="<c:url value='/order?method=confirm&oid=${order.oid}'/>">确认收货</a>
+					</c:if>
+					<c:if test="${order.state==6}">
+						收货成功
+						订单结束
+					</c:if>
+					<%--<a href="<c:url value="/order?method=confirm&oid=${order.oid}"/> ">确认收货</a>--%>
 
-					<a href="<c:url value='/order?method=load&oid=${order.oid}'/>">付款</a>
-
-					等待发货
-					<a href="<c:url value="/order?method=confirm&oid=${order.oid}"/> ">确认收货</a>
-					订单结束
 		</td>
 	</tr>
 	<c:forEach var="orderItem" items="${order.orderItemList}">

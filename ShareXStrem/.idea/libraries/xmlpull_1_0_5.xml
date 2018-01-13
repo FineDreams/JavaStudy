@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="xmlpull_1_0_5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jar包/xstream/xmlpull_1_0_5.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/xstream/xpp3_min-1.1.4c.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/xstream/xstream-1.4.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

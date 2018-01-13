@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class BookDao {
+
+
+
     public List<Book> queryAll(){
         String sql="select * from book";
         Connection conn = C3POUtil.getConnection();

@@ -12,6 +12,7 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+      <script src="/js/jquery-3.2.1.min.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -41,6 +42,29 @@
   </c:forEach>
 
   </body>
+  <script type="text/javascript">
+      $.get("book?method=searchAllCategory&category=${param.category}",function (data, state) {
+          if (state=="success"){
+              if (data!=null){
+                  $.each(data,function (index,obj) {
+                      $('<table>').append(
+                          $('<tr>')
+                      )
+
+
+                  })
+
+
+
+
+
+              }
+          }
+      })
+
+
+  </script>
+
  
 </html>
 
