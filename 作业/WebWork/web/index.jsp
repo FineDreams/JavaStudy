@@ -59,7 +59,7 @@
             <button onclick="btnClick(this)">外文</button>
             <button onclick="btnClick(this)">其他分类</button>
         </div>
-        <input style="margin: 0px 5px 6px 11px;width: 224px;height: 32px;font-size: 24px" id="search" bookType="text">
+        <input style="margin: 0px 5px 6px 11px;width: 224px;height: 32px;font-size: 24px" id="search" type="text">
         <input style="width: 70px;height: 30px" type="submit" value="查找书籍">
         <%
             if (session.getAttribute("uname")!=null){

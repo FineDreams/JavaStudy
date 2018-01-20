@@ -1,0 +1,331 @@
+Struts2
+    struts2是基于WebWork的全新框架，基于MVC开发模型的一个框架，基于表现层框架。
+Struts2执行流程
+    用户请求
+    StrutsPrepareAndExecuteFilter：表示struts准备调用Filter过滤器，目的是为了让struts2框架可以运行
+    Interceptor：Struts2内置的一些拦截器或用户自定义拦截器
+    Action：用户编写的action类
+    Result：就是在struts.xml文件中最后转向目标资源，类似请求转发
+    jsp/html：目标资源页面
+    响应
+Action类的创建方式
+    1.创建一个类，继承ActionSupport类，类中的方法是无参数，返回值为String类型
+    2.创建一个类，实现Action接口
+    3.创建一个POJO类---就是简单的javaBean对象指的是没有实现任何接口，没有继承任何父类
+第一种创建方式的优缺点：
+        ActionSupport类实现了Action接口。
+        优点：表单校检，错误信息设置，读取国际化信息三个功能都支持
+        缺点：耦合度高，这种方法使用的比较多
+第二种创建方式的优缺点：
+        优点：耦合度低，提供了五种结果视图，定义了一个Action接口
+        缺点：所有工作都要自己实现
+        提供了Action接口
+        public static final String SUCCESS="success";//数据处理成功(成功页面)
+        public static final String NONE="none";//页面不跳转return null
+        public static final String ERROR="error";//数据处理发送错误(错误页面)
+        public static final String INPUT="input";//用户输入数据，通常用于表单数据
+        public static final String LOGIN="login";//主要权限认证(登录页面)
+关于Action在struts.xml中的配置
+    1、首先声明一个包<package>标签，用于管理action，包中的属性常用的分别有name,namespace,extends,abstract
+        ①name:用于声明一个包名，包名不能重复，具有唯一性
+        ②namespace：它与action标签的name属性合并确定一个唯一访问action的路径
+        ③extends：表示要继承哪个包，我们自定义的package一定都会直接或间接继承struts-default
+        ④abstract：可以取值为true/false，如果为true，代表这个包是用于被继承
+    2、在包<package>标签内有子标签<action>标签，用于声明一个action，内有属性name，class，method
+        ①name：就是action的一个名称，它是唯一的与package中namespace确定了访问action的路径，是自己定义的名称
+        ②class：表示类名，就是自己创建的action类的全名
+        ③method：表示要访问的Action类的方法名，方法无参数，返回值为String，如果不写，则默认跳转子类继承Action类的方法execute函数，返回字符串success
+    3、在<action>标签中还有个<result>用于确定要访问的目标资源，类似请求转发，有属性name
+        ①name：与action中method方法的返回值进行匹配，确定跳转路径
+其他功能在struts.xml中的配置
+    <constant name="struts.devMode" value="true">配置开发模式，作用就是使程序员不会因为更改struts.xml而频繁的重启服务器。
+    <default-class-ref class="">指定默认的类，class就是指定默认类的类名
+    <constant name="struts.il8n.encoding" value="utf-8">字符编码，解决post乱码
+在struts2框架中获取servlet API
+    注入方式获取：
+    1、要求action类必须实现指定接口
+        ServletContextAware：注入ServletContext对象
+        ServletRequestAware：注入request对象
+        ServletResponseAware：注入response对象
+    2、重定接口中的方法
+        private HttpServletRequest request；
+    3、获取一个web对象，使用接口中的方法的参数对声明的web对象赋值。
+        @Override
+        public void setServletRequest（HttpServletRequest httpServletRequest）{
+            this.request=httpServletRequest;
+        }
+通配符配置
+    <action name"*_*" class="Action类名" method="{1}">
+        <result name="success">{2}.jsp</result>
+    </action>
+    action中name中两个*表示匹配两个字符串，{1}表示第一个*匹配Action中方法，{2}表示第二个*匹配结果视图，在后续的使用中，使用方式为{n}，n就表示name中的第几个
+result元素的配置
+    属性：
+    name：指定配置逻辑视图名，对应动作方法的返回值，Name默认值：success
+    type:到达目标的形式  默认值：dispatcher转发
+Struts2提供的结果集类型
+    1、chain：用户转发到另外一个动作
+    2、dispatcher：转发到jsp页面
+    3、redirect：用于重定向到另外一个JSP页面
+    4、redirectAction：用于重定向到另外一个action
+    5、stream：用于浏览器返回一个InputStream的结果类型
+    6、plainText：用于显示某个页面原始代码的结果类型（直接访问）
+随机生成验证码图片
+    在jsp页面中
+    input标签，name属性为code，size为4，
+    img标签的路径用${pageContext.request.ContextPath}/codeImg.action
+1、使用VerifyCode jar包
+2、间接或直接实现com.opensymphony.xwork2.Result接口的doExecute方法
+   String output=VerifyCode.getInstance().output(ServletActionContext.getResponse().getOutputStream());
+3、创建Action类继承ActionSupport类
+4、struts.xml中的配置
+    自定义codeImg的结果视图类型
+    使用标签声明：
+    <result-types>
+        <result-type name="codeImg" class="result.验证码实现类名"/>
+    </result-types>
+    然后再定义action标签使用
+
+Action的执行流程
+    浏览器地址访问或者表单请求--->
+        Struts2内置的过滤器，在web.xml中默认配置的----->
+            struts.xml配置，在<package>标签中寻找name属性值(声明包名)和namespace属性值（命名空间，
+                简单的说就是目标资源所在的包名）------>
+            在action标签中寻找name属性值(浏览器地址栏上或者请求中的跟在namespace后面的访问名称)，找到后再
+            找class属性值（Action类类名），接着再找method属性值（Action类中的方法名），如果method不写，则默认
+            跳转到Action类的execute函数，这个默认函数返回值是success------->
+            得到返回值后，再次到struts.xml中，找到action下的<result>标签，与标签中的name属性值进行匹配，匹配成功则跳转到目标资源界面
+            即结果视图------------>响应，结果视图
+
+Struts2数据封装
+    分为静态参数封装和动态参数封装
+静态参数封装：封装struts.xml文件中配置的参数；具体配置就是在action标签中使用param标签，然后name对应action类中的私有成员变量(要给其set/get方法)
+    然后再param标签文本直接给内容即能再action类中输出得到。
+动态参数封装：获取表单中的参数进行数据封装
+    分为属性驱动：属性驱动分为
+                               基本属性驱动：就是普通的将属性进行封装，属性要有set/get方法
+                               OGNL（对象图导航语言）：封装对象，封装列表，封装Map
+        模型驱动：先继承Action类再实现ModelDriven接口及其抽象方法，在提供set/get方法后，还要将对象在实现的抽象方法中返回
+输入验证
+对动作类中所有的动作方法进行验证
+    动作类需要实现 ActionSupport覆盖validate方法
+    方法内部：编写验证规则，不正确添加信息addFieldError
+    用StringUtils.isBlank()判断是否为空
+    验证失败自动跳转到name=input的逻辑视图
+    然后使用<s:fieldError/>获得错误信息显示
+对动作类中的指定方法进行验证
+    使用注解：一般都会对Action中的类进行验证，所以可以用注解@skipValidation对特定方法放行忽略，不进行验证
+验证功能都是由validation拦截器所处理的，会显错误信息是由workflow拦截器处理的
+声明式验证：把验证规则写到配置文件中，更改方便
+标签<validators>
+        <field name="">//要验证的字段
+            <field-validator type="验证规则">
+                <message>不符合规则的提示错误信息</message>
+            </field-validator>
+        </field>
+    </validators>
+拦截器
+    常用的拦截器
+    ModelDriven:模型驱动
+    servletConfig：获取ServletAI
+    staticParams：静态参数注入
+    params：动态参数注入
+    validation：输入验证，声明式验证
+自定义拦截器
+自己自定义一个拦截器，创建一个类，继承AbstractInterceptor抽象类，实现intercept方法。intercept方法中有个invocation参数，
+与Servlet中过滤器中有个参数chain类似。拦截器放行后，返回的是一个结果视图，就是目标资源，对应struts.xml中的result。
+创建好类后，需要在struts.xml中配置拦截器。
+1、声明拦截器，关键字：interceptors
+形式
+<interceptors>
+	<interceptor name="拦截器名字" class="拦截器创建的类"/>
+</interceptors>
+使用时，在action标签中使用<interceptor-ref name="拦截器名字"/>在声明拦截器的标签内，可以是使用：包含，排除，两个子标签
+注意:
+	一旦指定拦截器，默认的那些拦截器将失去作用，因此，要想自己既能用自定义拦截器也能用默认拦截器，则定义拦截器栈，将自定义拦截器和默认拦截器加入栈中，这样两者都能起作用。
+<interceptors>
+	<interceptor name="拦截器名字" class="拦截器类路径">
+	定义拦截器栈
+	<interceptor-stack name="默认拦截器">
+		<interceptor-ref name="拦截器名字"/>
+		<interceptor-ref name="defaultStack"/>默认拦截器
+	</interceptor-stack>
+</interceptors>
+要想其他包能够使用自定义的拦截器，则使用包继承即可
+OGNL表达式
+    OGNL是Object Graphic Navigation Language(对象图导航语言)的缩写。
+优势：
+    调用任意对象任意方法
+        <s:property value=""/>value中用单引号阔起来就是字符串，不阔起来就是方法
+    访问静态变量
+        <s:property value="@java.lang.Integer@MAX_VALUE"/>
+    访问静态方法
+        <s:property value="@@abs(-100)"/>
+默认不允许使用静态方法，需要在struts标签中设置struts.ognl.allowStaticMethodAccess=true
+context上文：数据中心
+    application:ServletContext中所有的属性attributes，相当于EL中的内置对象applicationScope，就是保存着属性的map
+    session：HttpSession中的所有属性，相当于EL中的内置对象sessionScope
+    value stack（根）它是一个list
+    action：动作类
+    request：ServletRequest中的所有属性，相当于EL中的内置对象requestScope
+    parameters:request.getParamterMap()相当于EL中的内置对象paramValues
+    attr：从四大域范围中搜索，相当于${}
+文件下载：
+        获取工程web下的图片
+        使用ServletContext ser= ServletActionContext.getServletContext();
+        ser.getResourceAsStream(图片的相对路径);
+        将其返回值设为私有成员变量，给其set\get方法
+        更改文件名字，直接在方法中给私有成员变量赋值即可，不过形式得是图片格式后缀
+        在struts.xml中的配置:
+        	在action标签体中配置
+        <result name="success" type="stream">
+        //指定输入流名字,明智要与action中的私有成员变量名一致
+        <param name="inputName">xx</param>
+        <param name="contentDisposition">attachment;filename=${filename}<
+        <param name="contentType">application/octet-stream</param>
+        </result>
+Hibernate框架
+    Hibernate框架简化了java应用程序与数据库交互的开发。是一个轻量级ORM（对象关系映射）工具。
+    ORM工具简化了数据创建，数据处理和数据访问。他是将对象映射到数据库中存储的数据（表）的编程技术。
+
+    创建一个hibernate：
+            创建一个hibernate工程，导入对应的jar包。
+            对hibernate.cfg.xml文件进行配置。
+            在property标签中，前四个property标签体内容与jdbc操作相同
+            分别是路径，注册驱动，数据库用户名，密码
+            接着添加标签
+            表示指定方言：mysql5以前的使用MySQLDialect；mysql5以后使用MySQL5Dialect
+            <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+            再添加标签设置每次运行都更新表结构
+            <property name="hbm2ddl.auto">update</property>
+将一个实体对象中的属相映射到数据库中表中：
+    1、创建一个实体类如Student，给这个类私有成员变量，设置get/set方法
+    2、创建这个实体类的配置文件Student.cfg.xml配置文件里配置
+        <class>标签，里面name属性表示实体类所在具体位置，table标签表示设置映射后的表的名字
+        <id>标签，name属性设置表中的主键，column属性表示列名，id标签内使用标签generator标签设置策略，就是约束之类给其class属性赋值
+        使用<property>标签给实体类中的属性设置表中列名，name表示实体类名字，column表示表中列名，这两个属性要一致
+        如果要自定义数据类型，则在property标签中添加column标签设置即可
+    配置文件配置好后，就可以创建测试类来测试是否能将实体类属性映射到数据库表中了
+    3、获得配置信息对象映射到数据库表中
+    new Configuration.configure().buildSessionFactory；
+    4,、往表中插入数据
+    //创建一个装载配置信息的对象
+    Configuration cf=new Configuration();
+    //将hibernate.cfg.xml中的信息装进去
+    cf.configure();
+    根据配置信息创建一个sessionFactory，sessionFactory是负责创建Session的
+    SessionFactory sf=configuration.buildSessionFactory();
+    //开启一个session，在hibernate中，session就相当于jdbc中的connection
+    Session session=sf.openSession();
+    //获得事务对象
+    Transaction transaction=session.getTransaction();
+    //hibernate默认是不自动提交事务的，要先开启事务
+    transaction.beginTransaction（）；
+    通过实例化对象，然后用set方法给实体类设置属性
+    然后使用session.save(对象)；添加到hibernate缓存中
+    //提交事务，如果不提交事务，则上述保存操作并不会更新到数据库
+    transaction.commit();
+    //session相当于连接，使用后需要关闭
+    session.close();
+得到数据库表中指定内容：
+        查:
+            获得session，开启一个session
+            然后通过id找到对应数据
+            session.get(类对象，id)；
+        删除：
+            删除一条数据
+            首先通过主键id查到这条数据对象，然后使用session中的delete方法进行删除
+        改:
+            修改数据库中表的数据
+            要修改一条数据，首先查到这条数据，然后使用set方法修改属性
+hibernate中的三种状态
+    临时(瞬时)状态：
+        临时状态表示还没进入hibernate缓存，更没有进入到数据库中，表现形式就是在new一个对象，然后使用set方法设置属性等等都是临时状态，
+        也就是说没使用session.save等操作，都是临时状态
+    持久化状态：
+        持久化状态，使用session.save()方法可以将临时状态的对象转换成持久化状态，持久化状态存在在缓存中和数据中的形式。
+        save：可以把一个对象从临时状态转换成持久化状态
+        get：从数据库中根据主键取出的对象，该对象就是一个持久化对象
+        update：把一个对象变成持久化状态
+    游离(托管)状态:
+        游离状态：表示hibernate不再对这个对象进行维护，后续操作只会改变缓存中的数据，并不会影响到数据库中的数据
+        session.evict（对象）；可以将一个对象转换成游离状态
+        clear：可以吧所有的hibernate中持久化对象都转换成游离状态
+创建hibernate工具类
+    在写hibernate增删改查代码时，我们可以发现每次操作我们都要获得sesson，然后开启一个session，最后都要提交事务，关闭session，那么我们可以想是不是可以进行封装，
+    封装一个工具，简化这写重复性代码。
+    我们可以这样做：
+    创建SessionFactory类成员变量sf，然后再静态代码块，对sf赋值，创建一个接口，使用接口回调，代理模式，执行开启和提交事务，关闭session的操作
+    使用泛型保证程序的适用性，在接口中定义执行的方法，方法返回一个T类型
+    接口的匿名内部类也是重复性代码，我们可以创建一个类帮我们调用HibernateUtil中的方法
+hibernate一级缓存
+    什么是缓存：
+    简单的说就是一块内存空间，将数据源（数据库或者文件）中的数据存放到缓存中，在次获取时，直接从缓存中获取。
+    一级缓存采用的是key-value的Map方式来实现的，在缓存实体对象时，对象的关键字id是map的可以、实体对象就是对应的值，所以说，一级缓存是以实体对象为单位进行存储的，
+    在访问的时候使用的是主关键字id
+    一级缓存也称为session级别的缓存，一级缓存的生命周期和session生命周期一致，自带的不可卸载的，也不能进行任何配置。
+    session生命周期，从用openSession()开启到session.close()关闭，当session关闭的时候该session所管理的一级缓存也会立即清除
+    当程序调用save(),update(),saveorupdate()等方法及调用查询接口list，filter，iterate时，如果session缓存中还不存在相应的对象，Hibernate会把该对象加入到一级缓存中。
+创建session方式
+    之前创建session是用openSession方式创建的，这种方法表示重新创建了一个新的session，打开了一个新的连接，每次开启都是重新创建新的，在某些处理统一事务的场合不能适用、
+    getCurrentSession方法创建session；
+    这种方法在创建session之前会先检查当前线程中是否有session，如果有，则不会在创建，直接拿出来使用，如果当前线程中没有session，则采用openSession方法创建session，把
+    新的session放入到ThreadLocal中，下次再用时直接在线程中获取，要想使用getCurrentSession方法，需要在hibernate.cfg.xml中进行配置，才能使用这个方法
+    配置：创建property标签，
+    name属性值为current_session_context_class
+    标签内文本为thread
+hibernate中的一对多，多对多，一对一关系操作
+一对多
+        1、一对多关系中，在建表时，多的一方需要将一的主键作为自己的外键来建立联系。
+        2、创建实体类时，表示一的类需要设置是有成员变量，是Set集合类型，集合中存的是多的对象，多的类需要将一的类设置为私有的成员变量，都给其set和get方法
+        3、配置映射文件，多的一方使用set标签，标签除了设置必要的级联操作外，还需设置key，也就是外键，还要使用one-to-many标签，表示这个集合是一对多关系，一个集合对应多个元素，这个多由class属性指定
+        当多的一方维护关系时，不会发出更新关系的update语句，而一的一方维护关系时，需要发出维护关系的update语句，一般情况下，多的一方维护关系效率更高
+多对多
+        多对多描述了对象和集合关系，多对一描述了对象和对象关系，多对多描述了集合和集合的关系。
+        维护关系：多对多建立关系相当于在第三张中插入一条数据，这个第三张表就是中间表，用来维护两张表的关系，解除关系就是在第三张表中删除一条数据。
+        多对多从谁那维护都一样，看需求。
+        在创建实体类中：
+        双方都要将对方设为私有成员Set集合，进行显示初始化；
+        在配置文件中set设置，外键 ，级联操作
+一对一
+        一对一关系中，外键只能出现在一张表中。
+        在创建实体类时，需要互相将双方作为自己私有成员变量
+        在映射配置文件中设置：
+        都需要设置one-to-one标签，
+        name属性设置对方，
+        cascade属性设置all
+        constrained属性设置为true---
+        对应哪个类又class属性决定
+级联操作
+    cascade指的就是级联操作，操作的是一般属性,指的是对象与对象的操作。
+    级联操作是在实体类的映射配置文件设置；
+        使用set标签，name属性，表示的是这个实体类与之有关系对应的类
+        cascade属性值为save-update，表示保存或更新班级时也同时保存或更新学生，一般情况不会设置为all。
+        inverse属性设置为true指的是关系操作，针对的就是外键
+    inverse：逆
+        默认情况下，inverse的值是false，表示没逆
+    一对多关系中的维护关系
+        默认的时候是，一来维护
+        inverse=true，一的逆就是多
+        说明多来维护，就是维护在多的一方的外键，因为在一对多的两张表中，两张表之间的关系就是由多的表中的外键建立的联系，因此，在hibernate中，维护就是多的那一方中对应外键的属性
+二级缓存
+        二级缓存称为SessionFactory级的缓存，二级缓存可以被所有的session共享
+        二级缓存的生命周期和SessionFactory的一致。
+        本身hibernate也提供二级缓存的工具。但一般我们使用外部的二级缓存工具。
+        二级缓存的位置：SessionFactoryImpl/也是map，也有集合缓存。
+        与二级缓存相关的配置；
+        开启二级缓存的统计机制，可以获得含有多少数据
+        <property name="generate_statistics">true</property>
+
+        开启查询缓存，默认是关闭的
+        <property name="hibernate.cache.use_query_cache">true</property>
+        利用EhCahe实现二级缓存
+        1、加入相关jar包，同时将配置文件ehcache.xml加入到src中
+        2、开启二级缓存，在hibernate.cfg.xml中设置
+        <!--开启二级缓存-->
+            <property name="hibernate.cache.use_second_level_cache">true</property>
+            <!--指定缓存产品提供商-->
+            <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+        在mapping标签最下面添加指定实体使用缓存
+        <!--指定那些实体使用二级缓存-->
+            <class-cache class="com.yy.bean.Clazz" usage="read-write"/>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="day43" extends="struts-default">
+        <interceptors>
+            <interceptor name="inter" class="com.yy.user.interceptor.UserInterceptor"/>
+            <interceptor-stack name="my">
+                <interceptor-ref name="inter"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="error">login.jsp</result>
+        </global-results>
+
+
+
+        <action name="login" class="com.yy.user.action.UserAction" method="login">
+            <result name="login">index.jsp</result>
+            <result name="input">login.jsp</result>
+        </action>
+
+        <action name="show" class="com.yy.employee.action.EmployeeAction" method="showAll">
+            <result name="show">index.jsp</result>
+        </action>
+
+        <action name="add" class="com.yy.employee.action.EmployeeAction" method="add">
+            <result name="add">index.jsp</result>
+        </action>
+
+        <action name="search" class="com.yy.employee.action.EmployeeAction" method="search">
+            <result name="search">modify.jsp</result>
+        </action>
+
+        <action name="modify" class="com.yy.employee.action.EmployeeAction" method="modify">
+            <result name="modify">index.jsp</result>
+        </action>
+    </package>
+</struts>

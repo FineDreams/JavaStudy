@@ -78,7 +78,7 @@
         <input type="submit"  class="inb" style="color: white;cursor: pointer"value="登录" >
     </form>
     <div class="indiv2">
-        <div class="font4 ">还没有账号?<span style="color: rgb(72,102,202)"><a href="register.html">免费注册</a></span></div>
+        <div class="font4 ">还没有账号?<span style="color: rgb(72,102,202)"><a href="register.jsp">免费注册</a></span></div>
         <div class="font3 ">忘记密码?</div>
     </div>
 </div>

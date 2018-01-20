@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    <constant name="struts.devMode" value="true"/>
+    <package name="stack" extends="struts-default">
+        <!--//声明的拦截器-->
+        <interceptors>
+            <interceptor-stack name="my-stack">
+                <!--将login这个拦截器添加到我们自己的这个栈中-->
+                <interceptor-ref name="login"/>
+            </interceptor-stack>
+
+
+            <!--在声明拦截器的地方，可以使用
+                包含
+                排除
+                两个子标签
+            -->
+            <interceptor name="login" class="interceptor.LoginStatusInterceptor">
+
+
+            </interceptor>
+
+
+        </interceptors>
+
+        <action name="stack" class="interceptor.LoginStatusInterceptor">
+        <!--
+            如果自己自定了拦截器
+            那么默认的拦截器，就都不好使了
+            也就相当于将默认的interceptor-ref实行覆盖了
+            如何才能即使用自己额，也能使用默认的?
+        -->
+            <interceptor-ref name="my-stack"/>
+            <!--将默认的拦截器添加到我们自己的栈中来，既能使用自己的也能，使用默认的-->
+            <interceptor-ref name="defaultStack"/>
+            <result name="success">index.jsp</result>
+
+        </action>
+
+
+    </package>
+
+    <package name="down" extends="struts-default">
+        <action name="down" class="action.DownloadAction" method="down">
+
+
+            <!--在标签体中，就是要返回的流的名字-->
+            <!--这个名字要与DownloadAction中的成员变量一致-->
+            <!--通过getter方法得到-->
+            <result name="success" type="stream">
+                <!--asStream-->
+                <!--指定输入流名字-->
+                <param name="inputName">asStream</param>
+                <param name="contentDisposition">attachment;filename=${filename}</param>
+                <param name="contentType">application/octet-stream</param>
+            </result>
+
+
+
+        </action>
+
+    </package>
+
+    <package name="context" extends="struts-default" >
+        <global-results>
+            <result name="success">index.jsp</result>
+        </global-results>
+        <action name="context" class="action.ContextAction" method="context"/>
+        <action name="value" class="action.ContextAction" method="value"/>
+
+
+        <action name="vs" class="action.ContextAction" method="vs"/>
+
+        <action name="vss" class="action.ContextAction" method="vss"/>
+
+
+        <action name="show" class="action.OgnlAction" method="show">
+            <result name="success">ognl.jsp</result>
+
+        </action>
+        <action name="el" class="action.OgnlAction" method="el">
+        <result name="success">ognl.jsp</result>
+
+    </action>
+
+        <action name="book" class="action.BookAction" method="books">
+            <result name="success">books.jsp</result>
+
+        </action>
+    </package>
+    <include file="ognl.xml"/>
+
+</struts>

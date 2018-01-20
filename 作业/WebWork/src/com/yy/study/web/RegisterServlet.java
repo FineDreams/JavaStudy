@@ -25,7 +25,7 @@ public class RegisterServlet extends HttpServlet {
             if (sqlUser!=null){
                 response.setContentType("text/html;charset=utf-8");
                 response.getWriter().write("注册失败!");
-                response.sendRedirect("http://localhost:8080/register.html");
+                response.sendRedirect("http://localhost:8080/register.jsp");
             }else {
                 UserDao.insertUser(user);
                 response.sendRedirect("http://localhost:8080/login.jsp");

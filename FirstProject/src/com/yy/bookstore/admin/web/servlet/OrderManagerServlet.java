@@ -101,7 +101,6 @@ public class OrderManagerServlet extends BaseServlet {
             }
             order.setOrderItemList(orderItemList);
         }
-        System.out.println(orders.toString());
         request.setAttribute("orders",orders);
         return "f:adminjsps/admin/order/list.jsp";
     }
