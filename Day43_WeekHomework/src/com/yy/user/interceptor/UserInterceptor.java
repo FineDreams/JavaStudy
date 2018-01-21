@@ -9,7 +9,7 @@ public class UserInterceptor extends AbstractInterceptor {
     public String intercept(ActionInvocation actionInvocation) throws Exception {
         String username = (String) ServletActionContext.getRequest().getSession().getAttribute("username");
         if (username==null){
-            return "error";
+            return "login";
         }
         return actionInvocation.invoke();
     }

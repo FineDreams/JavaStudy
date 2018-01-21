@@ -5,17 +5,19 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+    <constant name="struts.devMode" value="true"/>
     <package name="day43" extends="struts-default">
         <interceptors>
             <interceptor name="inter" class="com.yy.user.interceptor.UserInterceptor"/>
+
             <interceptor-stack name="my">
                 <interceptor-ref name="inter"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
         </interceptors>
-
+        <!--<default-interceptor-ref name="my"/>-->
         <global-results>
-            <result name="error">login.jsp</result>
+            <result name="login">login.jsp</result>
         </global-results>
 
 
@@ -27,18 +29,22 @@
 
         <action name="show" class="com.yy.employee.action.EmployeeAction" method="showAll">
             <result name="show">index.jsp</result>
+            <interceptor-ref name="my"/>
         </action>
 
         <action name="add" class="com.yy.employee.action.EmployeeAction" method="add">
             <result name="add">index.jsp</result>
+            <interceptor-ref name="my"/>
         </action>
 
         <action name="search" class="com.yy.employee.action.EmployeeAction" method="search">
             <result name="search">modify.jsp</result>
+            <interceptor-ref name="my"/>
         </action>
 
         <action name="modify" class="com.yy.employee.action.EmployeeAction" method="modify">
             <result name="modify">index.jsp</result>
+            <interceptor-ref name="my"/>
         </action>
     </package>
 </struts>

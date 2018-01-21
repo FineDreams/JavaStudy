@@ -10,6 +10,7 @@ import java.util.List;
 public class UserDao {
 
     public List<User> queryByUsername(String username){
+        
         List<User> users = HibernateUtil.handle(session -> {
             Query query = session.createQuery("SELECT u from User u where u.username=?");
             query.setParameter(0, username);

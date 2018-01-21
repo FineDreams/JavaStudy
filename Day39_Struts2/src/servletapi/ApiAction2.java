@@ -28,4 +28,5 @@ public class ApiAction2 extends ActionSupport implements ServletRequestAware,Ser
     public void setServletResponse(HttpServletResponse httpServletResponse) {
 
     }
+
 }
