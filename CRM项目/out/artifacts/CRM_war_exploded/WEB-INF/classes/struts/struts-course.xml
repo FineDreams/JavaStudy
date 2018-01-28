@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="course" extends="common" namespace="/">
+        <action name="course_*" class="com.yy.crm.course.web.action.CourseAction" method="{1}">
+            <result name="allCourse">/pages/coursetype/listCourse.jsp</result>
+            <result name="queryById">/pages/coursetype/addOrEditCourse.jsp</result>
+            <result name="addOrEdit" type="redirectAction">course_queryAllCourse.action</result>
+            <result name="searchGroup">/pages/coursetype/listCourse.jsp</result>
+            <allowed-methods>queryAllCourse,queryCourseById,addOrEdit,searchGroup</allowed-methods>
+        </action>
+    </package>
+
+</struts>

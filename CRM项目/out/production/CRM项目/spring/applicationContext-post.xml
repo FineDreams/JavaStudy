@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="crmPost" class="com.yy.crm.post.domain.CrmPost" scope="prototype">
+        <property name="crmDepartment" ref="crmDepartment"/>
+    </bean>
+
+    <bean id="postDao" class="com.yy.crm.post.dao.impl.PostDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="postService" class="com.yy.crm.post.service.impl.PostServiceImpl">
+        <property name="postDao" ref="postDao"/>
+    </bean>
+
+    <bean id="postAction" class="com.yy.crm.post.web.action.PostAction">
+        <property name="postService" ref="postService"/>
+    </bean>
+</beans>

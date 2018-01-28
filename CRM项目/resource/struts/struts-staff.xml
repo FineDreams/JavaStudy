@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="staff" namespace="/" extends="common">
+
+        <interceptors>
+            <interceptor name="LoginInterceptor" class="com.yy.crm.staff.web.interceptor.LoginInterceptor">
+                <!--<param name="excludeMethods"></param>-->
+                <param name="includeMethods">logOut,editPassword,queryAllInfo,queryInfoByStaffId,editAll,addStaff</param>
+            </interceptor>
+            <interceptor-stack name="loginStack">
+                <interceptor-ref name="LoginInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="loginStack"/>
+
+
+        <action name="staff_*" class="com.yy.crm.staff.web.action.StaffAction" method="{1}">
+            <result name="login">frame.jsp</result>
+            <result name="loginError">login.jsp</result>
+
+            <result name="logOut" type="redirect">/pages/login.jsp</result>
+
+            <result name="update" type="redirect">/pages/login.jsp</result>
+            <result name="updateError">updPwd.jsp</result>
+
+            <result name="all">/pages/staff/listStaff.jsp</result>
+
+            <result name="edit">/pages/staff/editStaff.jsp</result>
+
+            <result name="editAll" type="redirectAction">staff_queryAllInfo.action</result>
+
+            <result name="add" type="redirectAction">staff_queryAllInfo.action</result>
+            <allowed-methods>login,logOut,editPassword,queryAllInfo,queryInfoByStaffId,editAll,addStaff</allowed-methods>
+        </action>
+
+    </package>
+
+
+</struts>

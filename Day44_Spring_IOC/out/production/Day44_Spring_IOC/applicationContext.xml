@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        无参数构造方法；
+        添加属性
+    -->
+    <bean  id="user" class="com.yy.createobj.User">
+        <property name="name" value="嘿嘿嘿嘿嘿"/>
+        <property name="age" value="20"/>
+        <property name="login" value="true"/>
+     </bean>
+
+    <!--
+        使用如下标签，给构造方法的参数传值
+        有三种传递方式：
+            1、根据参数名传值
+            2、根据参数在参数列表中的角标传值
+            3、根据参数类型传值
+    -->
+    <bean id="user2" class="com.yy.createobj.User">
+        <constructor-arg name="name" value="李白"/>
+        <constructor-arg index="1" value="3"/>
+        <constructor-arg type="java.lang.Boolean" value="true"/>
+    </bean>
+
+    <bean id="staticFactory" class="com.yy.factory.StaticFactory" factory-method="getInstance"/>
+
+    <!--
+        先创建一个UserFactory对象
+    -->
+    <bean id="fact" class="com.yy.factory.UserFactory"/>
+
+    <!--
+        指定user3，由哪个工厂创建：fact
+    -->
+    <bean id="user3" class="com.yy.createobj.User" factory-bean="fact" factory-method="getInstance"/>
+
+</beans>

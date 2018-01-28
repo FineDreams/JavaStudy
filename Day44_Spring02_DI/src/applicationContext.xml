@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="car" class="com.yy.di.Car">
+        <constructor-arg name="name" value="玛莎拉蒂"/>
+    </bean>
+    <bean id="car2" class="com.yy.di.Car">
+        <constructor-arg name="name" value="兰博基尼"/>
+    </bean>
+    <bean id="car3" class="com.yy.di.Car">
+        <constructor-arg name="name" value="法拉利"/>
+    </bean>
+
+    <!--<bean id="per" class="com.yy.di.Person">-->
+        <!--<constructor-arg name="name" value="PGOne"/>-->
+        <!--<constructor-arg name="car" ref="car"/>-->
+        <!--<constructor-arg name="list" ref="car"/>-->
+        <!--<constructor-arg name="set" ref="car"/>-->
+     <!--</bean>-->
+
+    <bean id="per2" class="com.yy.di.Person" init-method="init">
+        <property name="name" value="张三"/>
+        <property name="car" ref="car"/>
+        <property name="list">
+            <list>
+                <ref bean="car"/>
+                <ref bean="car2"/>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <ref bean="car"/>
+                <ref bean="car2"/>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="c1">
+                    <ref bean="car"/>
+                </entry>
+                <entry key="c2">
+                    <ref bean="car2"/>
+                </entry>
+            </map>
+        </property>
+
+        <property name="objects">
+            <list>
+                <ref bean="car2"/>
+                <ref bean="car"/>
+                <ref bean="car3"/>
+            </list>
+        </property>
+
+        <!--<property name="properties">-->
+            <!--<props>-->
+                <!--<prop key="username"></prop>-->
+                <!--<prop key="password"></prop>-->
+                <!--<prop key="speaking"></prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    </bean>
+</beans>
