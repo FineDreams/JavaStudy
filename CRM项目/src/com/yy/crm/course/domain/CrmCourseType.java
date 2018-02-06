@@ -1,11 +1,26 @@
 package com.yy.crm.course.domain;
 
+import com.yy.crm.classes.domain.CrmClasses;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class CrmCourseType {
     private String courseTypeId;
     private Double courseCost;
     private Integer total;
     private String courseName;
     private String remark;
+
+    private Set<CrmClasses> classesSet=new HashSet<>();
+
+    public Set<CrmClasses> getClassesSet() {
+        return classesSet;
+    }
+
+    public void setClassesSet(Set<CrmClasses> classesSet) {
+        this.classesSet = classesSet;
+    }
 
     public CrmCourseType() {
     }

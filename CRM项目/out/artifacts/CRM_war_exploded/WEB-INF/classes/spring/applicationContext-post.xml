@@ -17,5 +17,6 @@
 
     <bean id="postAction" class="com.yy.crm.post.web.action.PostAction">
         <property name="postService" ref="postService"/>
+        <property name="departmentService" ref="departmentService"/>
     </bean>
 </beans>

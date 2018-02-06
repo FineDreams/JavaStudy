@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -44,6 +45,9 @@
   </tr>
 </table>
 
+<%--<s:property value="classesList"/>--%>
+<s:if test=" classesList != null">
+
 <table width="97%" border="1">
 <thead>
   <tr class="henglan" style="font-weight:bold;">
@@ -61,51 +65,59 @@
 	<th align="center">课程表</th>
   </tr>
   </thead>
+	<s:iterator value="classesList" var="classes">
   <tbody>
 	  <tr class="tabtd2">
-	    <td align="center">J161001期</td>
-	    <td align="center">JavaEE </td>
-	    <td align="center">2016-10-10</td>
-	    <td align="center">2016-11-1</td>
-	    <td align="center">已结束</td>
-	    <td align="center">1 </td>
-	    <td align="center">2 </td>
-	    <td align="center">0 </td>
+	    <td align="center"><s:property value="%{#classes.name}"/> </td>
+	    <td align="center"><s:property value="%{#classes.crmCourseType.courseName}"/>  </td>
+	    <td align="center"><s:property value="%{#classes.beginTime}"/></td>
+	    <td align="center"><s:property value="%{#classes.endTime}"/></td>
+	    <td align="center"><s:property value="%{#classes.status}"/></td>
+	    <td align="center"><s:property value="%{#classes.totalCount}"/> </td>
+	    <td align="center"><s:property value="%{#classes.upgradeCount}"/> </td>
+	    <td align="center"><s:property value="%{#classes.changeCount}"/> </td>
 	    <td align="center">
-	    	<a href="${pageContext.request.contextPath}/pages/classesm/addOrEditClass.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	    </td>
+			<s:url value="class_queryClassById.action" var="queryClassById">
+				<s:param name="crmClasses.classId" value="%{#classes.classId}"/>
+			</s:url>
+	    	<s:a href="%{#queryClassById}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></s:a>
+
+		</td>
 		<td align="center">
-	    	<a href="${pageContext.request.contextPath}/pages/classesm/showClass.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+			<s:url value="class_findInfo.action" var="queryById">
+				<s:param name="crmClasses.classId" value="%{#classes.classId}"/>
+			</s:url>
+	    	<s:a href="%{#queryById}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></s:a>
 		</td>
 		<td align="center" title="上次上传时间：2015-04-02">   
 			<a href="${pageContext.request.contextPath}/pages/classesm/uploadClass.jsp">上传</a>
 			<a href="${pageContext.request.contextPath}/pages/classesm/downloadClass">下载</a> <br/>
 		</td>
 	  </tr>
-	  <tr class="tabtd1">
-	    <td align="center">J161002期</td>
-	    <td align="center">JavaEE </td>
-	    <td align="center">2016-11-10</td>
-	    <td align="center">2016-12-10</td>
-	    <td align="center">已开班</td>
-	    <td align="center">0 </td>
-	    <td align="center">0 </td>
-	    <td align="center">0 </td>
-	    <td align="center">
-	    	<a href="${pageContext.request.contextPath}/classesm/classAction_preAddOrEdit.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	    </td>
-		<td align="center">
-	    	<a href="${pageContext.request.contextPath}/classesm/classAction_findById.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		<td align="center" title="上次上传时间：">   
-			<a href="${pageContext.request.contextPath}/classesm/classAction_preUpload.action?classId=2c9091c14c78e58b014c78e9106e000b">上传</a>
-			 暂无
-		</td>
-	  </tr>
+	  <%--<tr class="tabtd1">--%>
+	    <%--<td align="center">J161002期</td>--%>
+	    <%--<td align="center">JavaEE </td>--%>
+	    <%--<td align="center">2016-11-10</td>--%>
+	    <%--<td align="center">2016-12-10</td>--%>
+	    <%--<td align="center">已开班</td>--%>
+	    <%--<td align="center">0 </td>--%>
+	    <%--<td align="center">0 </td>--%>
+	    <%--<td align="center">0 </td>--%>
+	    <%--<td align="center">--%>
+	    	<%--<a href="${pageContext.request.contextPath}/classesm/classAction_preAddOrEdit.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>--%>
+	    <%--</td>--%>
+		<%--<td align="center">--%>
+	    	<%--<a href="${pageContext.request.contextPath}/classesm/classAction_findById.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>--%>
+		<%--</td>--%>
+		<%--<td align="center" title="上次上传时间：">   --%>
+			<%--<a href="${pageContext.request.contextPath}/classesm/classAction_preUpload.action?classId=2c9091c14c78e58b014c78e9106e000b">上传</a>--%>
+			 <%--暂无--%>
+		<%--</td>--%>
+	  <%--</tr>--%>
   
   </tbody>
+	</s:iterator>
 </table>
-
 
 <table border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
@@ -120,6 +132,6 @@
     </td>
   </tr>
 </table>
-
+</s:if>
 </body>
 </html>

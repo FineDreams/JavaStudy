@@ -19,6 +19,7 @@
     <bean id="staffAction" class="com.yy.crm.staff.web.action.StaffAction" scope="prototype">
         <property name="staffService" ref="staffService"/>
         <property name="crmStaff" ref="crmStaff"/>
+        <property name="departmentService" ref="departmentService"/>
     </bean>
 
 

@@ -19,4 +19,6 @@ public interface StaffService {
     void updateCrmStaff(CrmStaff crmStaff);
 
     void addCrmStaff(CrmStaff crmStaff);
+
+    List<CrmStaff> findAllCrmStaff();
 }

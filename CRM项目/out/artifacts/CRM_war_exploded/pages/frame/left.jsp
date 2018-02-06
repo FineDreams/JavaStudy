@@ -23,13 +23,13 @@
 		d.add('010203','0102','学生流失情况','${pageContext.request.contextPath}/pages/runoff/listRunoff.jsp','','right');		
 		d.add('0103','01','教研部');
 		<%-- 班级前缀和包结构命名：classesm ，其他命名class --%>
-		d.add('010301','0103','班级管理','${pageContext.request.contextPath}/pages/classesm/listClass.jsp','','right');
+		d.add('010301','0103','班级管理',"<s:url value="class_findAll.action"/> ",'','right');
 		d.add('010302','0103','课程类别',"<s:url value="course_queryAllCourse.action"/>",'','right');
 		d.add('0104','01','就业部');
 		d.add('010401','0104','就业情况','${pageContext.request.contextPath}/pages/graduate/listGraduate.jsp','','right');
 		d.add('0105','01','人力资源部');
-		d.add('010501','0105','部门管理','${pageContext.request.contextPath}/pages/department/listDepartment.jsp','','right');
-		d.add('010502','0105','职务管理','${pageContext.request.contextPath}/pages/post/listPost.jsp','','right');
+		d.add('010501','0105','部门管理',"<s:url value="department_queryAllDepartment.action"/>",'','right');
+		d.add('010502','0105','职务管理',"<s:url value="post_queryAllDep.action"/> ",'','right');
 		d.add('010503','0105','员工管理',"<s:url value="staff_queryAllInfo.action"/> ",'','right');
 		
 		document.write(d);

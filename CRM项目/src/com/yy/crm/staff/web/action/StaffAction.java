@@ -2,7 +2,10 @@ package com.yy.crm.staff.web.action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 import com.yy.crm.department.domain.CrmDepartment;
+import com.yy.crm.department.service.DepartmentService;
+import com.yy.crm.department.service.impl.DepartmentServiceImpl;
 import com.yy.crm.staff.domain.CrmStaff;
 import com.yy.crm.staff.service.StaffService;
 import com.yy.crm.staff.service.exception.LoginException;
@@ -13,26 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class StaffAction extends ActionSupport {
+public class StaffAction extends ActionSupport implements ModelDriven{
     private StaffService staffService;
-
     @Autowired
     private CrmStaff crmStaff;
 
+    private DepartmentService departmentService;
+
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
 
     private String oldPassword;
     private String newPassword;
     private String reNewPassword;
 
-    private String staffId;
-
-    public String getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -73,7 +71,7 @@ public class StaffAction extends ActionSupport {
     public void setStaffService(StaffService staffService) {
         this.staffService = staffService;
     }
-
+//登录
     public String login(){
         CrmStaff crmStaffFromDB;
         try {
@@ -85,7 +83,7 @@ public class StaffAction extends ActionSupport {
         ServletActionContext.getRequest().getSession().setAttribute("crmStaff",crmStaffFromDB);
         return "login";
     }
-
+//重新登录
     public String logOut(){
         HttpSession session = ServletActionContext.getRequest().getSession();
         CrmStaff crmStaff = (CrmStaff) session.getAttribute("crmStaff");
@@ -94,7 +92,7 @@ public class StaffAction extends ActionSupport {
         }
         return "logOut";
     }
-
+//编辑密码
     public String editPassword(){
         CrmStaff staff = (CrmStaff) ServletActionContext.getRequest().getSession().getAttribute("crmStaff");
         if (!newPassword.equals(reNewPassword)){
@@ -109,29 +107,57 @@ public class StaffAction extends ActionSupport {
         }
         return "update";
     }
-
+//查找所有员工
     public String queryAllInfo(){
         List<CrmDepartment> allInfoCrmStaffList = staffService.findAll();
-        ActionContext.getContext().put("allInfoCrmStaffList",allInfoCrmStaffList);
+
+        List<CrmStaff> crmStaffList=staffService.findAllCrmStaff();
+        ActionContext.getContext().put("crmStaffList",crmStaffList);
+        ActionContext.getContext().getValueStack().set("allInfoCrmStaffList",allInfoCrmStaffList);
         return "all";
     }
-
+//通过id查找员工，进入编辑页面
     public String queryInfoByStaffId(){
-
-        CrmStaff infoByStaffId = staffService.findInfoByStaffId(staffId);
+        List<CrmDepartment> allDepartment = departmentService.findAll();
+        CrmStaff infoByStaffId = staffService.findInfoByStaffId(crmStaff.getStaffId());
 
         ActionContext.getContext().put("crmStaff",infoByStaffId);
+        ActionContext.getContext().getValueStack().set("allDepartment",allDepartment);
         return "edit";
     }
-
+//编辑员工信息
     public String editAll(){
         staffService.updateCrmStaff(crmStaff);
         return "editAll";
     }
+    //select标签中list集合元素
 
+    public String getList(){
+        List<CrmDepartment> allInfoCrmStaffList = staffService.findAll();
+        ActionContext.getContext().getValueStack().set("allInfoCrmStaffList",allInfoCrmStaffList);
+        return "list";
+    }
+
+
+
+
+//添加员工
     public String addStaff(){
         staffService.addCrmStaff(crmStaff);
         return "add";
     }
+    //多条件组合查询
+    public String queryGroup(){
+        List<CrmStaff> crmStaffs=departmentService.queryGroup(crmStaff);
+        List<CrmDepartment> allInfoCrmStaffList = staffService.findAll();
+        ActionContext.getContext().getValueStack().set("allInfoCrmStaffList",allInfoCrmStaffList);
+        ActionContext.getContext().put("crmStaffList",crmStaffs);
+        return "queryGroup";
+    }
 
+
+    @Override
+    public Object getModel() {
+        return crmStaff;
+    }
 }

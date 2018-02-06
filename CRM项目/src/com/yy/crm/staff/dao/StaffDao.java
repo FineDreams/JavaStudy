@@ -19,4 +19,7 @@ public interface StaffDao {
 
 
     void addStaff(CrmStaff crmStaff);
+
+    List<CrmStaff> queryAllCrmStaff();
+
 }

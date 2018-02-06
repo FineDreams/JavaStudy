@@ -17,5 +17,6 @@
         <mapping resource="com/yy/crm/department/domain/CrmDepartment.hbm.xml"/>
         <mapping resource="com/yy/crm/post/domain/CrmPost.hbm.xml"/>
         <mapping resource="com/yy/crm/course/domain/CrmCourseType.hbm.xml"/>
+        <mapping resource="com/yy/crm/classes/domain/CrmClasses.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

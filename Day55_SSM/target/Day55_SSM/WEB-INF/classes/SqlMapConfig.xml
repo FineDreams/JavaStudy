@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="db.properties"/>
+    <!--设置全局参数-->
+    <settings>
+        <!-- lazyLoadingEnabled：延迟加载的开关，默认为false -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- aggressiveLazyLoading默认为true，一旦为true，则上面的懒加载开关将失效 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- cacheEnabled：二级缓存的总开关 默认为false -->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!--定义别名-->
+    <typeAliases>
+        <!--批量定义别名-->
+        <package name="com.yy.netctoss.account.domain"></package>
+
+
+    </typeAliases>
+
+    <!-- 注意：与spring集成后，数据源和事务交给spring来管理 -->
+    <mappers>
+        <mapper resource="mapper/Admin_infoMapper.xml"/>
+        <mapper resource="mapper/CostMapper.xml"/>
+        <mapper resource="mapper/AccountMapper.xml"/>
+    </mappers>
+
+</configuration>

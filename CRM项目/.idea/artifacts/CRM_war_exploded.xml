@@ -12,7 +12,7 @@
           <element id="library" level="project" name="Struts 2" />
           <element id="library" level="project" name="Spring" />
           <element id="library" level="project" name="mchange-commons-java-0.2.3.4" />
-          <element id="library" level="project" name="json-lib-2.4-jdk15" />
+          <element id="library" level="project" name="commons-beanutils-1.8.3" />
         </element>
       </element>
     </root>

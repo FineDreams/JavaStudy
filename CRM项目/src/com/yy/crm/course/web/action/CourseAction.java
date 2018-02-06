@@ -96,9 +96,9 @@ public class CourseAction extends ActionSupport{
 
 //    增加或者编辑课程
     public String addOrEdit(){
-        System.out.println(crmCourseType.getCourseTypeId()+"========测试id=====");
-        System.out.println(crmCourseType.toString()+"插入前课程");
-        System.out.println(crmCourseType.toString()+"---插入后测试课程---");
+//        System.out.println(crmCourseType.getCourseTypeId()+"========测试id=====");
+//        System.out.println(crmCourseType.toString()+"插入前课程");
+//        System.out.println(crmCourseType.toString()+"---插入后测试课程---");
         courseService.addOrEdit(crmCourseType);
         return "addOrEdit";
     }

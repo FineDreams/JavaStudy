@@ -37,7 +37,12 @@
             <result name="editAll" type="redirectAction">staff_queryAllInfo.action</result>
 
             <result name="add" type="redirectAction">staff_queryAllInfo.action</result>
-            <allowed-methods>login,logOut,editPassword,queryAllInfo,queryInfoByStaffId,editAll,addStaff</allowed-methods>
+
+            <result name="queryGroup">/pages/staff/listStaff.jsp</result>
+
+            <result name="list">/pages/staff/addStaff.jsp</result>
+
+            <allowed-methods>login,logOut,editPassword,queryAllInfo,queryInfoByStaffId,editAll,addStaff,queryGroup,getList</allowed-methods>
         </action>
 
     </package>

@@ -11,11 +11,12 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!--<bean id="departmentService" class="com.yy.crm.department.service.impl.DepartmentServiceImpl">-->
-        <!--<property name="departmentDao" ref="departmentDao"/>-->
-    <!--</bean>-->
+    <bean id="departmentService" class="com.yy.crm.department.service.impl.DepartmentServiceImpl">
+        <property name="departmentDao" ref="departmentDao"/>
+    </bean>
 
-    <!--<bean id="departmentAction" class="com.yy.crm.department.web.action.DepartmentAction">-->
-        <!--<property name="departmentService" ref="departmentService"/>-->
-    <!--</bean>-->
+    <bean id="departmentAction" class="com.yy.crm.department.web.action.DepartmentAction">
+        <property name="departmentService" ref="departmentService"/>
+        <!--<property name="crmDepartment " ref="crmDepartment"/>-->
+    </bean>
 </beans>

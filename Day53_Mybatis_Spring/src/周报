@@ -1,0 +1,158 @@
+maven
+	maven是基于工程对象模型(project object model)
+	maven主要有两大功能：管理依赖、项目构建
+依赖其实指的就是jar包
+	使用maven：
+1、首先下载maven包，解压，配置maven的环境变量，路径填的是maven包解压后bin目录的上一级目录路径。
+2、控制台终端输入mvn -v显示是否配置成功
+3、创建一个文件夹作为maven的本地仓库，然后在maven目录下的setting文件下修改默认本地仓库，路径改为自己创建的即可
+4、创建maven工程，选择maven后缀为webapp的文件，点击下一步包名、项目名r然后将选择setting文件，然后默认选择本地库
+maven工程中包的规范
+    main包下创建java资源文件包用于存放源代码，
+    main包下有test包用于存放单元测试代码，然后与src包同级的还有个target包，
+    target包用于存放编译后，打包后的输出文件。
+    main包下还有个测试资源包
+Mybatis
+    MyBatis是一个优秀的持久层框架，它对jdbc的操作数据库的过程进行封装，使开发者
+只需要关注 SQL 本身，而不需要花费精力去处理例如注册驱动、创建connection、创
+建statement、手动设置参数、结果集检索等jdbc繁杂的过程代码。
+
+1、mybatis配置文件，包括mybatis全局配置文件和mybatis映射文件，其中全局配置文件配置了数据据源、事务等信息；映射文件配置
+了SQL执行相关的信息
+2、mybatis通过读取配置文件信息（全局配置文件和映射文件），构造出SqlSessionFactory，即会话工厂
+3、通过SqlSessionFactory，可以创建SqlSession即会话。Mybatis是通过SqlSession来操作数据库的
+4、SqlSession本身不能直接操作数据库，他是通过底层的Executor执行器接口来操作数据库的。Executor接口有两个实现类，一个是普通执行器，一个是缓存
+执行器（默认）
+5、Executor执行器要处理的SQL信息是封装到一个底层对象MappedStatement中。该对象包括：SQL语句、输入参数映射新、输出结果集映射信息。
+其中输入参数和输出结果的映射类型包括java的简单类型、hashMap集合对象、POJO对象类型。
+
+编程步骤
+1、创建PO类，根据需求创建】
+2、创建全局配置文件SqlMapConfig.xml;
+3、创建javaBean的映射文件；
+4、加载映射文件，在SqlMapConfig.xml中通过标签<mappers>进行加载
+5、编写测试程序，即编写java代码，连接并操作数据库。
+     思路：
+        1、读取配置文件；
+        2、通过SqlSessionFactoryBuilder创建SqlSessionFactory会话工厂
+        3、通过SqlSessionFactory创建SqlSession
+        4、通过SqlSession的操作数据库方法
+        5、关闭SqlSession
+
+po类的配置文件中
+mapper标签中属性，namespace命名空间，作用是对SQL进行分类话管理，可以理解为SQL隔离
+注意：使用mapper代理开发时，namespace有特殊且重要的作用
+mapper标签内部： 属性id，是唯一的并且和接口中的方法名一致
+                属性parameterType:方法中参数列表的类型
+                resultType：查询出的单条结果集对应的java类型
+                SQL语句中的符号：
+                    #{}：表示一个占位符
+                    #{id}表示该占位符接收参数的名称为id、注意：如果参数为简单类型时，#{}里面的参数名称可以是是任意定义
+在po类的配置文件中
+    往数据库插入信息
+    如果表中主键的值是通过MySql自增长机制生成的，name我们此处不需要显示的给Id赋值
+    属性keyProperty:指定存放生成主键的属性
+    userGeneratedKeys:true表示给主键设置自增长
+
+Mybatis开发Dao
+mybatis开发dao有两种方式：原始dao开发方式，mapper代理开发方式
+    开发到的实现类
+    SqlSession的三个生命周期
+    1、SqlSessionFactoryBuilder
+        它的作用只是通过配置文件创建SqlSessionFactory，所以只要创建出SqlSessionFactory，他就可以销毁了。所以
+        它的生命周期是在方法之内
+    2、SqlSessionFactory
+        它的作用是创建SqlSession的工厂，工厂一旦创建，除非应用停掉，不要销毁。所以它的生命周期是在应用范围内
+         在mybatis整合spring之后，最好的处理方式是把SqlSessionFactory交由spring来做单例管理
+    3、SqlSession
+        SqlSession是一个面向用户的接口，它的默认实现时DefaultSqlSession
+        Mybatis是通过SqlSession来操作数据库的。
+        SqlSession中不仅包含要处理的SQL信息，还包括一些数据信息，所以它是线程不安全的，因此它最佳的生命周期范围是在方法体之内
+原始dao层写法：需要向dao实现类中注入SqlSessionFactory，在方法体内通过SqlSessionFactory创建SqlSession
+
+原始dao开发存在一些问题：
+    1、存在一定量的模板代码。比如通过SqlSessionFactory创建SqlSession；调用SqlSession的方法操作数据库。关闭SqlSession
+    2、存在一些硬编码。调用SqlSession的方法操作数据库时，需要指定statement的id，这里存在硬编码
+Mapper代理开发方式
+    Mapper代理的开发方式，程序员只需要编写mapper接口(相当于dao接口)即可
+    Mybatis会自动的为mapper接口生成动态代理实现类。不过要实现mapper代理的开发方式，需要遵循一些开发规范
+开发规范
+    1、mapper接口的全限定名要和mapper映射文件的namespace的值相同。
+    2、mapper接口的方法名称要和mapper映射文件中的statement的id相同
+    3、mapper接口的方法参数只能有一个，类型要和mapper映射文件中statement的parameterType的值保持一致
+    4、mapper接口的返回值类型要和mapper映射文件中statement的resultType值或resultMap中的type值保持一致
+通过规范式的开发mapper接口，可以解决原始到开发当中存在的问题：
+    1、模板代码已经去掉
+    2、剩下去不掉的操作数据库的代码，其实就是一行代码，这行代码中硬编码的部分，通过第一和第二个规范可以解决
+
+编程步骤
+    1、根据需求创建po类
+    2、编写全局配置文件
+    3、根据需求编写映射文件
+    4、加载映射文件
+    5、编写mapper接口
+    6、编写测试代码
+
+Mybatis全局配置文件
+ SqlMapConfig.xml配置内容和顺序如下（顺序不能乱）
+    Properties(属性)
+    Settings（全局参数设置）
+    typeAliases（类型别名）
+    typeHandlers（类型处理器）
+    objectFactory（对象工厂）
+    plugins（插件）
+    environments（环境信息集合）
+     environment（单个环境信息）
+     transactionManager（事物）
+     dataSource（数据源）
+     mappers（映射器）
+常用配置详解
+Properties
+    SqlMapConfig.xml文件中可以引用java属性文件中的配置信息
+
+注意：mybatis将按照下面的顺序加载属性：
+Properties标签体内定义的属性首先被读取
+Properties引用的属性会被读取，如果发现上面已经有同名的属性，那后面  会覆盖前面的值
+所以说，mybatis读取属性的顺序由高到低分别是：parameterType接收的属性值、properties引用的属性、properties标签内定义的属性
+Settings
+    mybatis全局配置参数，全局参数将会影响mybatis的运行行为
+typeAliases
+    别名是使用是为了在映射文件中，更方便的去指定传入参和结果集的类型，不再用写很长的一段全限定名
+动态SQl
+    通过Mybatis提供的各种动态标签实现动态拼接sql，使得mapper映射文件在编写SQL时更加灵活，方便。常用动态SQL标签有：if/where.foreach
+if和where
+if标签：作为判断入参来使用的，如果符合条件，则把if标签体内的SQL拼接上。
+注意：用if进行判断是否为空时，不仅要判断null，也要判断空字符串；
+where标签：会去掉条件中的第一个and符号
+
+一对一小结
+实现一对一查询：
+    resultType：使用resultType实现较为简单，如果pojo中没有包括查询出来的列名，需要增加列名对应的属性，即可完成映射。如果没有查询结果的特殊要求建议使用resultType、
+    resultMap：需要单独定义resultMap，实现有点麻烦，如果对查询结果有特殊的要求，使用resultMap可以完成将关联查询映射pojo的对象属性
+    resultMap可以实现延迟加载，resultType无法实现延迟加载。
+
+一对多查询
+一对多查询和一对一查询的配置基本类似。只是如果使用resultMap的话，映射一对多关联关系要使用collection标签
+一对多小结
+    mybatis使用resultMap的collection对关联查询的多条记录映射到一个list集合属性中
+
+高级映射总结
+resultType：
+    作用：将查询结果按照sql列名pojo属性名一致性映射到pojo中
+resultMap：
+    使用association和collection完成一对一和一对多高级映射（对结果有特性的映射要切）
+association：
+    作用：将关联查询信息映射到一个pojo对象中
+使用resultType无法将查询结果映射到pojo对象的pojo属性中，根据对结果集查询遍历的需要选择使用resultType还是resultMap
+collection：
+    作用：将关联查询信息映射到一个list集合中
+延迟加载
+    什么是延迟加载
+    resultMap中的association和collection标签具有延迟加载的功能。
+    延迟加载的意思是说，在关联查询时，利用延迟加载，先加载主信息。需要关联信息时再去按需加载关联信息。这样会大大提高数据库性能，因为查询单表要比关联查询多张表速度要快
+设置延迟加载
+Mybatis默认是不开启延迟加载功能的，需要手动开启
+需要在SqlMapConfig.xml文件中，在标签中开启延迟加载功能。
+lazyLoadingEnabled、aggressiveLazyLoading
+
+

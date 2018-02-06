@@ -56,4 +56,10 @@ public class StaffDaoImpl extends HibernateDaoSupport implements StaffDao {
         crmStaff.setCrmPost(crmPost);
         this.getHibernateTemplate().save(crmStaff);
     }
+
+    @Override
+    public List<CrmStaff> queryAllCrmStaff() {
+        List<CrmStaff> crmStaffList= (List<CrmStaff>) getHibernateTemplate().find("from CrmStaff ");
+        return crmStaffList;
+    }
 }

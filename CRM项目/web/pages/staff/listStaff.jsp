@@ -8,7 +8,11 @@
 <title>无标题文档</title>
 
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/core.js"></script>
+
 </head>
+
 
 <body >
  <table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -24,11 +28,15 @@
    
     <td width="57%"align="right">
     	<%--高级查询 --%>
-		<a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
+		<a href="javascript:void(0)" onclick="javascript:document.forms[0].submit();"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
     	<%--员工注入 --%>
-	  	<a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">
-	  		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
-	  	</a>
+	  	<%--<a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">--%>
+	  		<%--<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />--%>
+	  	<%--</a>--%>
+		<s:url action="staff_getList" var="get"></s:url>
+		<s:a href="%{#get}">
+			<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
+		</s:a>
       
     </td>
     <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
@@ -36,28 +44,35 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="${pageContext.request.contextPath}/staff/staffAction_findAll" method="post">
+<s:form id="conditionFormId" action="staff_queryGroup" method="post">
 	<table width="88%" border="0" style="margin: 20px;" >
 	  <tr>
 	    <td width="80px">部门：</td>
 	    <td width="200px">
-	    	
-	    	<select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
-			    <option value="">--请选择部门--</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
-			</select>
+	    	<%--<select name="crmPost.crmDepartment.depId" onchange="showPost(this)">--%>
+			    <%--<option value="">--请选择部门--</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>--%>
+			<%--</select>--%>
+				<s:select list="allInfoCrmStaffList" name="crmPost.crmDepartment.depId"
+						  listKey="depId" listValue="depName"
+						  onchange="changePost(this)"
+						  headerKey="" headerValue="----请--选--择----"/>
 
 	    </td>
 	    <td width="80px" >职务：</td>
 	    <td width="200px" >
 	    	
-	    	<select name="crmPost.postId" id="postSelectId">
-			    <option value="">--请选择职务--</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000003">总监</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000004">讲师</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000005">主管</option>
-			</select>
+	    	<%--<select name="crmPost.postId" id="postSelectId">--%>
+			    <%--<option value="">--请选择职务--</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000003">总监</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000004">讲师</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000005">主管</option>--%>
+			<%--</select>--%>
+				<s:select list="crmPost !=null ?crmPost.crmDepartment.crmPosts : {}"
+						  name="crmPost.postId"
+						  listKey="postId" listValue="postName" id="postSelectId"
+						  headerKey="" headerValue="----请--选--择----"/>
 
 	    </td>
 	    <td width="80px">姓名：</td>
@@ -65,7 +80,7 @@
 	    <td ></td>
 	  </tr>
 	</table>
-</form>
+</s:form>
 
 
 <table border="0" cellspacing="0" cellpadding="0" style="margin-top:5px;">
@@ -74,9 +89,7 @@
   </tr>
 </table>
 
- <s:if test="#allInfoCrmStaffList!=null">
-
-
+ <s:if test="#crmStaffList!=null">
 
 <table width="100%" border="1" >
   <tr class="henglan" style="font-weight:bold;">
@@ -88,26 +101,27 @@
     <td width="10%" align="center">编辑</td>
   </tr>
   
-    <s:iterator value="#allInfoCrmStaffList" var="crmDepartment">
+    <%--<s:iterator value="allInfoCrmStaffList" var="crmDepartment">--%>
+    <s:iterator value="#crmStaffList" var="crmStaff">
 
-		<s:iterator value="#crmDepartment.crmPosts" var="crmPost">
+		<%--<s:iterator value="#crmDepartment.crmPosts" var="crmPost">--%>
 
-		<s:iterator value="#crmPost.crmStaffs" var="crmStaff">
+		<%--<s:iterator value="#crmPost.crmStaffs" var="crmStaff">--%>
 	  <tr class="tabtd1">
 	    <td align="center"><s:property value="%{#crmStaff.staffName}" /></td>
 	    <td align="center"><s:property value="%{#crmStaff.gender}" /></td>
 	    <td align="center"><s:property value="%{#crmStaff.onDutyDate}" /></td>
-	    <td align="center"><s:property value="%{#crmDepartment.depName}" /></td>
-	    <td align="center"><s:property value="%{#crmPost.postName}" /></td>
+	    <td align="center"><s:property value="%{#crmStaff.crmPost.crmDepartment.depName}" /></td>
+	    <td align="center"><s:property value="%{#crmStaff.crmPost.postName}" /></td>
 	  	<td width="7%" align="center">
 	  		<a href="<s:url value="staff_queryInfoByStaffId.action"><s:param name="staffId" value="%{#crmStaff.staffId}"/> </s:url> "><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
 	  	</td>
 	  </tr>
 			</s:iterator>
-		</s:iterator>
-	</s:iterator>
+		<%--</s:iterator>--%>
+	<%--</s:iterator>--%>
 </table>
  </s:if>
-
 </body>
+
 </html>

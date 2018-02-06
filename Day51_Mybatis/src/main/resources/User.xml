@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <!--<insert id="insertUser" parameterType="com.yy.domain.User"-->
+            <!--keyProperty="id"-->
+            <!--useGeneratedKeys="true">-->
+        <!--INSERT INTO USER VALUES-->
+        <!--(#{id},#{username},#{sex},#{birthday},#{address})-->
+    <!--</insert>-->
+    <!--小写string表示数据库中的信息，要想写大写必须要全类名-->
+    <!--<select id="selectByName" parameterType="java.lang.String"-->
+            <!--resultType="com.yy.domain.User">-->
+        <!--SELECT * FROM USER WHERE username LIKE '%${value}%'-->
+
+    <!--</select>-->
+
+    <update id="updateUser" parameterType="com.yy.domain.User">
+
+        UPDATE user SET username = #{username},sex = #{sex} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByName" parameterType="string">
+        DELETE FROM USER WHERE username=#{username}
+    </delete>
+
+    <select id="findUserById" parameterType="int" resultType="com.yy.domain.User">
+        SELECT * FROM USER WHERE id=#{id}
+    </select>
+
+    <select id="findUsersByName" parameterType="string" resultType="com.yy.domain.User">
+        SELECT * FROM user WHERE username LIKE '%${value}%'
+    </select>
+
+    <insert id="insertUser" parameterType="com.yy.domain.User" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO user VALUES (#{id},#{username},#{sex},#{birthday},#{address})
+    </insert>
+
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--springMVC：开启MVC注解-->
+    <mvc:annotation-driven/>
+    <!--spring：开启注解扫描-->
+    <context:component-scan base-package="com.yy.netctoss"/>
+
+    <!--
+        将静态资源，交由web处理
+        SpringMVC不管
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!-- SpringMVC：处理请求转发 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/webapp/*"/>
+        <property name="suffix" value=".html"/>
+    </bean>
+
+
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${db.driver}"/>
+        <property name="jdbcUrl" value="${db.url}"/>
+        <property name="user" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="initialPoolSize" value="${db.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${db.maxIdleTime}"/>
+        <property name="maxPoolSize" value="${db.maxPoolSize}"/>
+        <property name="minPoolSize" value="${db.minPoolSize}"/>
+        <property name="acquireIncrement" value="${db.acquireIncrement}"/>
+        <property name="acquireRetryDelay" value="${db.acquireRetryDelay}"/>
+        <property name="acquireRetryAttempts" value="${db.acquireRetryAttempts}"/>
+        <property name="breakAfterAcquireFailure" value="${db.breakAfterAcquireFailure}"/>
+    </bean>
+
+
+    <!--配置SessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--mybatis的配置文件路径-->
+        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+        <!--在spring的配置文件中，为mybatis指定数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置事务对象(切面)-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置事务属性-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="update*"/>
+            <tx:method name="find*"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置spring aop-->
+    <aop:config>
+        <!--配置切入点-->
+        <aop:pointcut id="pointcut" expression="execution(* com.yy.netctoss.*.dao.*.*(..))"/>
+        <!--配置通知-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+    </aop:config>
+
+    <!--通过mapper代理开发模式，批量进行mapper配置-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定批量mapper配置的包名（就是dao层）-->
+        <property name="basePackage" value="com.yy.netctoss.*.dao"/>
+        <!--指定这些dao都使用哪个SqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

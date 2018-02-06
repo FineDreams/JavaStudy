@@ -7,7 +7,7 @@
 <title>无标题文档</title>
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/Calendar.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/core.js"></script>
 </head>
 
 <body class="emp_body">
@@ -54,20 +54,29 @@
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmStaff.crmPost.crmDepartment.depId"onchange="changePost(this)">
-			    <option value="">----请--选--择----</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>
-			    <option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>
-			</select>
+	    	<%--<select name="crmStaff.crmPost.crmDepartment.depId"onchange="changePost(this)">--%>
+			    <%--<option value="">----请--选--择----</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000001">教学部</option>--%>
+			    <%--<option value="ee050687bd1a4455a153d7bbb7000002">咨询部</option>--%>
+			<%--</select>--%>
+				<s:select list="allInfoCrmStaffList" name="crmPost.crmDepartment.depId"
+						  listKey="depId" listValue="depName"
+						  onchange="changePost(this)"
+						  headerKey="" headerValue="----请--选--择----"/>
 
 	    </td>
 	    <td width="8%">职务：</td>
 	    <td width="62%">
-	    	<select id="postSelectId" name="crmStaff.crmPost.postId">
-	    		<option>----请--选--择----</option>
-				<option value="ee050687bd1a4455a153d7bbb7000004" selected="selected">讲师</option>
-				<option value="ee050687bd1a4455a153d7bbb7000005">主管</option>
-	    	</select>
+
+	    	<%--<select id="postSelectId" name="crmStaff.crmPost.postId">--%>
+	    		<%--<option>----请--选--择----</option>--%>
+				<%--<option value="ee050687bd1a4455a153d7bbb7000004" selected="selected">讲师</option>--%>
+				<%--<option value="ee050687bd1a4455a153d7bbb7000005">主管</option>--%>
+	    	<%--</select>--%>
+				<s:select list="crmPost !=null ?crmPost.crmDepartment.crmPosts : {}"
+						  name="crmPost.postId"
+						  listKey="postId" listValue="postName" id="postSelectId"
+						  headerKey="" headerValue="----请--选--择----"/>
 	    </td>
 	  </tr>
 	   <tr>

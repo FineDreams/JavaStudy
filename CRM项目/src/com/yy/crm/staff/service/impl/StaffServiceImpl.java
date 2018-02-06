@@ -56,7 +56,6 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<CrmDepartment> findAll() {
         List<CrmDepartment> allInfoCrmStaffList = staffDao.findAllCrmStaff();
-//        System.out.println(allInfoCrmStaffList.toString());
         return allInfoCrmStaffList;
     }
 
@@ -75,5 +74,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public void addCrmStaff(CrmStaff crmStaff) {
         staffDao.addStaff(crmStaff);
+    }
+
+    @Override
+    public List<CrmStaff> findAllCrmStaff() {
+       List<CrmStaff> crmStaffList=staffDao.queryAllCrmStaff();
+        return crmStaffList;
     }
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -32,15 +33,16 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/classesm/listClass.jsp" method="post">
+<s:form action="class_addOrEdit" method="post">
 	
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	  <tr>
+		  <s:hidden name="crmClasses.classId" value="%{#classes.classId}"/>
 	    <td width="10%">班级名称：</td>
-	    <td width="20%"><input type="text" name="name" value=""/> </td>
+	    <td width="20%"><input type="text" name="crmClasses.name" value="<s:property value="%{#classes.name}"/>"/> </td>
 	    <td width="8%">所属类别：</td>
 	    <td width="62%">
-	    	<select name="crmCourseType.courseTypeId">
+	    	<select name="crmClasses.crmCourseType.courseTypeId">
 			    <option value="">---请选择---</option>
 			    <option value="ee050687bd1a4455a153d7bbb7000008">JavaEE</option>
 			    <option value="ee050687bd1a4455a153d7bbb7000009">大数据</option>
@@ -50,11 +52,11 @@
 	  <tr>
 	    <td>开课时间：</td> 
 	    <td>
-	    	<input type="text" name="beginTime" value="" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
+	    	<input type="text" name="crmClasses.beginTime" value="<s:property value="%{#classes.beginTime}"/>" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
 	    </td>
 	    <td>结业时间：</td>
 	    <td>
-	    	<input type="text" name="endTime" value="" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
+	    	<input type="text" name="crmClasses.endTime" value="<s:property value="%{#classes.endTime}"/>" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
 	    </td>
 	  </tr>
 	  <tr>
@@ -64,10 +66,10 @@
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
-	    <td colspan="4"><textarea name="remark" cols="60" rows="10" ></textarea></td>
+	    <td colspan="4"><textarea name="crmClasses.remark" cols="60" rows="10" ><s:property value="%{#classes.remark}"/></textarea></td>
 	  </tr>
 	</table>
-</form>
+</s:form>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -38,26 +39,33 @@
   </tr>
 </table>
 
+ <s:if test="#allDepartment != null">
 <table width="100%" border="1" >
   
   <tr class="henglan" style="font-weight:bold;">
     <td width="6%" align="center">部门名称</td>
     <td width="7%" align="center">编辑</td>
   </tr>
-  
+  <s:iterator value="#allDepartment" var="department">
 	  <tr class="tabtd1">
-	    <td align="center">教学部 </td>
+	    <td align="center"><s:property value="%{#department.depName}"/></td>
 	  	<td width="7%" align="center">
-	  		<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+            <s:url action="department_queryBydepId" var="queryBydepId">
+                <s:param name="crmDepartment.depId" value="%{#department.depId}"/>
+            </s:url>
+            <s:a href="%{#queryBydepId}">
+                <img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/>
+            </s:a>
+	  		<%--<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>--%>
 	  	</td>
 	  </tr>
-  
-	  <tr class="tabtd2">
-	    <td align="center">咨询部 </td>
-	  	<td width="7%" align="center">
-	  		<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	  	</td>
-	  </tr>
+  </s:iterator>
+	  <%--<tr class="tabtd2">--%>
+	    <%--<td align="center">咨询部 </td>--%>
+	  	<%--<td width="7%" align="center">--%>
+	  		<%--<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>--%>
+	  	<%--</td>--%>
+	  <%--</tr>--%>
   
 </table>
 
@@ -76,5 +84,6 @@
     </td>
   </tr>
 </table>
+ </s:if>
 </body>
 </html>

@@ -7,7 +7,13 @@
 <struts>
     <package name="post" extends="common" namespace="/">
         <action name="post_*" class="postAction" method="{1}">
-            <allowed-methods>ajaxPosition</allowed-methods>
+
+            <result name="searchGroup">/pages/staff/listStaff.jsp</result>
+            <result name="allDep">/pages/post/listPost.jsp</result>
+            <result name="editPost">/pages/post/addOrEditPost.jsp</result>
+            <result name="addOrEdit" type="redirectAction">post_queryAllDep</result>
+            <result name="allDepartment">/pages/post/addOrEditPost.jsp</result>
+            <allowed-methods>ajaxPosition,searchGroup,queryAllDep,editPost,addOrEditPost,queryAllDepartment</allowed-methods>
         </action>
 
     </package>

@@ -9,7 +9,7 @@ import java.util.List;
 public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao {
     @Override
     public List<CrmCourseType> queryAll() {
-        System.out.println("测试测试测试测试");
+//        System.out.println("测试测试测试测试");
         List<CrmCourseType> courseType_list = (List<CrmCourseType>) this.getHibernateTemplate().find("from CrmCourseType ");
         return courseType_list;
     }

@@ -7,6 +7,7 @@
     <class name="com.yy.crm.department.domain.CrmDepartment" table="crm_department" schema="crm" lazy="false">
         <id name="depId">
             <column name="depId" sql-type="varchar(255)"/>
+            <generator class="uuid"/>
         </id>
         <property name="depName">
             <column name="depName" sql-type="varchar(50)" length="50" not-null="false"/>

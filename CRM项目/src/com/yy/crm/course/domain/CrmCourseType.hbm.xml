@@ -10,16 +10,20 @@
             <generator class="uuid"/>
         </id>
         <property name="courseCost">
-            <column name="courseCost" sql-type="double" precision="-1" not-null="true"/>
+            <column name="courseCost" sql-type="double" precision="-1" not-null="false"/>
         </property>
         <property name="total">
-            <column name="total" sql-type="int(11)" not-null="true"/>
+            <column name="total" sql-type="int(11)" not-null="false"/>
         </property>
         <property name="courseName">
-            <column name="courseName" sql-type="varchar(500)" length="500" not-null="true"/>
+            <column name="courseName" sql-type="varchar(500)" length="500" not-null="false"/>
         </property>
         <property name="remark">
-            <column name="remark" sql-type="varchar(5000)" length="5000" not-null="true"/>
+            <column name="remark" sql-type="varchar(5000)" length="5000" not-null="false"/>
         </property>
+        <set name="classesSet" lazy="false" cascade="save-update">
+            <key column="courseTypeId"></key>
+            <one-to-many class="com.yy.crm.classes.domain.CrmClasses"/>
+        </set>
     </class>
 </hibernate-mapping>
