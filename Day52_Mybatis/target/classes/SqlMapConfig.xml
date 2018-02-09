@@ -28,6 +28,10 @@
         <mapper resource="mapper/UserDynamicMapper.xml"/>
         <mapper resource="mapper/OrderMapper.xml"/>
     </mappers>
+    
+    <!--<settings>-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+    <!--</settings>-->
 
 
 </configuration>
