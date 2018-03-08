@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yy.role.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.yy.role.domain.Role" >
+    <constructor >
+      <idArg column="role_info_role_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="role_info_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="group_info" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </constructor>
+
+    <collection property="modules" ofType="com.yy.role.domain.Module">
+      <constructor>
+        <idArg column="module_info_module_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <arg column="module_info_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+      </constructor>
+    </collection>
+  </resultMap>
+
+  <resultMap id="NewResultMap" type="com.yy.role.domain.Role">
+    <constructor>
+      <idArg column="role_info_role_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="role_info_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="ModifyResultMap" type="com.yy.role.domain.Role">
+    <constructor>
+      <idArg column="role_info_role_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="role_info_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+    <collection property="modules" ofType="com.yy.role.domain.Module">
+      <constructor>
+        <idArg column="module_info_module_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <arg column="module_info_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+      </constructor>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role_info.role_id role_info_role_id, role_info.name role_info_name
+  </sql>
+  <sql id="Module_Column_List">
+    module_info.module_id module_info_module_id,module_info.name module_info_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ModifyResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Module_Column_List"/>
+    from role_info,role_module,module_info
+    where role_info.role_id = #{roleId,jdbcType=INTEGER}
+    AND role_info.role_id=role_module.role_id
+    AND module_info.module_id=role_module.module_id
+  </select>
+  <select id="queryDataCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM role_info
+  </select>
+  <select id="queryByGroup" resultMap="BaseResultMap" resultType="map">
+    SELECT
+    <include refid="Base_Column_List"/>,
+    <include refid="Module_Column_List"/>,
+    group_concat(module_info.name) group_info
+    FROM role_info
+    LEFT JOIN role_module ON role_info.role_id = role_module.role_id
+    LEFT JOIN module_info ON role_module.module_id = module_info.module_id
+    GROUP BY role_info.role_id
+    limit #{start},#{pageSize}
+  </select>
+  <select id="queryAllRole" resultMap="NewResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM role_info
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role_info
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yy.role.domain.Role" >
+    insert into role_info (role_id, name)
+    values (#{roleId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yy.role.domain.Role" >
+    insert into role_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yy.role.domain.Role" >
+    update role_info
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yy.role.domain.Role" >
+    update role_info
+    set name = #{name,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+</mapper>

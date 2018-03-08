@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yy.admin.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.yy.admin.domain.Admin" >
+    <constructor >
+      <idArg column="admin_info_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="admin_info_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_info_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_info_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_info_telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_info_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_info_enrolldate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+    <collection property="roles" ofType="com.yy.role.domain.Role" javaType="java.util.ArrayList" column="admin_info_id" select="selectAllRole"/>
+
+  </resultMap>
+
+  <!--<resultMap id="DefaultResultMap" type="com.yy.admin.domain.Admin">-->
+    <!--<constructor >-->
+      <!--<idArg column="admin_info_id" jdbcType="INTEGER" javaType="java.lang.Integer" />-->
+      <!--<arg column="admin_info_code" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+      <!--<arg column="admin_info_password" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+      <!--<arg column="admin_info_name" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+      <!--<arg column="admin_info_telephone" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+      <!--<arg column="admin_info_email" jdbcType="VARCHAR" javaType="java.lang.String" />-->
+      <!--<arg column="admin_info_enrolldate" jdbcType="TIMESTAMP" javaType="java.util.Date" />-->
+    <!--</constructor>-->
+  <!--</resultMap>-->
+
+  <resultMap id="RoleResultMap" type="com.yy.role.domain.Role">
+    <constructor>
+      <idArg column="role_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </constructor>
+    <!--<collection property="modules" ofType="com.yy.role.domain.Module" javaType="java.util.ArrayList" column="module_info_id" select="selectAllModule"/>-->
+  </resultMap>
+
+  <resultMap id="ModuleResultMap" type="com.yy.role.domain.Module">
+    <constructor>
+      <idArg column="module_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    admin_info.admin_id admin_info_id, admin_info.admin_code admin_info_code, admin_info.password admin_info_password, admin_info.name admin_info_name, admin_info.telephone admin_info_telephone, admin_info.email admin_info_email, admin_info.enrolldate admin_info_enrolldate
+  </sql>
+  <sql id="Role_Column_List">
+    role_info.role_id role_info_id, role_info.name role_info_name
+  </sql>
+  <sql id="Module_Column_List">
+    module_info.module_id module_info_id,module_info.name module_info_name
+  </sql>
+  <select id="selectAllRole" parameterType="int" resultMap="RoleResultMap">
+    SELECT * FROM role_info
+    WHERE role_id IN(
+    SELECT role_id FROM admin_role
+    WHERE admin_id=#{id}
+    )
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    FROM admin_info a LEFT JOIN admin_role ar ON
+    a.admin_id=ar.admin_id LEFT JOIN role_info r ON
+    ar.role_id=r.role_id
+    WHERE a.admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>,
+    <include refid="Role_Column_List"/>
+    FROM admin_info
+    LEFT JOIN admin_role ON admin_info.admin_id = admin_role.admin_id
+    LEFT JOIN role_info ON admin_role.role_id = role_info.role_id
+    LEFT JOIN role_module ON admin_role.role_id = role_module.role_id
+    GROUP BY admin_info.admin_id
+      <if test="moduleId != null">
+        AND role_module.module_id=#{moduleId}
+      </if>
+      <if test="roleName != null and roleName != ''">
+        AND role_info.name LIKE CONCAT('%',#{roleName},'%')
+      </if>
+    limit #{start},#{pageSize}
+  </select>
+  <select id="queryDataCount" resultType="java.lang.Integer" parameterType="map">
+    SELECT COUNT(*)
+    FROM admin_info WHERE admin_id IN (SELECT admin_info.admin_id FROM admin_info
+    LEFT JOIN admin_role ON admin_info.admin_id = admin_role.admin_id
+    LEFT JOIN role_info ON admin_role.role_id = role_info.role_id
+    LEFT JOIN role_module ON admin_role.role_id = role_module.role_id
+    <if test="moduleId != null">
+      AND role_module.module_id=#{moduleId}
+    </if>
+    <if test="roleName != null and roleName != ''">
+      AND role_info.name LIKE CONCAT('%',#{roleName},'%')
+    </if>)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_info
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByAdminId" parameterType="int">
+    DELETE  FROM admin_info
+    WHERE admin_id=#{adminId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteAdminId" parameterType="int">
+    DELETE FROM admin_role
+    WHERE admin_id=#{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yy.admin.domain.Admin" >
+    insert into admin_info (admin_id, admin_code, password, 
+      name, telephone, email, 
+      enrolldate)
+    values (#{adminId,jdbcType=INTEGER}, #{adminCode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{enrolldate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yy.admin.domain.Admin" >
+    insert into admin_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="adminCode != null" >
+        admin_code,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="enrolldate != null" >
+        enrolldate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminCode != null" >
+        #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolldate != null" >
+        #{enrolldate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertAdmin" parameterType="com.yy.admin.domain.Admin">
+    <selectKey keyProperty="adminId" resultType="java.lang.Integer" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin_info (admin_id, admin_code, password,
+      name, telephone, email,
+      enrolldate)
+    values (#{adminId,jdbcType=INTEGER}, #{adminCode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{enrolldate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertAdminRole" parameterType="map">
+    INSERT INTO admin_role(admin_id,role_id)
+    VALUES (#{adminId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yy.admin.domain.Admin" >
+    update admin_info
+    <set >
+      <if test="adminCode != null">
+        admin_code = #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolldate != null" >
+        enrolldate = #{enrolldate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yy.admin.domain.Admin" >
+    update admin_info
+    set admin_code = #{adminCode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      enrolldate = #{enrolldate,jdbcType=TIMESTAMP}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="map">
+    UPDATE admin_role
+    set admin_id=#{adminId,jdbcType=INTEGER},
+    role_id=#{roleId,jdbcType=INTEGER}
+    where admin_id=#{adminId,jdbcType=INTEGER}
+  </update>
+<!--通过编号查询管理员信息-->
+  <select id="findByCode" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM admin_info WHERE admin_code=#{adminCode}
+  </select>
+  <!--通过管理员查询模块-->
+  <select id="findModulesByAdmin" parameterType="int" resultMap="ModuleResultMap">
+    SELECT *
+    FROM module_info WHERE module_id IN (
+    SELECT rm.module_id FROM admin_role ar
+    INNER  JOIN role_info ri ON ri.role_id=ar.role_id
+    INNER JOIN  role_module rm ON rm.role_id=ri.role_id
+    WHERE ar.admin_id=#{adminId}
+    )order by module_id
+  </select>
+</mapper>

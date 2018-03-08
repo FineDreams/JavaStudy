@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yy.service.dao.ServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.yy.service.domain.Service" >
+    <constructor>
+      <idArg column="service_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="account_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="unix_host" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="os_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="service_status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="service_create_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="service_pause_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="service_close_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="cost_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+    <association property="account" javaType="com.yy.account.domain.Account">
+      <constructor>
+        <idArg column="account_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="recommender_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="login_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="account_status" jdbcType="CHAR" javaType="java.lang.String" />
+        <arg column="create_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="pause_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="close_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="real_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="idcard_no" jdbcType="CHAR" javaType="java.lang.String" />
+        <arg column="birthdate" jdbcType="DATE" javaType="java.util.Date" />
+        <arg column="gender" jdbcType="CHAR" javaType="java.lang.String" />
+        <arg column="occupation" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="emailaddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="zipcode" jdbcType="CHAR" javaType="java.lang.String" />
+        <arg column="qq" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="last_login_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="last_login_ip" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="login_passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="column_21" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      </constructor>
+    </association>
+    <association property="cost" javaType="com.yy.cost.domain.Cost">
+      <constructor>
+        <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="base_duration" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="base_cost" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="unit_cost" jdbcType="DOUBLE" javaType="java.lang.Double" />
+        <arg column="cost_status" jdbcType="CHAR" javaType="java.lang.String" />
+        <arg column="descr" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="creatime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="startime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="cost_type" jdbcType="CHAR" javaType="java.lang.String" />
+      </constructor>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service.service_id, service.account_id service_account_id, service.unix_host, service.os_username, service.login_passwd, service.status service_status, service.create_date service_create_date,
+    service.pause_date service_pause_date, service.close_date service_close_date, service.cost_id
+  </sql>
+  <sql id="Account_Column_List">
+    account.account_id, account.recommender_id, account.login_name, account.status account_status, account.create_date, account.pause_date, account.close_date,
+    account.real_name, account.idcard_no, account.birthdate, account.gender, account.occupation, account.telephone, account.email, account.emailaddress,
+    account.zipcode, account.qq, account.last_login_time, account.last_login_ip, account.login_passwd, account.column_21
+  </sql>
+  <sql id="Cost_Column_List">
+    cost.id, cost.name, cost.base_duration, cost.base_cost, cost.unit_cost, cost.status cost_status, cost.descr, cost.creatime, cost.startime,
+    cost.cost_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Account_Column_List"/>,
+    <include refid="Cost_Column_List"/>
+    from service,account,cost
+    where service_id = #{serviceId,jdbcType=INTEGER}
+    AND service.account_id = account.account_id
+    AND service.cost_id = cost.id
+  </select>
+    <select id="queryDataCount" resultType="int" parameterType="map">
+      SELECT COUNT(*) FROM service,account
+      WHERE service.account_id=account.account_id
+        <if test="idcardNo != null">
+          AND account.idcard_no LIKE CONCAT('%',#{idcardNo},'%')
+        </if>
+        <if test="osUsername != null">
+          AND os_username LIKE CONCAT('%',#{osUsername},'%')
+        </if>
+        <if test="unixHost != null">
+          AND unix_host LIKE CONCAT('%',#{unixHost},'%')
+        </if>
+        <if test="status != '' and status != null">
+          AND service.status =#{status}
+        </if>
+    </select>
+  <select id="queryAllByGroup" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>,
+    <include refid="Account_Column_List"/>,
+    <include refid="Cost_Column_List"/>
+    FROM service,account,cost
+    WHERE service.account_id=account.account_id
+      AND service.cost_id=cost.id
+      <if test="idcardNo != null">
+        AND account.idcard_no LIKE CONCAT('%',#{idcardNo},'%')
+      </if>
+      <if test="osUsername != null">
+        AND os_username LIKE CONCAT('%',#{osUsername},'%')
+      </if>
+      <if test="unixHost != null">
+        AND unix_host LIKE CONCAT('%',#{unixHost},'%')
+      </if>
+      <if test="status != '' and status != null">
+        AND service.status =#{status}
+      </if>
+    limit #{start},#{pageSize}
+  </select>
+  <select id="queryByAccountId" resultMap="BaseResultMap" parameterType="int">
+    SELECT
+    <include refid="Base_Column_List"/>,
+    <include refid="Account_Column_List"/>,
+    <include refid="Cost_Column_List"/>
+    FROM service,account,cost
+    WHERE service.account_id=account.account_id
+    AND service.cost_id=cost.id
+    AND service.account_id = #{accountId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yy.service.domain.Service" >
+    insert into service (service_id, account_id, unix_host, 
+      os_username, login_passwd, status, 
+      create_date, pause_date, close_date, 
+      cost_id)
+    values (#{serviceId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER}, #{unixHost,jdbcType=VARCHAR}, 
+      #{osUsername,jdbcType=VARCHAR}, #{loginPasswd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{pauseDate,jdbcType=TIMESTAMP}, #{closeDate,jdbcType=TIMESTAMP}, 
+      #{costId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yy.service.domain.Service">
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="unixHost != null" >
+        unix_host,
+      </if>
+      <if test="osUsername != null" >
+        os_username,
+      </if>
+      <if test="loginPasswd != null" >
+        login_passwd,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="pauseDate != null" >
+        pause_date,
+      </if>
+      <if test="closeDate != null" >
+        close_date,
+      </if>
+      <if test="costId != null" >
+        cost_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="unixHost != null" >
+        #{unixHost,jdbcType=VARCHAR},
+      </if>
+      <if test="osUsername != null" >
+        #{osUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pauseDate != null" >
+        #{pauseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeDate != null" >
+        #{closeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costId != null" >
+        #{costId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yy.service.domain.Service" >
+    update service
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="unixHost != null" >
+        unix_host = #{unixHost,jdbcType=VARCHAR},
+      </if>
+      <if test="osUsername != null" >
+        os_username = #{osUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        login_passwd = #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pauseDate != null" >
+        pause_date = #{pauseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeDate != null" >
+        close_date = #{closeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="costId != null" >
+        cost_id = #{costId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yy.service.domain.Service" >
+    update service
+    set account_id = #{accountId,jdbcType=INTEGER},
+      unix_host = #{unixHost,jdbcType=VARCHAR},
+      os_username = #{osUsername,jdbcType=VARCHAR},
+      login_passwd = #{loginPasswd,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      pause_date = #{pauseDate,jdbcType=TIMESTAMP},
+      close_date = #{closeDate,jdbcType=TIMESTAMP},
+      cost_id = #{costId,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+</mapper>

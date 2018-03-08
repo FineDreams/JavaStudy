@@ -11,7 +11,6 @@ public class CodeImgAction extends ActionSupport{
     public String codeImg() throws IOException {
         String output = VerifyCode.getInstance().output(
                 ServletActionContext.getResponse().getOutputStream()
-
         );
         System.out.println(output);
         return SUCCESS;

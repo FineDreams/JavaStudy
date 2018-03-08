@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--通过xmlns:th="http://www.thymeleaf.org"命名空间，将静态页面转换为动态页面-->
+<!--要是用动态处理的元素，需要使用th：为前缀（也就是要使用thymeleaf的语法）-->
+<!--通过@{}应用Web静态资源，这个路径是相对于resource/static/的-->
+<!--通过@{}访问model中的数据（与JSP类似）-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet">
+    <title>index</title>
+</head>
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">访问model</h3>
+        </div>
+
+        <div class="panel-body">
+            <span th:text="${singlePerson.name}"></span>
+        </div>
+    </div>
+    <div th:if="${not #lists.isEmpty(people)}">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">列表</h3>
+            </div>
+
+            <div class="panel-body">
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
