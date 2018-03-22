@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
     </head>
     <body class="index">
     <jsp:include page="../include/header.jsp"/>

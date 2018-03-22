@@ -71,7 +71,13 @@ public class StaffAction extends ActionSupport implements ModelDriven{
     public void setStaffService(StaffService staffService) {
         this.staffService = staffService;
     }
-//登录
+
+    //进入登录页面
+    public String toLogin(){
+        return "toLogin";
+    }
+
+    //登录
     public String login(){
         CrmStaff crmStaffFromDB;
         try {

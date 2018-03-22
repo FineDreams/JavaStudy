@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>云科技</title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
-        <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
         <script language="javascript" type="text/javascript">
             //保存成功的提示信息
             function showResult() {
@@ -25,11 +25,11 @@
                     var div = document.getElementById("optionalInfo");
                     if (div.className == "hide") {
                         div.className = "show";
-                        imgObj.src = "../images/hide.png";
+                        imgObj.src = "${pageContext.request.contextPath}/images/hide.png";
                     }
                     else {
                         div.className = "hide";
-                        imgObj.src = "../images/show.png";
+                        imgObj.src = "${pageContext.request.contextPath}/images/show.png";
                     }
 
                     var idcardId=document.getElementById("idcardNo").value;
@@ -41,7 +41,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -107,7 +107,7 @@
                 <!--可选项-->
                 <div class="text_info clearfix"><span>可选项：</span></div>
                 <div class="input_info">
-                    <img src="../../images/show.png" alt="展开" onclick="showOptionalInfo(this);" />
+                    <img src="${pageContext.request.contextPath}/images/show.png" alt="展开" onclick="showOptionalInfo(this);" />
                 </div>
                 <div id="optionalInfo" class="hide">
                     <div class="text_info clearfix"><span>推荐人身份证号码：</span></div>

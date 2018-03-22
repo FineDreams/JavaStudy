@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yy.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.yy.domain.User" >
+    <constructor >
+      <idArg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="real_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sex" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="id_card" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="delete_flag" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="emailpw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="prepare1" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="prepare2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="prepare3" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, password, real_name, sex, phone, id_card, address, user_type,
+    delete_flag, email, emailpw, prepare1, prepare2, prepare3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from basic_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="queryByName" resultMap="BaseResultMap" parameterType="string">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM basic_user
+    WHERE user_name=#{userName}
+  </select>
+  <select id="queryByPhone" resultMap="BaseResultMap" parameterType="string">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM basic_user
+    WHERE phone=#{phone}
+  </select>
+  <select id="queryByLogin" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM basic_user
+    WHERE phone=#{phone} and password=#{password}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from basic_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yy.domain.User" >
+    insert into basic_user (user_id, user_name, password,
+      real_name, sex, phone,
+      id_card, address, user_type,
+      delete_flag, email, emailpw,
+      prepare1, prepare2, prepare3
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR},
+      #{idCard,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER},
+      #{deleteFlag,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{emailpw,jdbcType=VARCHAR},
+      #{prepare1,jdbcType=INTEGER}, #{prepare2,jdbcType=VARCHAR}, #{prepare3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yy.domain.User" >
+    insert into basic_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="emailpw != null" >
+        emailpw,
+      </if>
+      <if test="prepare1 != null" >
+        prepare1,
+      </if>
+      <if test="prepare2 != null" >
+        prepare2,
+      </if>
+      <if test="prepare3 != null" >
+        prepare3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailpw != null" >
+        #{emailpw,jdbcType=VARCHAR},
+      </if>
+      <if test="prepare1 != null" >
+        #{prepare1,jdbcType=INTEGER},
+      </if>
+      <if test="prepare2 != null" >
+        #{prepare2,jdbcType=VARCHAR},
+      </if>
+      <if test="prepare3 != null" >
+        #{prepare3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yy.domain.User" >
+    update basic_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailpw != null" >
+        emailpw = #{emailpw,jdbcType=VARCHAR},
+      </if>
+      <if test="prepare1 != null" >
+        prepare1 = #{prepare1,jdbcType=INTEGER},
+      </if>
+      <if test="prepare2 != null" >
+        prepare2 = #{prepare2,jdbcType=VARCHAR},
+      </if>
+      <if test="prepare3 != null" >
+        prepare3 = #{prepare3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yy.domain.User" >
+    update basic_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      emailpw = #{emailpw,jdbcType=VARCHAR},
+      prepare1 = #{prepare1,jdbcType=INTEGER},
+      prepare2 = #{prepare2,jdbcType=VARCHAR},
+      prepare3 = #{prepare3,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

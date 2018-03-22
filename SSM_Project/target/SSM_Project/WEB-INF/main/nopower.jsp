@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             var timer;
             //启动跳转的定时器
@@ -20,7 +20,7 @@
                 }
                 else {
                     window.clearInterval(timer);
-                    location.href = "/login/toIndex";
+                    location.href = "${pageContext.request.contextPath}/login/toIndex";
                 }
             }
 
@@ -28,7 +28,7 @@
             function resetTimer() {
                 if (timer != null && timer != undefined) {
                     window.clearInterval(timer);
-                    location.href = "/login/toIndex";
+                    location.href = "${pageContext.request.contextPath}/login/toIndex";
                 }
             }
         </script> 

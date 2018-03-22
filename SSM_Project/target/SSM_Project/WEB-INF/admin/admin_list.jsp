@@ -5,8 +5,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             //显示角色详细信息
             function showDetail(flag, a) {
@@ -26,7 +26,7 @@
             function deleteAdmin(adminId) {
                 var r = window.confirm("确定要删除此管理员吗？");
                 document.getElementById("operate_result_info").style.display = "block";
-                location.href='/admin/deleteAdmin?adminId='+adminId;
+                location.href='${pageContext.request.contextPath}/admin/deleteAdmin?adminId='+adminId;
             }
             //全选
             function selectAdmins(inputObj) {
@@ -42,7 +42,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -80,11 +80,11 @@
                     <div>角色：<input type="text" name="roleName" value="${AdminPageBean.roleName}" class="text_search width200" /></div>
                     <div><input type="submit" value="搜索" class="btn_search"/></div>
                     <input type="button" value="密码重置" class="btn_add" onclick="resetPwd();" />
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='/admin/toAddAdmin';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='${pageContext.request.contextPath}/admin/toAddAdmin';" />
                 </div>
                 <!--删除和密码重置的操作提示-->
                 <div id="operate_result_info" class="operate_fail">
-                    <img src="../../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="${pageContext.request.contextPath}/images/close.png" onclick="this.parentNode.style.display='none';" />
                     <span>删除失败！数据并发错误。</span><!--密码重置失败！数据并发错误。-->
                 </div> 
                 <!--数据区域：用表格展示数据-->     

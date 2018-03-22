@@ -3,9 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
-        <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
     </head>
     <body class="index">
     <form action="" method="post" id="myform">
@@ -30,7 +30,7 @@
                 <tr>
                     <td></td>
                     <td class="login_button" colspan="2">
-                        <a href="javascript:check_login();"><img src="../../images/login_btn.png" /></a>
+                        <a href="javascript:check_login();"><img src="${pageContext.request.contextPath}/images/login_btn.png" /></a>
                     </td>    
                     <td><span class="required"></span></td>
                 </tr>
@@ -71,7 +71,7 @@
                 $("#code_msg").text("验证码错误.");
                 change();
             } else {
-                location.href = "/login/toIndex";
+                location.href = "${pageContext.request.contextPath}/login/toIndex";
             }
         });
     }
@@ -81,7 +81,7 @@
     }
     //            刷新验证码
     function change() {
-        $("#code_image").attr("src","/login/createImage?date="+new Date().getTime());
+        $("#code_image").attr("src","${pageContext.request.contextPath}/login/createImage?date="+new Date().getTime());
     }
 </script>
 </html>

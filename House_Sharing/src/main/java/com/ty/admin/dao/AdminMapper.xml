@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ty.admin.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.ty.admin.domain.Admin" >
+    <constructor >
+      <idArg column="admin_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="admin_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="admin_power" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    admin_id, admin_name, admin_code, admin_telephone, admin_password, admin_power
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+    <select id="queryAdminByName" resultMap="BaseResultMap" parameterType="string">
+      SELECT
+      <include refid="Base_Column_List"/>
+      FROM admin
+      WHERE admin_code=#{name}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ty.admin.domain.Admin" >
+    insert into admin (admin_id, admin_name, admin_code, 
+      admin_telephone, admin_password, admin_power
+      )
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminCode,jdbcType=VARCHAR}, 
+      #{adminTelephone,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, #{adminPower,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ty.admin.domain.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="adminCode != null" >
+        admin_code,
+      </if>
+      <if test="adminTelephone != null" >
+        admin_telephone,
+      </if>
+      <if test="adminPassword != null" >
+        admin_password,
+      </if>
+      <if test="adminPower != null" >
+        admin_power,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null" >
+        #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTelephoe != null" >
+        #{adminTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPower != null" >
+        #{adminPower,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ty.admin.domain.Admin" >
+    update admin
+    <set >
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCode != null" >
+        admin_code = #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adminTelephoe != null" >
+        admin_telephone = #{adminTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPower != null" >
+        admin_power = #{adminPower,jdbcType=CHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ty.admin.domain.Admin" >
+    update admin
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_code = #{adminCode,jdbcType=VARCHAR},
+      admin_telephone = #{adminTelephone,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_power = #{adminPower,jdbcType=CHAR}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>

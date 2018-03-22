@@ -5,27 +5,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>云科技</title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             //删除
             function deleteAccount(accountId) {
                 var r = window.confirm("确定要删除此账务账号吗？\r\n删除后将不能恢复，且会删除其下属的所有业务账号。");
                 document.getElementById("operate_result_info").style.display = "block";
-                location.href='/account/deleteAccount?accountId='+accountId;
+                location.href='${pageContext.request.contextPath}/account/deleteAccount?accountId='+accountId;
             }
             //开通或暂停
             function setState(accountId) {
                 var r = window.confirm("确定要开通此账务账号吗？");
                 document.getElementById("operate_result_info").style.display = "block";
-                location.href='/account/changeStatus?accountId='+accountId;
+                location.href='${pageContext.request.contextPath}/account/changeStatus?accountId='+accountId;
             }
         </script>
     </head>
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -64,11 +64,11 @@
                         </select>
                     </div>
                     <div><input type="submit" value="搜索" class="btn_search"/></div>
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='/toAddAccount';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='${pageContext.request.contextPath}/toAddAccount';" />
                 </div>  
                 <!--删除等的操作提示-->
                 <div id="operate_result_info" class="operate_success">
-                    <img src="../../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="${pageContext.request.contextPath}/images/close.png" onclick="this.parentNode.style.display='none';" />
                     删除成功，且已删除其下属的业务账号！
                 </div>   
                 <!--数据区域：用表格展示数据-->     

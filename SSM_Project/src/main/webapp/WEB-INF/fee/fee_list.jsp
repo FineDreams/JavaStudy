@@ -5,9 +5,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
-        <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
         <script language="javascript" type="text/javascript">
             //排序按钮的点击事件
             function sort(btnObj) {
@@ -24,13 +24,13 @@
             //启用
             function startFee(id) {
                 var r = window.confirm("确定要启用此资费吗？资费启用后将不能修改和删除。");
-                location.href='/cost/modifyStatus?id='+id;
+                location.href='${pageContext.request.contextPath}/cost/modifyStatus?id='+id;
                 document.getElementById("operate_result_info").style.display = "block";
             }
             //删除
             function deleteFee(id) {
                 var r = window.confirm("确定要删除此资费吗？");
-                location.href='/cost/delete?id='+id;
+                location.href='${pageContext.request.contextPath}/cost/delete?id='+id;
                 document.getElementById("operate_result_info").style.display = "block";
             }
         </script>        
@@ -38,7 +38,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -73,7 +73,7 @@
                 </div> 
                 <!--启用操作的操作提示-->
                 <div id="operate_result_info" class="operate_success">
-                    <img src="../../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="${pageContext.request.contextPath}/images/close.png" onclick="this.parentNode.style.display='none';" />
                     删除成功！
                 </div>    
                 <!--数据区域：用表格展示数据-->     

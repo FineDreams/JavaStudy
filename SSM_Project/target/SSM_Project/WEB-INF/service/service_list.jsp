@@ -4,8 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             //显示角色详细信息
             function showDetail(flag, a) {
@@ -20,20 +20,20 @@
             function deleteAccount(serviceId) {
                 var r = window.confirm("确定要删除此业务账号吗？删除后将不能恢复。");
                 document.getElementById("operate_result_info").style.display = "block";
-                location.href='/service/deleteService?serviceId='+serviceId;
+                location.href='${pageContext.request.contextPath}/service/deleteService?serviceId='+serviceId;
             }
             //开通或暂停
             function setState(serviceId) {
                 var r = window.confirm("确定要开通此业务账号吗？");
                 document.getElementById("operate_result_info").style.display = "block";
-                location.href='/service/changServiceStatus?serviceId='+serviceId;
+                location.href='${pageContext.request.contextPath}/service/changServiceStatus?serviceId='+serviceId;
             }
         </script>
     </head>
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -56,7 +56,7 @@
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">
-            <form action="/service/serviceList" method="post">
+            <form action="${pageContext.request.contextPath}/service/serviceList" method="post">
                 <!--查询-->
                 <div class="search_add">                        
                     <div>OS 账号：<input type="text" name="osUsername" value="${ServicePageBean.osUsername}" class="width100 text_search" /></div>
@@ -71,11 +71,11 @@
                         </select>
                     </div>
                     <div><input type="submit" value="搜索" class="btn_search" /></div>
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='/toAddService';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='${pageContext.request.contextPath}/toAddService';" />
                 </div>  
                 <!--删除的操作提示-->
                 <div id="operate_result_info" class="operate_success">
-                    <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="${pageContext.request.contextPath}/images/close.png" onclick="this.parentNode.style.display='none';" />
                     删除成功！
                 </div>   
                 <!--数据区域：用表格展示数据-->     

@@ -4,8 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../../styles/global_color.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="${pageContext.request.contextPath}/styles/global_color.css" />
         <script language="javascript" type="text/javascript">
             function deleteRole() {
                 var r = window.confirm("确定要删除此角色吗？");
@@ -16,7 +16,7 @@
     <body>
         <!--Logo区域开始-->
         <div id="header">
-            <img src="../../images/logo.png" alt="logo" class="left"/>
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo" class="left"/>
             <a href="#">[退出]</a>            
         </div>
         <!--Logo区域结束-->
@@ -42,11 +42,11 @@
             <form action="" method="">
                 <!--查询-->
                 <div class="search_add">
-                    <input type="button" value="增加" class="btn_add" onclick="location.href='/role/toAddRole';" />
+                    <input type="button" value="增加" class="btn_add" onclick="location.href='${pageContext.request.contextPath}/role/toAddRole';" />
                 </div>  
                 <!--删除的操作提示-->
                 <div id="operate_result_info" class="operate_success">
-                    <img src="../../images/close.png" onclick="this.parentNode.style.display='none';" />
+                    <img src="${pageContext.request.contextPath}/images/close.png" onclick="this.parentNode.style.display='none';" />
                     删除成功！
                 </div> <!--删除错误！该角色被使用，不能删除。-->
                 <!--数据区域：用表格展示数据-->     
@@ -66,7 +66,7 @@
                                 ${role.group_info}
                             </td>
                             <td>
-                                <input type="button" value="修改" class="btn_modify" onclick="location.href='/role/toModifyRole?roleId=${role.roleId}';"/>
+                                <input type="button" value="修改" class="btn_modify" onclick="location.href='${pageContext.request.contextPath}/role/toModifyRole?roleId=${role.roleId}';"/>
                                 <input type="button" value="删除" class="btn_delete" onclick="deleteRole();" />
                             </td>
                         </tr>

@@ -132,15 +132,15 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
     </aop:config>
 
-    <aop:config>
-        <!--配置切入点-->
-        <aop:pointcut id="pointCut" expression="execution(* com.yy.*.role.*.*(..))"/>
-        <!--
-            配置通知
-            就是在切入点前后要做的事情（前置通知后置通知什么的
-        -->
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>
-    </aop:config>
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;配置切入点&ndash;&gt;-->
+        <!--<aop:pointcut id="pointCut" expression="execution(* com.yy.*.role.*.*(..))"/>-->
+        <!--&lt;!&ndash;-->
+            <!--配置通知-->
+            <!--就是在切入点前后要做的事情（前置通知后置通知什么的-->
+        <!--&ndash;&gt;-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>-->
+    <!--</aop:config>-->
 
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
