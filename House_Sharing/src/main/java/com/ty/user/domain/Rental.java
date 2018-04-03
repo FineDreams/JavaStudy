@@ -9,8 +9,6 @@ public class Rental {
 
     private String place;
 
-    private String region;
-
     private Double price;
 
     private String info;
@@ -19,15 +17,45 @@ public class Rental {
 
     private String state;
 
-    public Rental(Integer rid, String type, String place, String region, Double price, String info, Date lenddate, String state) {
+    private Double area;
+
+    private Integer uid;
+
+    private User user;
+
+    public Rental(Integer rid, String type, String place, Double price, String info, Date lenddate, String state, Double area, Integer uid) {
         this.rid = rid;
         this.type = type;
         this.place = place;
-        this.region = region;
         this.price = price;
         this.info = info;
         this.lenddate = lenddate;
         this.state = state;
+        this.area = area;
+        this.uid = uid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Rental{" +
+                "rid=" + rid +
+                ", type='" + type + '\'' +
+                ", place='" + place + '\'' +
+                ", price=" + price +
+                ", info='" + info + '\'' +
+                ", lenddate=" + lenddate +
+                ", state='" + state + '\'' +
+                ", area=" + area +
+                ", uid=" + uid +
+                '}';
     }
 
     public Rental() {
@@ -56,14 +84,6 @@ public class Rental {
 
     public void setPlace(String place) {
         this.place = place == null ? null : place.trim();
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region == null ? null : region.trim();
     }
 
     public Double getPrice() {
@@ -96,5 +116,21 @@ public class Rental {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

@@ -51,6 +51,7 @@ public class LoginController {
             result.put("flag",ANUMBER_ERROR);
             return result;
         }else if (power.equals("student")){
+            assert student != null;
             if (!student.getPassword().equals(password)){
                 result.put("flag",PSSWORD_ERROR);
                 return result;
@@ -60,7 +61,7 @@ public class LoginController {
                 return result;
             }
         }else if (power.equals("admin")){
-            if (!admin.getAdminPassword().equals(password)){
+            if (!(admin != null && admin.getAdminPassword().equals(password))){
                 result.put("flag",PSSWORD_ERROR);
                 return result;
             }else {

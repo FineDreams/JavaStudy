@@ -63,12 +63,10 @@ public class LoginController {
         }
         if (power==null){
             result.put("flag",ADMIN_CODE_ERROR);
-            System.out.println("1------");
             return result;
         }else if (power.equals("1")){
             if (!user.getPassword().equals(password)){
                 result.put("flag",PASSWORD_ERROR);
-                System.out.println("3-----");
                 return result;
             }else {
                 session.setAttribute("power",power);
@@ -79,7 +77,6 @@ public class LoginController {
         }else if (power.equals("2")){
             if (!admin.getAdminPassword().equals(password)){
                 result.put("flag",PASSWORD_ERROR);
-                System.out.println("2--------");
                 return result;
             }else {
                 session.setAttribute("power",power);

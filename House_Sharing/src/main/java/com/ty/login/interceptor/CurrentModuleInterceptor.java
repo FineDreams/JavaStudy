@@ -10,12 +10,17 @@ public class CurrentModuleInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String url = httpServletRequest.getRequestURI();
-        System.out.println("测试url---------"+url);
         int currentModule=0;//默认0是netctorss首页
-        if (url.contains("Info")){
+        if (url.contains("queryRentals")){
             currentModule=1;
-        }else if (url.contains("user")){
+        }else if (url.contains("toInfo")){
             currentModule=2;
+        }else if (url.contains("toHouseRental")){
+            currentModule=3;
+        }else if (url.contains("myRental")){
+            currentModule=4;
+        }else if (url.contains("toModifyPassword")){
+            currentModule=5;
         }
         httpServletRequest.getSession().setAttribute("currentModule",currentModule);
         return true;

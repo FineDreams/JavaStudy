@@ -10,6 +10,7 @@
             //保存成功的提示信息
             function showResult() {
                 showResultDiv(true);
+                document.modifyUser.submit();
                 window.setTimeout("showResultDiv(false);", 3000);
             }
             function showResultDiv(flag) {
@@ -31,25 +32,14 @@
         <!--导航区域开始-->
         <div id="navi">
             <jsp:include page="menu.jsp"/>
-            <%--<ul id="menu">--%>
-                <%--<li><a href="../../index.html" class="index_off"></a></li>--%>
-                <%--<li><a href="../role/role_list.jsp" class="role_off"></a></li>--%>
-                <%--<li><a href="../admin/admin_list.html" class="admin_off"></a></li>--%>
-                <%--<li><a href="../fee/fee_list.jsp" class="fee_off"></a></li>--%>
-                <%--<li><a href="../account/account_list.jsp" class="account_off"></a></li>--%>
-                <%--<li><a href="../service/service_list.jsp" class="service_off"></a></li>--%>
-                <%--<li><a href="../bill/bill_list.html" class="bill_off"></a></li>--%>
-                <%--<li><a href="../report/report_list.html" class="report_off"></a></li>--%>
-                <%--<li><a href="../user/user_info.html" class="information_on"></a></li>--%>
-                <%--<li><a href="user_modi_pwd.html" class="password_off"></a></li>--%>
-            <%--</ul>            --%>
         </div>
         <!--导航区域结束-->
         <!--主要区域开始-->
         <div id="main">            
             <!--保存操作后的提示信息：成功或者失败-->
             <div id="save_result_info" class="save_success">保存成功！</div><!--保存失败，数据并发错误！-->
-            <form action="" method="" class="main_form">
+            <form action="${pageContext.request.contextPath}/user/modifyUser" method="post" class="main_form" name="modifyUser">
+                <input type="text" name="uid" value="${sessionScope.user.uid}" hidden>
                 <div class="text_info clearfix"><span>账号：</span></div>
                 <div class="input_info"><input type="text" readonly="readonly" class="readonly" value="${sessionScope.user.username}" /></div>
                 <div class="text_info clearfix"><span>身份：</span></div>
@@ -58,18 +48,18 @@
                 </div>
                 <div class="text_info clearfix"><span>姓名：</span></div>
                 <div class="input_info">
-                    <input type="text" value="${sessionScope.user.realname}" />
+                    <input type="text" name="realname" value="${sessionScope.user.realname}" />
                     <span class="required">*</span>
                     <div class="validate_msg_long error_msg">20长度以内的汉字、字母的组合</div>
                 </div>
                 <div class="text_info clearfix"><span>电话：</span></div>
                 <div class="input_info">
-                    <input type="text" class="width200" value="${sessionScope.user.phone}" />
+                    <input type="text" name="phone" class="width200" value="${sessionScope.user.phone}" />
                     <div class="validate_msg_medium">电话号码格式：手机或固话</div>
                 </div>
                 <div class="text_info clearfix"><span>Email：</span></div>
                 <div class="input_info">
-                    <input type="text" class="width200" value="${sessionScope.user.email}" />
+                    <input type="text" name="email" class="width200" value="${sessionScope.user.email}" />
                     <div class="validate_msg_medium">50长度以内，符合 email 格式</div>
                 </div>
                 <div class="text_info clearfix"><span>创建时间：</span></div>
@@ -82,8 +72,7 @@
         </div>
         <!--主要区域结束-->
         <div id="footer">
-            <p>[源自北美的技术，最优秀的师资，最真实的企业环境，最适用的实战项目]</p>            
-            <p>版权所有(C)云科技有限公司 </p>
+            <p>版权所有(Tianyao)</p>
         </div>
     </body>
 </html>
